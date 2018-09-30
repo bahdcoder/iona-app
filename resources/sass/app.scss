@@ -1,0 +1,71 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono');
+
+// Variables
+@import 'variables';
+@import '~bootstrap/scss/bootstrap';
+@import 'bootswatch';
+
+// Bootstrap
+
+.navbar-iona {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  background-color: #ebebeb;
+}
+
+.loader {
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+.server-box {
+  border: 2px solid #d7d7d7;
+  height: 132px;
+  cursor: pointer;
+  transition : border 200ms ease-out;
+
+  img {
+    text-align: center;
+  }
+
+  &:hover {
+    border: 2px solid #90979b;
+  }
+
+  &.shaded {
+    opacity: .5;
+    background-size: 100% 20px;
+    background: repeating-linear-gradient(-55deg,#e9e9e9,#e9e9e9 10px,#f9f9f9 0,#e9e9e9 20px);
+  }
+
+  &.server-box-selected {
+    border: 2px solid #4BBF73;
+  }
+}
+
+.iona-card {
+  .card-header {
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+  }
+
+}
+
+.iona-select {
+  height: 50px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.card-header {
+  padding: 1.2rem 1.25rem;
+}
