@@ -1,5 +1,3 @@
-window.Popper = require('popper.js').default
-
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -13,6 +11,16 @@ window.Popper = require('popper.js').default
  */
 
 window.axios = require('axios')
+
+export const setAxios = () => {
+  let auth = localStorage.getItem('auth')
+
+  if (auth) {
+    window.axios.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(auth).token.token}`
+  }
+}
+
+setAxios()
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 

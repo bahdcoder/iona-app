@@ -13,12 +13,19 @@
 |
 */
 
-/** @type {import('@adonisjs/framework/src/Route/Manager'} */
 const Route = use('Route')
 
 Route.group(() => {
   Route.post('login', 'LoginController.auth')
   Route.post('register', 'RegisterController.create')
+
+  Route
+    .get('digitalocean', 'SocialConnectController.digitalocean')
+    .middleware(['auth'])
+  Route
+    .post('digitalocean/callback', 'SocialConnectController.digitaloceanCallback')
+    .middleware(['auth'])
+
 }).prefix('auth').namespace('Auth')
 
 Route.on('*').render('main')

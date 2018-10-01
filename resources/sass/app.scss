@@ -15,6 +15,7 @@
 
 body {
   background-color: #ebebeb;
+  font-size: 1rem !important;
 }
 
 .loader {
@@ -68,4 +69,39 @@ body {
 
 .card-header {
   padding: 1.2rem 1.25rem;
+}
+
+.iona-sidemenu {
+  list-style-type: none;
+  padding: 0;
+
+  .iona-sidemenu-item {
+    cursor: pointer;
+
+    &.active {
+      color: $success;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $gray-600;
+
+    &.router-link-exact-active {
+      color: $success;
+    }
+  }
+
+  i {
+    font-size: 1.2rem;
+    width: 1rem;
+    text-align: center;
+  }
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
 }

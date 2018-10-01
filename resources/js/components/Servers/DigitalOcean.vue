@@ -5,7 +5,9 @@
          <form role="form">
             <div class="form-group row">
                <label for="site_name" class="col-md-4 col-form-label text-md-right">Name</label> 
-               <div class="col-md-6"><input type="text" placeholder="Enter server name" class="form-control"></div>
+               <div class="col-md-6">
+                 <input v-model="name" type="text" placeholder="Enter server name" class="form-control">
+               </div>
             </div>
             <div class="form-group row">
                <label for="size" class="col-md-4 col-form-label text-md-right">Server Size</label> 
@@ -69,3 +71,12 @@
 </div>
 </template>
 
+<script>
+import generate from 'project-name-generator'
+
+export default {
+  data: () => ({
+    name: generate({ number: true }).dashed,
+  })
+}
+</script>

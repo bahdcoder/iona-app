@@ -18,7 +18,7 @@
               {{ user.name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="">Profile</a>
+              <router-link to='/user/profile' class="dropdown-item" href="">My Account</router-link>
               <a @click.prevent="logoutUser()" class="dropdown-item" href="">Logout</a>
             </div>
           </li>

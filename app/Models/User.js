@@ -7,6 +7,36 @@ const Hash = use('Hash')
 const Model = use('Model')
 
 class User extends Model {
+  /**
+   * Set the fields to be excluded from database queries.
+   */
+  static get hidden () {
+    return ['password', 'settings']
+  }
+
+  /**
+   * Define all computed properties.
+   */
+  static get computed () {
+    return ['config']
+  }
+
+  /**
+   * Get the user config settings.
+   * @param {Object} user.settings
+   */
+  getConfig({ settings }) {
+    if (!settings) {
+      settings = {}
+    }
+    const { digitalocean, github } = settings
+
+    return {
+      digitalocean: (digitalocean && digitalocean.access_token) ? true : false,
+      github: (github && github.access_token) ? true : false,
+    }
+  }
+
   static boot () {
     super.boot()
 
@@ -19,6 +49,28 @@ class User extends Model {
         userInstance.password = await Hash.make(userInstance.password)
       }
     })
+  }
+
+  /**
+   * Getters for transforming user settings
+   *
+   * @param {string} settings json string of settings.
+   *
+   * @return {Object} the object form of json settings.
+   */
+  getSettings (settings) {
+    return JSON.parse(settings)
+  }
+
+    /**
+   * Setters for transforming user settings
+   *
+   * @param {Object} settings the object form of json settings.
+   *
+   * @return {string} json string of settings.
+   */
+  setSettings (settings) {
+    return JSON.stringify(settings)
   }
 
   /**
