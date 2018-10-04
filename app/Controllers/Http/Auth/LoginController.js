@@ -12,7 +12,7 @@ class LoginController {
    * @param {Object} context.auth
    * @param {Object} context.request
    */
-  async auth({ auth, request }) {
+  async auth({ auth, request, response }) {
     const { email, password } = request.all()
 
     const token = await auth.attempt(email, password)

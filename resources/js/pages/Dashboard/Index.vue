@@ -31,6 +31,7 @@
 <script>
 import { mapState } from 'vuex'
 import DigitalOcean from '@/components/Servers/DigitalOcean.vue'
+import { GET_REGIONS_AND_SIZES } from 'store-modules/servers/constants'
 
 export default {
   components: {
@@ -39,7 +40,7 @@ export default {
   computed: {
     ...mapState({
       digitalocean: state => state.auth.user.config.digitalocean
-    })
+    }),
   },
   data: () => ({
     panels: ['digital-ocean'],
@@ -53,7 +54,7 @@ export default {
       }
       this.panelOpen = true
       this.currentPanel = service
-    }
+    },
   }
 }
 </script>

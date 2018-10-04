@@ -105,3 +105,7 @@ body {
   align-items: center;
   min-height: 60vh;
 }
+
+.form-control.is-invalid {
+  border: 1px solid $danger !important;
+}

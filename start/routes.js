@@ -17,15 +17,24 @@ const Route = use('Route')
 
 Route.group(() => {
   Route.post('login', 'LoginController.auth')
-  Route.post('register', 'RegisterController.create')
+  Route.post('register', 'RegisterController.store')
 
-  Route
-    .get('digitalocean', 'SocialConnectController.digitalocean')
-    .middleware(['auth'])
+  Route.get('digitalocean', 'SocialConnectController.digitalocean')
   Route
     .post('digitalocean/callback', 'SocialConnectController.digitaloceanCallback')
     .middleware(['auth'])
 
 }).prefix('auth').namespace('Auth')
+
+Route.get('/users', async ({ response }) => {
+  const Sshkey = use('App/Models/Sshkey')
+  const u = await Sshkey.all()
+
+  return response.send(u)
+})
+
+Route.group(() => {
+  Route.get('/droplets/sizes', 'DropletController.getSizesAndRegions').middleware(['auth'])
+}).namespace('Servers')
 
 Route.on('*').render('main')

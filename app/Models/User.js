@@ -62,17 +62,6 @@ class User extends Model {
     return JSON.parse(settings)
   }
 
-    /**
-   * Setters for transforming user settings
-   *
-   * @param {Object} settings the object form of json settings.
-   *
-   * @return {string} json string of settings.
-   */
-  setSettings (settings) {
-    return JSON.stringify(settings)
-  }
-
   /**
    * A relationship on tokens is required for auth to
    * work. Since features like `refreshTokens` or
@@ -85,6 +74,13 @@ class User extends Model {
    */
   tokens () {
     return this.hasMany('App/Models/Token')
+  }
+
+  /**
+   * A user has one ssh key
+   */
+  sshkey() {
+    return this.hasOne('App/Models/Sshkey')
   }
 }
 

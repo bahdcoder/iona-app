@@ -23,7 +23,7 @@
                   </div>
               </div>
 
-              <div class="form-group row" v-if="errors">
+              <div class="form-group row" v-if="errors.length > 0">
                 <div class="col-md-4"></div>
                 <div class="col-md-6">
                   <span class="text-danger">Invalid credentials.</span>
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -66,7 +66,7 @@
     },
     methods: {
       loginUser() {
-        this.$store.dispatch(LOGIN_USER, {
+        this.$store.dispatch(`auth/${LOGIN_USER}`, {
           email: this.email,
           password: this.password,
         }).then(() => this.$router.push('/dashboard'))

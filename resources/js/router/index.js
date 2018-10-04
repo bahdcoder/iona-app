@@ -3,10 +3,12 @@ import Router from 'vue-router'
 import HomePage from '@/pages/Home/Index.vue'
 import ProfilePage from '@/pages/Profile/Index.vue'
 import LoginPage from '@/pages/Auth/Login/Index.vue'
+import SignupPage from '@/pages/Auth/Signup/Index.vue'
 import DashboardPage from '@/pages/Dashboard/Index.vue'
 import SourceControl from '@/pages/Profile/SourceControl/Index.vue'
 import ServerProviders from '@/pages/Profile/ServerProviders/Index.vue'
 import SocialAuthCallback from '@/pages/Auth/SocialAuthCallback/Index.vue'
+
 
 const router = new Router({
   mode: 'history',
@@ -14,6 +16,13 @@ const router = new Router({
     path: '/auth/login',
     name: 'login',
     component: LoginPage,
+    meta: {
+      noAuth: true,
+    },
+  }, {
+    path: '/auth/signup',
+    name: 'signup',
+    component: SignupPage,
     meta: {
       noAuth: true,
     },

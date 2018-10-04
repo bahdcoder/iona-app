@@ -13,7 +13,7 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active dropdown" v-if="isAuthenticated">
+          <li class="nav-item active dropdown" v-if="authenticated">
             <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ user.name }}
             </a>
@@ -23,12 +23,12 @@
             </div>
           </li>
           <li class="nav-item active">
-            <router-link to='/auth/signup' class="nav-link" v-if="!isAuthenticated">
+            <router-link to='/auth/signup' class="nav-link" v-if="!authenticated">
               Sign up
             </router-link>
           </li>
           <li class="nav-item active">
-            <router-link to='/auth/login' class="nav-link" v-if="!isAuthenticated">
+            <router-link to='/auth/login' class="nav-link" v-if="!authenticated">
               Login
             </router-link>
           </li>
@@ -39,21 +39,16 @@
 </template>
 
 <script>
-  import { mapGetters, mapState } from 'vuex'
+  import { mapState } from 'vuex'
   import { LOGOUT_USER } from 'store-modules/auth/constants'
 
   export default {
     computed: {
-      ...mapGetters([
-        'isAuthenticated'
-      ]),
-      ...mapState({
-        user: state => state.auth.user,
-      })
+      ...mapState('auth', ['user', 'authenticated']),
     },
     methods: {
       logoutUser() {
-        this.$store.dispatch(LOGOUT_USER)
+        this.$store.dispatch(`auth/${LOGOUT_USER}`)
             .then(() => this.$router.push('/'))
       }
     }

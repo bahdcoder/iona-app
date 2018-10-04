@@ -1,9 +1,4 @@
 export default {
-  isAuthenticated(state) {
-    if (state.user && state.token) {
-      return true
-    }
-
-    return false
-  }
+  getErrorsFor: state => field => state.errors.filter(error => error.field === field),
+  hasErrorsFor: (state, { getErrorsFor }) => field => getErrorsFor(field).length > 0
 }

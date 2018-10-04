@@ -19,7 +19,7 @@
     },
     methods: {
       connectSocialAuth() {
-        this.$store.dispatch(CONNECT_SOCIAL_AUTH, {
+        this.$store.dispatch(`auth/${CONNECT_SOCIAL_AUTH}`, {
           code: this.$route.query.code,
         }).then(() => this.$router.push('/user/profile'))
       }

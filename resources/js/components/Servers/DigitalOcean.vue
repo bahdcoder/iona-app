@@ -1,6 +1,6 @@
 <template>
 <div>
-   <div style="">
+   <div>
       <div class="mt-5">
          <form role="form">
             <div class="form-group row">
@@ -12,48 +12,83 @@
             <div class="form-group row">
                <label for="size" class="col-md-4 col-form-label text-md-right">Server Size</label> 
                <div class="col-md-6">
-                  <!----> 
-                  <select name="size" class="iona-select form-control">
-                     <option value="01">1GB RAM - 1 CPU Core - 25GB SSD - $0.007 / Hour - $5 / Month</option>
-                     <option value="02">1GB RAM - 3 CPU Core - 60GB SSD - $0.022 / Hour - $15 / Month</option>
-                     <option value="03">2GB RAM - 1 CPU Core - 50GB SSD - $0.015 / Hour - $10 / Month</option>
-                     <option value="04">2GB RAM - 2 CPU Core - 60GB SSD - $0.022 / Hour - $15 / Month</option>
-                     <option value="05">3GB RAM - 1 CPU Cores - 60GB SSD - $0.022 / Hour - $15 / Month</option>
-                     <option value="07">4GB RAM - 2 CPU Cores - 80GB SSD - $0.03 / Hour - $20 / Month</option>
-                     <option value="08">8GB RAM - 4 CPU Cores - 160GB SSD - $0.06 / Hour - $40 / Month</option>
-                     <option value="11">16GB RAM - 6 CPU Core - 320GB SSD - $0.119 / Hour - $80 / Month</option>
-                     <option value="12">32GB RAM - 8 CPU Core - 640GB SSD - $0.238 / Hour - $160 / Month</option>
-                     <option value="14">48GB RAM - 12 CPU Core - 960GB SSD - $0.356 / Hour - $240 / Month</option>
-                     <option value="15">64GB RAM - 16 CPU Core - 1280GB SSD - $0.476 / Hour - $320 / Month</option>
-                     <option value="17">96GB RAM - 20 CPU Core - 1920GB SSD - $0.714 / Hour - $480 / Month</option>
-                     <option value="18">128GB RAM - 24 CPU Core - 2560GB SSD - $0.952 / Hour - $640 / Month</option>
-                     <option value="19">192GB RAM - 32 CPU Core - 3840GB SSD - $1.428 / Hour - $960 / Month</option>
-                     <option value="20">2GB RAM (High CPU) - 1 CPU Cores - 25GB SSD - $0.03 / Hour - $20 / Month</option>
-                     <option value="06">4GB RAM (High CPU) - 2 CPU Cores - 25GB SSD - $0.06 / Hour - $40 / Month</option>
-                     <option value="09">8GB RAM (High CPU) - 4 CPU Cores - 50GB SSD - $0.119 / Hour - $80 / Month</option>
-                     <option value="10">16GB RAM (High CPU) - 8 CPU Cores - 1000GB SSD - $0.238 / Hour - $160 / Month</option>
-                     <option value="13">32GB RAM (High CPU) - 16 CPU Core - 200GB SSD - $0.476 / Hour - $320 / Month</option>
-                     <option value="16">64GB RAM (High CPU) - 32 CPU Core - 400GB SSD - $0.952 / Hour - $640 / Month</option>
+                  <select class="iona-select form-control">
+                    <option value="512mb">
+                        512MB RAM - 1 CPU Core - 20GB SSD - $0.007 / Hour - $5 / Month
+                    </option>
+                    <option value="s-1vcpu-1gb">
+                        2GB RAM - 1 CPU Core - 25GB SSD - $0.007 / Hour - $5 / Month
+                    </option>
+                    <option value="1gb">
+                        2GB RAM - 1 CPU Core - 30GB SSD - $0.015 / Hour - $10 / Month
+                    </option>
+                    <option value="s-1vcpu-2gb">
+                        3GB RAM - 1 CPU Core - 50GB SSD - $0.015 / Hour - $10 / Month
+                    </option>
+                    <option value="s-1vcpu-3gb">
+                        4GB RAM - 1 CPU Core - 60GB SSD - $0.022 / Hour - $15 / Month
+                    </option>
+                    <option value="s-2vcpu-2gb">
+                        3GB RAM - 2 CPU Cores - 60GB SSD - $0.022 / Hour - $15 / Month
+                    </option>
+                    <option value="s-3vcpu-1gb">
+                        2GB RAM - 3 CPU Cores - 60GB SSD - $0.022 / Hour - $15 / Month
+                    </option>
+                    <option value="2gb">
+                        3GB RAM - 2 CPU Cores - 40GB SSD - $0.030 / Hour - $20 / Month
+                    </option>
+                    <option value="s-2vcpu-4gb">
+                        5GB RAM - 2 CPU Cores - 80GB SSD - $0.030 / Hour - $20 / Month
+                    </option>
+                    <option value="4gb">
+                        5GB RAM - 2 CPU Cores - 60GB SSD - $0.060 / Hour - $40 / Month
+                    </option>
+                    <option value="c-2">
+                        5GB RAM - 2 CPU Cores - 25GB SSD - $0.060 / Hour - $40 / Month
+                    </option>
+                    <option value="s-4vcpu-8gb">
+                        9GB RAM - 4 CPU Cores - 160GB SSD - $0.060 / Hour - $40 / Month
+                    </option>
+                    <option value="8gb">
+                        9GB RAM - 4 CPU Cores - 80GB SSD - $0.119 / Hour - $80 / Month
+                    </option>
+                    <option value="c-4">
+                        9GB RAM - 4 CPU Cores - 50GB SSD - $0.119 / Hour - $80 / Month
+                    </option>
+                    <option value="s-6vcpu-16gb">
+                        17GB RAM - 6 CPU Cores - 320GB SSD - $0.119 / Hour - $80 / Month
+                    </option>
+                    <option value="16gb">
+                        17GB RAM - 8 CPU Cores - 160GB SSD - $0.238 / Hour - $160 / Month
+                    </option>
+                    <option value="c-8">
+                        17GB RAM - 8 CPU Cores - 100GB SSD - $0.238 / Hour - $160 / Month
+                    </option>
+                    <option value="s-8vcpu-32gb">
+                        33GB RAM - 8 CPU Cores - 640GB SSD - $0.238 / Hour - $160 / Month
+                    </option>
+                    <option value="s-12vcpu-48gb">
+                        50GB RAM - 12 CPU Cores - 960GB SSD - $0.357 / Hour - $240 / Month
+                    </option>
+                    <option value="32gb">
+                        33GB RAM - 12 CPU Cores - 320GB SSD - $0.476 / Hour - $320 / Month
+                    </option>
                   </select>
-                  <!----> <!---->
                </div>
             </div>
             <div class="form-group row">
                <label for="size" class="col-md-4 col-form-label text-md-right">Region</label> 
                <div class="col-md-6">
-                  <select name="region" class="iona-select form-control">
-                     <option value="ams2">Amsterdam 2</option>
-                     <option value="ams3">Amsterdam 3</option>
-                     <option value="blr1">Bangalore</option>
-                     <option value="lon1">London</option>
-                     <option value="fra1">Frankfurt</option>
-                     <option value="nyc1">New York 1</option>
-                     <option value="nyc2">New York 2</option>
-                     <option value="nyc3">New York 3</option>
-                     <option value="sfo1">San Francisco 1</option>
-                     <option value="sfo2">San Francisco 2</option>
-                     <option value="sgp1">Singapore</option>
-                     <option value="tor1">Toronto</option>
+                  <select class="iona-select form-control">
+                    <option value="nyc1">New York 1</option>
+                    <option value="sgp1">Singapore 1</option>
+                    <option value="lon1">London 1</option>
+                    <option value="nyc3">New York 3</option>
+                    <option value="ams3">Amsterdam 3</option>
+                    <option value="fra1">Frankfurt 1</option>
+                    <option value="tor1">Toronto 1</option>
+                    <option value="sfo2">San Francisco 2</option>
+                    <option value="blr1">Bangalore 1</option>
                   </select>
                </div>
             </div>
@@ -72,11 +107,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import Loader from '@/components/Loader.vue'
 import generate from 'project-name-generator'
+import { GET_REGIONS_AND_SIZES } from 'store-modules/servers/constants'
 
 export default {
+  components: {
+    Loader,
+  },
   data: () => ({
     name: generate({ number: true }).dashed,
-  })
+    region: '512mb',
+    size: 'nyc1',
+  }),
 }
 </script>

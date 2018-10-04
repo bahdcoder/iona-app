@@ -7,9 +7,7 @@ class UserController {
    * @param {Object} context.request
    * @param {Object} context.response 
    */
-  async updateSettings({ request, response }) {
-
-  }
+  async updateSettings({ request, response }) {}
 }
 
 module.exports = UserController
