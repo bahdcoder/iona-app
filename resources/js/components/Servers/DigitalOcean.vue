@@ -1,7 +1,10 @@
 <template>
 <div>
    <div>
-      <div class="mt-5">
+     <div class="text-center" v-if="getResourcesLoading">
+       <Loader  width="20" height="20" />
+     </div>
+      <div class="mt-5" v-else>
          <form @submit.prevent="createServer()" role="form">
             <div class="form-group row">
                <label for="site_name" class="col-md-4 col-form-label text-md-right">Name</label> 
@@ -93,6 +96,12 @@
                </div>
             </div>
             <div class="form-group row">
+              <label for="size" class="col-md-4 col-form-label text-md-right">Add resources</label>
+              <div class="col-md-6">
+                <Multiselect @selected="selectedResources = $event" @removed="selectedResources = $event" :options="resources.map(resource => ({ name: resource.name, value: resource.id }))" />
+              </div>
+            </div>
+            <div class="form-group row">
               <div class="offset-md-4 col-md-6">
                   <button type="submit" class="btn btn-success" :disabled="createServerLoading">
                     <Loader width="14" height="14" v-if="createServerLoading" />
@@ -113,19 +122,25 @@
 import { mapState } from 'vuex'
 import Loader from '@/components/Loader.vue'
 import generate from 'project-name-generator'
-import { GET_REGIONS_AND_SIZES, CREATE_SERVER } from 'store-modules/servers/constants'
+import Multiselect from '@/components/Multiselect'
+import { GET_REGIONS_AND_SIZES, CREATE_SERVER, GET_RESOURCES } from 'store-modules/servers/constants'
 
 export default {
+  mounted() {
+    this.getResources()
+  },
   components: {
     Loader,
+    Multiselect,
   },
   data: () => ({
     name: generate({ number: true }).dashed,
     region: 'nyc1',
     size: '512mb',
+    selectedResources: []
   }),
   computed: {
-    ...mapState('servers', ['createServerLoading'])
+    ...mapState('servers', ['createServerLoading', 'getResourcesLoading', 'resources'])
   },
   methods: {
     createServer() {
@@ -133,8 +148,17 @@ export default {
         name: this.name,
         region: this.region,
         size: this.size,
+        resources: selectedResources.map(resource => resource.value)
       })
+    },
+    getResources() {
+      this.$store.dispatch(`servers/${GET_RESOURCES}`)
     }
   }
 }
 </script>
+
+<style>
+  @import url('https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css');
+</style>
+

@@ -1,4 +1,4 @@
-import { GET_REGIONS_AND_SIZES, SIZES_AND_REGIONS_LOADING, CREATE_SERVER_LOADING, CREATE_SERVER } from './constants'
+import { GET_REGIONS_AND_SIZES, SIZES_AND_REGIONS_LOADING, CREATE_SERVER_LOADING, CREATE_SERVER, GET_RESOURCES, GET_RESOURCES_LOADING } from './constants'
 
 export default {
   async [GET_REGIONS_AND_SIZES]({ commit, state }) {
@@ -34,5 +34,16 @@ export default {
       commit(CREATE_SERVER_LOADING)
       return Promise.reject(error)
     }
+  },
+  async [GET_RESOURCES]({ commit }) {
+    commit(GET_RESOURCES_LOADING)
+
+    const { data } = await axios.get('/resources')
+
+    commit(GET_RESOURCES, data)
+
+    commit(GET_RESOURCES_LOADING)
+
+    return Promise.resolve()
   }
 }

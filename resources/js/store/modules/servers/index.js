@@ -7,8 +7,10 @@ export default {
   state: {
     sizesLoading: false,
     createServerLoading: false,
+    getResourcesLoading: false,
     sizes: [],
-    regions: []
+    regions: [],
+    resources: [],
   },
   actions,
   getters,

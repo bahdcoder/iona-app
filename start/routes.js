@@ -27,10 +27,14 @@ Route.group(() => {
 }).prefix('auth').namespace('Auth')
 
 Route.get('/users', async ({ response }) => {
-  const Sshkey = use('App/Models/Sshkey')
-  const u = await Sshkey.all()
+  const Resource = use('App/Models/Resource')
+  const Server = use('App/Models/Server')
+  const u = await Resource.all(1)
+  // const s = await (await Server.find(1)).resources().fetch()
 
-  return response.send(u)
+  // await s.resources().attach([u.id])
+
+  return response.send({ u })
 })
 
 Route.group(() => {
@@ -38,5 +42,7 @@ Route.group(() => {
 
   Route.resource('droplets', 'DropletController')
 }).namespace('Servers').middleware(['auth'])
+
+Route.resource('resources', 'ResourceController').middleware(['auth'])
 
 Route.on('*').render('main')

@@ -109,3 +109,18 @@ body {
 .form-control.is-invalid {
   border: 1px solid $danger !important;
 }
+
+.search-results {
+  height: auto;
+  width: 100%;
+  background-color: #f7f7f9;
+}
+
+.search-result {
+  border-bottom: 1px solid #ced4da;
+}
+
+.search-result-check {
+  cursor: pointer;
+}
+
