@@ -1,4 +1,4 @@
-import { GET_REGIONS_AND_SIZES, SIZES_AND_REGIONS_LOADING } from './constants'
+import { GET_REGIONS_AND_SIZES, SIZES_AND_REGIONS_LOADING, CREATE_SERVER_LOADING, CREATE_SERVER } from './constants'
 
 export default {
   async [GET_REGIONS_AND_SIZES]({ commit, state }) {
@@ -17,6 +17,21 @@ export default {
 
     catch (error) {
       commit(SIZES_AND_REGIONS_LOADING)
+      return Promise.reject(error)
+    }
+  },
+  async [CREATE_SERVER]({ commit }, data) {
+    try {
+      commit(CREATE_SERVER_LOADING)
+
+      await axios.post('/droplets', data)
+
+      commit(CREATE_SERVER_LOADING)
+      return Promise.resolve()
+    }
+
+    catch (error) {
+      commit(CREATE_SERVER_LOADING)
       return Promise.reject(error)
     }
   }

@@ -2,7 +2,7 @@
 <div>
    <div>
       <div class="mt-5">
-         <form role="form">
+         <form @submit.prevent="createServer()" role="form">
             <div class="form-group row">
                <label for="site_name" class="col-md-4 col-form-label text-md-right">Name</label> 
                <div class="col-md-6">
@@ -94,8 +94,11 @@
             </div>
             <div class="form-group row">
               <div class="offset-md-4 col-md-6">
-                  <button class="btn btn-success">
-                    <i class="fa fa-plus-circle mr-1"></i> Create Server
+                  <button type="submit" class="btn btn-success" :disabled="createServerLoading">
+                    <Loader width="14" height="14" v-if="createServerLoading" />
+                    <i v-else class="fa fa-plus-circle mr-1"></i>
+                    
+                    {{ createServerLoading ? 'Creating server ..' : 'Create Server' }}
                   </button>
                   <button type="button" @click="$emit('close')" class="btn btn-secondary">Cancel</button>
               </div>
@@ -110,7 +113,7 @@
 import { mapState } from 'vuex'
 import Loader from '@/components/Loader.vue'
 import generate from 'project-name-generator'
-import { GET_REGIONS_AND_SIZES } from 'store-modules/servers/constants'
+import { GET_REGIONS_AND_SIZES, CREATE_SERVER } from 'store-modules/servers/constants'
 
 export default {
   components: {
@@ -118,8 +121,20 @@ export default {
   },
   data: () => ({
     name: generate({ number: true }).dashed,
-    region: '512mb',
-    size: 'nyc1',
+    region: 'nyc1',
+    size: '512mb',
   }),
+  computed: {
+    ...mapState('servers', ['createServerLoading'])
+  },
+  methods: {
+    createServer() {
+      this.$store.dispatch(`servers/${CREATE_SERVER}`, {
+        name: this.name,
+        region: this.region,
+        size: this.size,
+      })
+    }
+  }
 }
 </script>

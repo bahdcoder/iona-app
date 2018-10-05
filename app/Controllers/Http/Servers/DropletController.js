@@ -1,5 +1,6 @@
 'use strict'
 
+const Server = use('App/Models/Server')
 const { validateAll } = use('Validator')
 const DigitalOcean = use('App/Services/Api/DigitalOcean')
 
@@ -19,7 +20,7 @@ class DropletController {
     return { sizes, regions }
   }
 
-  async createDroplet({ request, response }) {
+  async store ({ request, response, auth }) {
     const data = request.all()
     const rules = {
       name: 'required',
@@ -29,16 +30,22 @@ class DropletController {
     const validation = await validateAll(data, rules)
 
     if (validation.fails()) {
-      return response.status(422).json(validation.errors)
+      return response.status(422).json(validation.messages())
     }
 
     const user = await auth.getUser()
 
     const digitalocean = new DigitalOcean(user)
 
-    const droplet = await digitalocean.create(data)
+    const droplet = await digitalocean.createServer(data)
 
-    return droplet
+    const server = await Server.create({
+      user_id: user.id,
+      name: droplet.name,
+      stats: JSON.stringify(droplet)
+    })
+
+    return server
   }
 }
 

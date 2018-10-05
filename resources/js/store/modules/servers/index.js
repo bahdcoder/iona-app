@@ -6,6 +6,7 @@ export default {
   namespaced: true,
   state: {
     sizesLoading: false,
+    createServerLoading: false,
     sizes: [],
     regions: []
   },

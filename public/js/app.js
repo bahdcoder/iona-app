@@ -1477,10 +1477,14 @@ module.exports = g;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET_REGIONS_AND_SIZES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SIZES_AND_REGIONS_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return GET_REGIONS_AND_SIZES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SIZES_AND_REGIONS_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CREATE_SERVER_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CREATE_SERVER; });
 var GET_REGIONS_AND_SIZES = 'GET_REGIONS_AND_SIZES';
 var SIZES_AND_REGIONS_LOADING = 'SIZES_AND_REGIONS_LOADING';
+var CREATE_SERVER_LOADING = 'CREATE_SERVER_LOADING';
+var CREATE_SERVER = 'CREATE_SERVER';
 
 /***/ }),
 /* 6 */
@@ -18031,6 +18035,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   namespaced: true,
   state: {
     sizesLoading: false,
+    createServerLoading: false,
     sizes: [],
     regions: []
   },
@@ -18049,13 +18054,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(5);
 
 
+var _GET_REGIONS_AND_SIZE;
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_defineProperty({}, __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* GET_REGIONS_AND_SIZES */], function () {
+/* harmony default export */ __webpack_exports__["a"] = (_GET_REGIONS_AND_SIZE = {}, _defineProperty(_GET_REGIONS_AND_SIZE, __WEBPACK_IMPORTED_MODULE_1__constants__["c" /* GET_REGIONS_AND_SIZES */], function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref) {
     var commit = _ref.commit,
         state = _ref.state;
@@ -18077,7 +18084,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
           case 3:
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* SIZES_AND_REGIONS_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* SIZES_AND_REGIONS_LOADING */]);
             _context.next = 6;
             return axios.get('/droplets/sizes');
 
@@ -18086,8 +18093,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             data = _ref3.data;
             sizes = data.sizes, regions = data.regions;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* SIZES_AND_REGIONS_LOADING */]);
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["a" /* GET_REGIONS_AND_SIZES */], { sizes: sizes, regions: regions });
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* SIZES_AND_REGIONS_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* GET_REGIONS_AND_SIZES */], { sizes: sizes, regions: regions });
             _context.next = 17;
             break;
 
@@ -18095,7 +18102,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             _context.prev = 13;
             _context.t0 = _context['catch'](0);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* SIZES_AND_REGIONS_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* SIZES_AND_REGIONS_LOADING */]);
             return _context.abrupt('return', Promise.reject(_context.t0));
 
           case 17:
@@ -18109,7 +18116,44 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x) {
     return _ref2.apply(this, arguments);
   };
-}()));
+}()), _defineProperty(_GET_REGIONS_AND_SIZE, __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* CREATE_SERVER */], function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(_ref4, data) {
+    var commit = _ref4.commit;
+    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SERVER_LOADING */]);
+
+            _context2.next = 4;
+            return axios.post('/droplets', data);
+
+          case 4:
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SERVER_LOADING */]);
+            return _context2.abrupt('return', Promise.resolve());
+
+          case 8:
+            _context2.prev = 8;
+            _context2.t0 = _context2['catch'](0);
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SERVER_LOADING */]);
+            return _context2.abrupt('return', Promise.reject(_context2.t0));
+
+          case 12:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this, [[0, 8]]);
+  }));
+
+  return function (_x2, _x3) {
+    return _ref5.apply(this, arguments);
+  };
+}()), _GET_REGIONS_AND_SIZE);
 
 /***/ }),
 /* 50 */
@@ -18129,14 +18173,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_SIZES_AND_REGIONS_LO = {}, _defineProperty(_SIZES_AND_REGIONS_LO, __WEBPACK_IMPORTED_MODULE_0__constants__["b" /* SIZES_AND_REGIONS_LOADING */], function (state) {
+/* harmony default export */ __webpack_exports__["a"] = (_SIZES_AND_REGIONS_LO = {}, _defineProperty(_SIZES_AND_REGIONS_LO, __WEBPACK_IMPORTED_MODULE_0__constants__["d" /* SIZES_AND_REGIONS_LOADING */], function (state) {
   state.sizesLoading = !state.sizesLoading;
-}), _defineProperty(_SIZES_AND_REGIONS_LO, __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* GET_REGIONS_AND_SIZES */], function (state, _ref) {
+}), _defineProperty(_SIZES_AND_REGIONS_LO, __WEBPACK_IMPORTED_MODULE_0__constants__["c" /* GET_REGIONS_AND_SIZES */], function (state, _ref) {
   var regions = _ref.regions,
       sizes = _ref.sizes;
 
   state.sizes = sizes;
   state.regions = regions;
+}), _defineProperty(_SIZES_AND_REGIONS_LO, __WEBPACK_IMPORTED_MODULE_0__constants__["b" /* CREATE_SERVER_LOADING */], function (state) {
+  state.createServerLoading = !state.createServerLoading;
 }), _SIZES_AND_REGIONS_LO);
 
 /***/ }),
@@ -19425,6 +19471,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_project_name_generator__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_project_name_generator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_project_name_generator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_store_modules_servers_constants__ = __webpack_require__(5);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
 //
 //
 //
@@ -19546,9 +19597,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       name: __WEBPACK_IMPORTED_MODULE_2_project_name_generator___default()({ number: true }).dashed,
-      region: '512mb',
-      size: 'nyc1'
+      region: 'nyc1',
+      size: '512mb'
     };
+  },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('servers', ['createServerLoading'])),
+  methods: {
+    createServer: function createServer() {
+      this.$store.dispatch('servers/' + __WEBPACK_IMPORTED_MODULE_3_store_modules_servers_constants__["a" /* CREATE_SERVER */], {
+        name: this.name,
+        region: this.region,
+        size: this.size
+      });
+    }
   }
 });
 
@@ -38980,66 +39041,99 @@ var render = function() {
   return _c("div", [
     _c("div", [
       _c("div", { staticClass: "mt-5" }, [
-        _c("form", { attrs: { role: "form" } }, [
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-form-label text-md-right",
-                attrs: { for: "site_name" }
-              },
-              [_vm._v("Name")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.name,
-                    expression: "name"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter server name" },
-                domProps: { value: _vm.name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.name = $event.target.value
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c("div", { staticClass: "offset-md-4 col-md-6" }, [
-              _vm._m(2),
-              _vm._v(" "),
+        _c(
+          "form",
+          {
+            attrs: { role: "form" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                _vm.createServer()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group row" }, [
               _c(
-                "button",
+                "label",
                 {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "button" },
+                  staticClass: "col-md-4 col-form-label text-md-right",
+                  attrs: { for: "site_name" }
+                },
+                [_vm._v("Name")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.name,
+                      expression: "name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Enter server name" },
+                  domProps: { value: _vm.name },
                   on: {
-                    click: function($event) {
-                      _vm.$emit("close")
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value
                     }
                   }
-                },
-                [_vm._v("Cancel")]
-              )
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("div", { staticClass: "offset-md-4 col-md-6" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { type: "submit", disabled: _vm.createServerLoading }
+                  },
+                  [
+                    _vm.createServerLoading
+                      ? _c("Loader", { attrs: { width: "14", height: "14" } })
+                      : _c("i", { staticClass: "fa fa-plus-circle mr-1" }),
+                    _vm._v(
+                      "\n                    \n                    " +
+                        _vm._s(
+                          _vm.createServerLoading
+                            ? "Creating server .."
+                            : "Create Server"
+                        ) +
+                        "\n                  "
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.$emit("close")
+                      }
+                    }
+                  },
+                  [_vm._v("Cancel")]
+                )
+              ])
             ])
-          ])
-        ])
+          ]
+        )
       ])
     ])
   ])
@@ -39221,15 +39315,6 @@ var staticRenderFns = [
           _c("option", { attrs: { value: "blr1" } }, [_vm._v("Bangalore 1")])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-success" }, [
-      _c("i", { staticClass: "fa fa-plus-circle mr-1" }),
-      _vm._v(" Create Server\n                  ")
     ])
   }
 ]

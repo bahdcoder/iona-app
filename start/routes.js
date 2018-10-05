@@ -34,7 +34,9 @@ Route.get('/users', async ({ response }) => {
 })
 
 Route.group(() => {
-  Route.get('/droplets/sizes', 'DropletController.getSizesAndRegions').middleware(['auth'])
-}).namespace('Servers')
+  Route.get('/droplets/sizes', 'DropletController.getSizesAndRegions')
+
+  Route.resource('droplets', 'DropletController')
+}).namespace('Servers').middleware(['auth'])
 
 Route.on('*').render('main')

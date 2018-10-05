@@ -2,7 +2,6 @@
 
 const Axios = use('axios')
 const Redis = use('Redis')
-const Sshkey = use('App/Models/Sshkey')
 
 /**
  * The connector for digital ocean.
@@ -78,12 +77,15 @@ class DigitalOcean {
     const { data } = await this.http.post('/droplets', {
       name, region, size,
       image: 'ubuntu-18-04-x64',
-      ssh_keys: [this.getSshkeyFingerprint()]
+      ssh_keys: [await this.getSshkeyFingerprint()]
     })
 
     return data.droplet
   }
 
+  /**
+   * Get the fingerprint for current user's sshkey
+   */
   async getSshkeyFingerprint() {
     const { settings } = await this.user.sshkey().fetch()
 
