@@ -3,6 +3,7 @@
 const axios = use('axios')
 const Event = use('Event')
 const Config = use('Config')
+const { parse } = use('query-string')
 
 class SocialConnectController {
   /**
@@ -12,6 +13,10 @@ class SocialConnectController {
    */
   async digitalocean({ response }) {
     return response.redirect(Config.get('services.digitalocean.url'))
+  }
+
+  async github({ response }) {
+    return response.redirect(Config.get('services.github.url'))
   }
 
   /**
@@ -42,6 +47,30 @@ class SocialConnectController {
 
     return {
       message: 'Successfully connected.',
+      user
+    }
+  }
+
+  async githubCallback({ request, auth }) {
+    const { code } = request.all()
+    const {
+      apiUrl,
+    } = Config.get('services.github')
+
+    const { data } = await axios.post(`${apiUrl}&code=${code}`)
+
+    const user = await auth.getUser()
+
+    user.settings = JSON.stringify({
+      ...JSON.parse(user.settings),
+      github: parse(data),
+    })
+    await user.save()
+
+    Event.fire('connected::github', user)
+
+    return {
+      message: 'Successfully connected github.',
       user
     }
   }

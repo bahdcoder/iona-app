@@ -17,6 +17,7 @@ class ResourceTableSeeder {
   async run () {
     await Resource.create({
       name: 'mysql',
+      slug: 'mysql',
       settings: JSON.stringify({
         database: {
           name: 'Add Database',
@@ -39,12 +40,19 @@ class ResourceTableSeeder {
             name: 'required|required',
             password: 'required|string'
           }
+        },
+        new: {
+          username: 'string',
+          password: 'string',
+          database: 'string',
         }
-      })
+      }),
+      icon: 'fas fa-database'
     })
 
     await Resource.create({
       name: 'postgresql',
+      slug: 'postgresql',
       settings: JSON.stringify({
         database: {
           name: 'Add Database',
@@ -67,12 +75,19 @@ class ResourceTableSeeder {
             name: 'required|required',
             password: 'required|string'
           }
+        },
+        new: {
+          username: 'string',
+          password: 'string',
+          database: 'string',
         }
-      })
+      }),
+      icon: 'fas fa-database'
     })
 
     await Resource.create({
       name: 'mongodb',
+      slug: 'mongodb',
       settings: JSON.stringify({
         database: {
           name: 'Add Database',
@@ -95,12 +110,20 @@ class ResourceTableSeeder {
             name: 'required|required',
             password: 'required|string'
           }
+        },
+        new: {
+          username: 'string',
+          password: 'string',
+          database: 'string',
         }
-      })
+      }),
+      icon: 'fas fa-database'
     })
 
     await Resource.create({
       name: 'redis',
+      slug: 'redis',
+      icon: 'fas fa-coins'
     })
   }
 }

@@ -21,7 +21,19 @@
       connectSocialAuth() {
         this.$store.dispatch(`auth/${CONNECT_SOCIAL_AUTH}`, {
           code: this.$route.query.code,
-        }).then(() => this.$router.push('/user/profile'))
+          provider: this.$route.params.provider
+        }).then(() => {
+          switch (this.$route.params.provider) {
+            case 'github':
+              return this.$router.push('/user/profile/source-control')
+              break;
+            case 'digitalocean':
+              return this.$router.push('/user/profile')
+              break;
+            default:
+              break;
+          }
+        })
       }
     }
   }

@@ -18,4 +18,11 @@ module.exports = {
     apiUrl: Env.get('DO_API_URL'),
     redirectUri: Env.get('DO_IONA_REDIRECT_URI')
   },
+  github: {
+    url: Env.get('GITHUB_OAUTH2_URL'),
+    clientId: Env.get('GITHUB_CLIENT_ID'),
+    redirectUrl: Env.get('GITHUB_REDIRECT_URI'),
+    clientSecret: Env.get('GITHUB_CLIENT_SECRET'),
+    apiUrl: Env.get('GITHUB_API_URL')
+  }
 }

@@ -1,6 +1,8 @@
 import store from '@/store'
 import Router from 'vue-router'
 import HomePage from '@/pages/Home/Index.vue'
+import SitesPage from '@/pages/Sites/Index.vue'
+import ServerPage from '@/pages/Server/Index.vue'
 import ProfilePage from '@/pages/Profile/Index.vue'
 import LoginPage from '@/pages/Auth/Login/Index.vue'
 import SignupPage from '@/pages/Auth/Signup/Index.vue'
@@ -38,6 +40,17 @@ const router = new Router({
     name: 'dashboard',
     component: DashboardPage
   }, {
+    path: '/servers/:id',
+    component: ServerPage,
+    children: [{
+      path: '',
+      component: SitesPage
+    }, {
+      name: 'sites',
+      path: 'sites',
+      component: SitesPage
+    }]
+  }, {
     path: '/user/profile',
     component: ProfilePage,
     children: [{
@@ -53,8 +66,8 @@ const router = new Router({
       component: SourceControl,
     }]
   }, {
-    path: '/auth/digitalocean/callback',
-    name: 'digitalocean-callback',
+    path: '/auth/:provider/callback',
+    name: 'provider-callback',
     component: SocialAuthCallback,
   }]
 })

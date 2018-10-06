@@ -103,13 +103,13 @@
             </div>
             <div class="form-group row">
               <div class="offset-md-4 col-md-6">
-                  <button type="submit" class="btn btn-success" :disabled="createServerLoading">
-                    <Loader width="14" height="14" v-if="createServerLoading" />
-                    <i v-else class="fa fa-plus-circle mr-1"></i>
-                    
-                    {{ createServerLoading ? 'Creating server ..' : 'Create Server' }}
-                  </button>
-                  <button type="button" @click="$emit('close')" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-success" :disabled="createServerLoading">
+                  <Loader width="14" height="14" v-if="createServerLoading" />
+                  <i v-else class="fa fa-plus-circle mr-1"></i>
+                  
+                  {{ createServerLoading ? 'Creating server ..' : 'Create Server' }}
+                </button>
+                <button type="button" @click="$emit('close')" class="btn btn-secondary">Cancel</button>
               </div>
             </div>
          </form>
@@ -148,8 +148,8 @@ export default {
         name: this.name,
         region: this.region,
         size: this.size,
-        resources: selectedResources.map(resource => resource.value)
-      })
+        resources: this.selectedResources.map(resource => resource.value)
+      }).then(server => this.$router.push(`/servers/${server.id}`))
     },
     getResources() {
       this.$store.dispatch(`servers/${GET_RESOURCES}`)

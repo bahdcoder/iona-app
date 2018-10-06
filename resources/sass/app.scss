@@ -52,9 +52,7 @@ body {
 .iona-card {
   .card-header {
     border-bottom: 1px solid #fff;
-    background-color: #fff;
   }
-
 }
 
 .iona-select {
@@ -77,6 +75,8 @@ body {
 
   .iona-sidemenu-item {
     cursor: pointer;
+    background-color: #fafafa;
+    border: 1px solid #fff;
 
     &.active {
       color: $success;
@@ -123,4 +123,9 @@ body {
 .search-result-check {
   cursor: pointer;
 }
-
+.disabled {
+  cursor: not-allowed;
+}
+.pointer {
+  cursor: pointer;
+}

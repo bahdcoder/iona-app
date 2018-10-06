@@ -4620,7 +4620,7 @@ input[type="button"].btn-block {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 1.5rem 1rem;
+  padding: 0.7rem 1rem;
 }
 
 .navbar > .container,
@@ -10652,7 +10652,6 @@ body {
 
 .iona-card .card-header {
   border-bottom: 1px solid #fff;
-  background-color: #fff;
 }
 
 .iona-select {
@@ -10686,6 +10685,8 @@ body {
 
 .iona-sidemenu .iona-sidemenu-item {
   cursor: pointer;
+  background-color: #fafafa;
+  border: 1px solid #fff;
 }
 
 .iona-sidemenu .iona-sidemenu-item.active {
@@ -10735,6 +10736,14 @@ body {
 }
 
 .search-result-check {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.pointer {
   cursor: pointer;
 }
 

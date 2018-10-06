@@ -1,7 +1,12 @@
 'use strict'
 
+const fs = use('fs')
+const path = use('path')
 const Axios = use('axios')
 const Redis = use('Redis')
+const Helpers = use('Helpers')
+const Mustache = use('mustache')
+const { generate } = use('generate-password')
 
 /**
  * The connector for digital ocean.
@@ -73,14 +78,21 @@ class DigitalOcean {
   /**
  * Create a server
  */
-  async createServer({ name, region, size }) {
+  async createServer({ name, region, size }, resources = []) {
+    const { userData, resourceSettings } = await this.generateUserData(resources)
+
+    // console.log(userData)
+
+    // return {}
+
     const { data } = await this.http.post('/droplets', {
       name, region, size,
       image: 'ubuntu-18-04-x64',
-      ssh_keys: [await this.getSshkeyFingerprint()]
+      ssh_keys: [await this.getSshkeyFingerprint()],
+      user_data: userData,
     })
 
-    return data.droplet
+    return { droplet: data.droplet, resourceSettings }
   }
 
   /**
@@ -107,6 +119,56 @@ class DigitalOcean {
     })
 
     return data.ssh_key
+  }
+
+    /**
+   * Get a single droplet
+   * 
+   * @return {Object} droplet
+   */
+  async getDroplet(id) {
+    const { data } = await this.http.get(`/droplets/${id}`)
+
+    return data.droplet
+  }
+
+  /**
+   * Generate the user data to be sent to digital ocean server.
+   */
+  async generateUserData(resources) {
+    let userData = '#!/bin/sh'
+    let resourceSettings = {}
+
+    // install nginx
+    userData += Mustache.render(Helpers.getScript('server/nginx'))
+
+    // install node-js stable
+    userData += Mustache.render(Helpers.getScript('server/nodejs'))
+
+    // install git
+    userData += Mustache.render(Helpers.getScript('server/git'))
+
+    resources.forEach(resource => {
+      resourceSettings[resource.slug] = {}
+      let resourceNewSettings = {}
+      if (resource.settings) {
+        const settings = JSON.parse(resource.settings)
+
+        if (settings.new) {
+          for (const setting in settings.new) {
+            if (settings.new.hasOwnProperty(setting)) {
+              resourceNewSettings[setting] = generate({ length: 32 })
+            }
+          }
+        }
+      }
+
+      resourceSettings[resource.slug] = resourceNewSettings
+      
+      userData += Mustache.render(Helpers.getScript(`resources/${resource.slug}`), resourceNewSettings)
+    })
+
+    return { userData, resourceSettings }
   }
 }
 

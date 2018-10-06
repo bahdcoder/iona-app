@@ -6,8 +6,26 @@
         Github
       </div>
       <div class="card-body">
-        <button class="btn btn-info">Connect To Github</button>
+        <button v-if="github" class="btn btn-success">
+          <i class="fa fa-check-circle"></i>
+          Connected
+        </button>
+        <a v-else href='/auth/github' class="btn btn-info">Connect to Digital Ocean</a>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+  import { mapState } from 'vuex'
+
+  export default {
+    computed: {
+      ...mapState('auth', ['user']),
+      github() {
+        return this.user.config.github
+      }
+    }
+  }
+</script>
+

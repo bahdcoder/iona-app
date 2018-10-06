@@ -1,6 +1,7 @@
 'use strict'
 
 const Axios = use('axios')
+const Github = use('App/Services/Api/Github')
 const DigitalOcean = use('App/Services/Api/DigitalOcean')
 
 const SocialConnected = exports = module.exports = {}
@@ -22,4 +23,8 @@ SocialConnected.digitalocean = async user => {
   })
 
   await sshkey.save()
+}
+
+SocialConnected.github = async user => {
+  
 }

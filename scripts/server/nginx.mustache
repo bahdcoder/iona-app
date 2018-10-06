@@ -1,0 +1,7 @@
+
+
+apt update
+apt install nginx -y
+ufw allow 'Nginx HTTP'
+systemctl enable nginx
+systemctl start nginx

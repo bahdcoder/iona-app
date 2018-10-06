@@ -4,6 +4,10 @@ import store from './store'
 import router from './router'
 import Router from 'vue-router'
 import Main from './pages/Main.vue'
+import Panel from './components/Panel.vue'
+import Loader from './components/Loader.vue'
+import DynamicNav from './components/DynamicNav.vue'
+import PageLoader from './components/PageLoader.vue'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -12,6 +16,11 @@ import Main from './pages/Main.vue'
  */
 
 Vue.use(Router)
+
+Vue.component('panel', Panel)
+Vue.component('loader', Loader)
+Vue.component('dynamic-nav', DynamicNav)
+Vue.component('page-loader', PageLoader)
 
 new Vue({
   el: '#app',

@@ -32,9 +32,9 @@ export default {
 
     return Promise.resolve()
   },
-  async [CONNECT_SOCIAL_AUTH]({ commit }, { code }) {
+  async [CONNECT_SOCIAL_AUTH]({ commit }, { code, provider }) {
     try {
-      const { data } = await axios.post('/auth/digitalocean/callback', {
+      const { data } = await axios.post(`/auth/${provider}/callback`, {
         code
       })
 

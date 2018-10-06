@@ -20,7 +20,11 @@ class ResourceSchema extends Schema {
        * The setitngs also define validation errors.
        */
       table.text('settings')
-      table.text('name')
+      table.string('name')
+      table.string('slug').notNullable()
+      table.string('color')
+      table.string('icon')
+      table.string('logo_url')
       table.timestamps()
     })
   }

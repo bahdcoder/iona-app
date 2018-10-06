@@ -8,6 +8,8 @@ export default {
     sizesLoading: false,
     createServerLoading: false,
     getResourcesLoading: false,
+    singleServerLoading: false,
+    singleServer: {},
     sizes: [],
     regions: [],
     resources: [],
