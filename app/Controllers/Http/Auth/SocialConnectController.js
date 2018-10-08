@@ -67,8 +67,6 @@ class SocialConnectController {
     })
     await user.save()
 
-    Event.fire('connected::github', user)
-
     return {
       message: 'Successfully connected github.',
       user

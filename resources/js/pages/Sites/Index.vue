@@ -2,18 +2,18 @@
   <div>
     <panel header="Add a site">
       <template slot="body">
-        <form v-if="hasSetupRepos">
+        <form @submit.prevent="createSite" v-if="hasSetupRepos">
           <div class="form-group row">
             <label for="" class="col-form-label text-md-right col-md-4">Root domain</label>
             <div class="col-md-8">
-              <input type="text" class="form-control" placeholder="domain.com">
+              <input v-model="name" type="text" class="form-control" placeholder="domain.com">
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-form-label text-md-right col-md-4">Project type</label>
             <div class="col-md-8">
-              <select class="form-control iona-select">
-                <option disabled selected>Select project type</option>
+              <select class="form-control iona-select" v-model="type">
+                <option disabled selected value="">Select project type</option>
                 <option value="nodejs">Node js</option>
                 <option value="laravel">Laravel 5 +</option>
                 <option value="static">Static HTML</option>
@@ -21,19 +21,14 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="" class="col-form-label text-md-right col-md-4">Install repository</label>
+            <label for="" class="col-form-label text-md-right col-md-4">Git repository</label>
             <div class="col-md-8">
-              <div class="input-group mb-3">
-                <input v-model="repoSearch" placeholder="Search repository ..." type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                <div :class="{ disabled: !repoSearch, pointer: repoSearch }" class="input-group-append">
-                  <span class="input-group-text">Search</span>
-                </div>
-              </div>
+              <input v-model="repo" placeholder="user/repository" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
             </div>
           </div>
           <div class="form-group row">
             <div class="offset-md-4 col-md-6">
-              <button class="btn btn-success">
+              <button type="submit" class="btn btn-success">
                 <i class="fa fa-plus-circle mr-1"></i>
                 Add site
               </button>
@@ -53,14 +48,26 @@
 
 <script>
   import { mapState } from 'vuex'
+  import { CREATE_SITE } from 'store-modules/sites/constants'
   export default {
     data: () => ({
-      repoSearch: ''
+      repo: '',
+      name: '',
+      type: '',
     }),
     computed: {
       ...mapState('auth', ['user']),
       hasSetupRepos() {
         return this.user.config.github
+      }
+    },
+    methods: {
+      createSite() {
+        this.$store.dispatch(`sites/${CREATE_SITE}`, {
+          repo: this.repo,
+          name: this.name,
+          type: this.type,
+        })
       }
     }
   }

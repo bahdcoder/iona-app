@@ -50,7 +50,8 @@ Route.group(() => {
   Route.resource('droplets', 'DropletController')
 }).namespace('Servers').middleware(['auth']).prefix('api')
 
-Route.resource('api/servers', 'ServerController')
+Route.resource('api/servers', 'ServerController').middleware(['auth'])
+Route.resource('api/:server/sites', 'SiteController').middleware(['auth'])
 
 Route.resource('api/resources', 'ResourceController').middleware(['auth'])
 

@@ -1,3 +1,6 @@
+'use strict'
+
+const Axios = use('axios')
 
 class Github {
   /**
@@ -5,16 +8,42 @@ class Github {
    * @param {Object} user 
    */
   constructor(user) {
+    /**
+     * Set the url connection.
+     */
+    this.url = 'https://api.github.com'
+
+    /**
+     * The authenticated user.
+     */
     this.user = user
+
+    /**
+     * Set the user settings.
+     */
+    this.settings = JSON.parse(this.user.settings)
+
+    /**
+     * The axios instance.
+     */
+    this.http = Axios.create({
+      baseURL: this.url,
+      headers: {
+        Authorization: `token ${this.settings.github.access_token}`,
+        'Content-Type': 'application/json',
+      }
+    })
   }
 
   /**
-   * Add a public key to this user's account.
+   * Get a single repository for a user
    *
-   * @return {Object}
+   * @return {string}
    */
-  addSshkey() {
+  async getSingleRepo(link) {
+    const { data } = await this.http.get(`/repos/${link}`)
 
+    return data
   }
 }
 

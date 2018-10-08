@@ -1,0 +1,2 @@
+export const CREATE_SITE = 'CREATE_SITE'
+export const CREATE_SITE_LOADING = 'CREATE_SITE_LOADING'

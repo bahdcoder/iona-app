@@ -13123,7 +13123,9 @@ module.exports = Vue;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_auth__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_servers__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_sites__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_servers__ = __webpack_require__(48);
+
 
 
 
@@ -13134,7 +13136,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vuex
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_2_vuex__["a" /* Store */]({
   modules: {
     auth: __WEBPACK_IMPORTED_MODULE_1__modules_auth__["a" /* default */],
-    servers: __WEBPACK_IMPORTED_MODULE_3__modules_servers__["a" /* default */]
+    sites: __WEBPACK_IMPORTED_MODULE_3__modules_sites__["a" /* default */],
+    servers: __WEBPACK_IMPORTED_MODULE_4__modules_servers__["a" /* default */]
   }
 }));
 
@@ -40597,7 +40600,7 @@ var render = function() {
           : _c(
               "a",
               { staticClass: "btn btn-info", attrs: { href: "/auth/github" } },
-              [_vm._v("Connect to Digital Ocean")]
+              [_vm._v("Connect to Github")]
             )
       ])
     ])
@@ -41637,128 +41640,172 @@ var render = function() {
         [
           _c("template", { slot: "body" }, [
             _vm.hasSetupRepos
-              ? _c("form", [
-                  _c("div", { staticClass: "form-group row" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label text-md-right col-md-4",
-                        attrs: { for: "" }
-                      },
-                      [_vm._v("Root domain")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-8" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "domain.com" }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group row" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label text-md-right col-md-4",
-                        attrs: { for: "" }
-                      },
-                      [_vm._v("Project type")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-8" }, [
+              ? _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.createSite($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-group row" }, [
                       _c(
-                        "select",
-                        { staticClass: "form-control iona-select" },
-                        [
-                          _c(
-                            "option",
-                            { attrs: { disabled: "", selected: "" } },
-                            [_vm._v("Select project type")]
-                          ),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "nodejs" } }, [
-                            _vm._v("Node js")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "laravel" } }, [
-                            _vm._v("Laravel 5 +")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "static" } }, [
-                            _vm._v("Static HTML")
-                          ])
-                        ]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group row" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label text-md-right col-md-4",
-                        attrs: { for: "" }
-                      },
-                      [_vm._v("Install repository")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-8" }, [
-                      _c("div", { staticClass: "input-group mb-3" }, [
+                        "label",
+                        {
+                          staticClass: "col-form-label text-md-right col-md-4",
+                          attrs: { for: "" }
+                        },
+                        [_vm._v("Root domain")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-8" }, [
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.repoSearch,
-                              expression: "repoSearch"
+                              value: _vm.name,
+                              expression: "name"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            placeholder: "Search repository ...",
-                            type: "text",
-                            "aria-label": "Amount (to the nearest dollar)"
-                          },
-                          domProps: { value: _vm.repoSearch },
+                          attrs: { type: "text", placeholder: "domain.com" },
+                          domProps: { value: _vm.name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.repoSearch = $event.target.value
+                              _vm.name = $event.target.value
                             }
                           }
-                        }),
-                        _vm._v(" "),
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label text-md-right col-md-4",
+                          attrs: { for: "" }
+                        },
+                        [_vm._v("Project type")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-8" }, [
                         _c(
-                          "div",
+                          "select",
                           {
-                            staticClass: "input-group-append",
-                            class: {
-                              disabled: !_vm.repoSearch,
-                              pointer: _vm.repoSearch
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.type,
+                                expression: "type"
+                              }
+                            ],
+                            staticClass: "form-control iona-select",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.type = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
                           },
                           [
-                            _c("span", { staticClass: "input-group-text" }, [
-                              _vm._v("Search")
+                            _c(
+                              "option",
+                              {
+                                attrs: { disabled: "", selected: "", value: "" }
+                              },
+                              [_vm._v("Select project type")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "nodejs" } }, [
+                              _vm._v("Node js")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "laravel" } }, [
+                              _vm._v("Laravel 5 +")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "static" } }, [
+                              _vm._v("Static HTML")
                             ])
                           ]
                         )
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group row" }, [
-                    _c("div", { staticClass: "offset-md-4 col-md-6" }, [
-                      _c("button", { staticClass: "btn btn-success" }, [
-                        _c("i", { staticClass: "fa fa-plus-circle mr-1" }),
-                        _vm._v("\n              Add site\n            ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-form-label text-md-right col-md-4",
+                          attrs: { for: "" }
+                        },
+                        [_vm._v("Git repository")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-8" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.repo,
+                              expression: "repo"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            placeholder: "user/repository",
+                            type: "text",
+                            "aria-label": "Amount (to the nearest dollar)"
+                          },
+                          domProps: { value: _vm.repo },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.repo = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "offset-md-4 col-md-6" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _c("i", { staticClass: "fa fa-plus-circle mr-1" }),
+                            _vm._v("\n              Add site\n            ")
+                          ]
+                        )
                       ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               : _c(
                   "p",
                   { staticClass: "text-center display-5 my-4" },
@@ -41798,6 +41845,7 @@ if (false) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__ = __webpack_require__(122);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -41848,24 +41896,31 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      repoSearch: ''
+      repo: '',
+      name: '',
+      type: ''
     };
   },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('auth', ['user']), {
     hasSetupRepos: function hasSetupRepos() {
       return this.user.config.github;
     }
-  })
+  }),
+  methods: {
+    createSite: function createSite() {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["a" /* CREATE_SITE */], {
+        repo: this.repo,
+        name: this.name,
+        type: this.type
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -41905,6 +41960,126 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   })
 });
+
+/***/ }),
+/* 118 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getters__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(121);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  namespaced: true,
+  state: {
+    createSiteLoading: false,
+    site: {}
+  },
+  actions: __WEBPACK_IMPORTED_MODULE_1__actions__["a" /* default */],
+  getters: __WEBPACK_IMPORTED_MODULE_0__getters__["a" /* default */],
+  mutations: __WEBPACK_IMPORTED_MODULE_2__mutations__["a" /* default */]
+});
+
+/***/ }),
+/* 119 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({});
+
+/***/ }),
+/* 120 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(122);
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_defineProperty({}, __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* CREATE_SITE */], function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref, data) {
+    var commit = _ref.commit;
+
+    var _ref3, response;
+
+    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_LOADING */]);
+            console.log('------->>>', data);
+            _context.next = 5;
+            return axios.post('/api/sites', data);
+
+          case 5:
+            _ref3 = _context.sent;
+            response = _ref3.data;
+
+            console.log(response);
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_LOADING */]);
+            return _context.abrupt('return', Promise.resolve());
+
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context['catch'](0);
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_LOADING */]);
+            return _context.abrupt('return', Promise.reject());
+
+          case 16:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, this, [[0, 12]]);
+  }));
+
+  return function (_x, _x2) {
+    return _ref2.apply(this, arguments);
+  };
+}()));
+
+/***/ }),
+/* 121 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(122);
+var _CREATE_SITE_LOADING$;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE_LOADING$ = {}, _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["b" /* CREATE_SITE_LOADING */], function (state) {
+  state.createSiteLoading = !state.createSiteLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* CREATE_SITE */], function (state, data) {
+  state.site = data;
+}), _CREATE_SITE_LOADING$);
+
+/***/ }),
+/* 122 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CREATE_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CREATE_SITE_LOADING; });
+var CREATE_SITE = 'CREATE_SITE';
+var CREATE_SITE_LOADING = 'CREATE_SITE_LOADING';
 
 /***/ })
 /******/ ]);

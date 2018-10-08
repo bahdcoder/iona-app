@@ -10,7 +10,7 @@
           <i class="fa fa-check-circle"></i>
           Connected
         </button>
-        <a v-else href='/auth/github' class="btn btn-info">Connect to Digital Ocean</a>
+        <a v-else href='/auth/github' class="btn btn-info">Connect to Github</a>
       </div>
     </div>
   </div>

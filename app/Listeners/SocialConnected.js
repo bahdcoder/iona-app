@@ -24,7 +24,3 @@ SocialConnected.digitalocean = async user => {
 
   await sshkey.save()
 }
-
-SocialConnected.github = async user => {
-  
-}
