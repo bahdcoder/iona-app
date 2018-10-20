@@ -1,0 +1,7 @@
+cd /etc/nginx/sites-available
+
+touch {{ name }}
+
+echo "{{ config }}" >> {{ name }}
+ln -s /etc/nginx/sites-available/{{ name }} /etc/nginx/sites-enabled/
+service nginx restart

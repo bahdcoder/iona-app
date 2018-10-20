@@ -5,9 +5,9 @@ const Axios = use('axios')
 class Github {
   /**
    * Set the user to be used for authenticated requests.
-   * @param {Object} user 
+   * @param {Object} user
    */
-  constructor(user) {
+  constructor (user) {
     /**
      * Set the url connection.
      */
@@ -30,7 +30,7 @@ class Github {
       baseURL: this.url,
       headers: {
         Authorization: `token ${this.settings.github.access_token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       }
     })
   }
@@ -40,7 +40,7 @@ class Github {
    *
    * @return {string}
    */
-  async getSingleRepo(link) {
+  async getRepo (link) {
     const { data } = await this.http.get(`/repos/${link}`)
 
     return data

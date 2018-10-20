@@ -23,22 +23,16 @@ Route.group(() => {
   Route
     .post('digitalocean/callback', 'SocialConnectController.digitaloceanCallback')
     .middleware(['auth'])
-  
+
   Route
     .post('github/callback', 'SocialConnectController.githubCallback')
     .middleware(['auth'])
-  
-  Route.get('github', 'SocialConnectController.github')
 
+  Route.get('github', 'SocialConnectController.github')
 }).prefix('auth').namespace('Auth')
 
 Route.get('/users', async ({ response }) => {
-  const Resource = use('App/Models/Resource')
   const Server = use('App/Models/Server')
-  const ResourceServer = use('App/Models/ResourceServer')
-  const u = await Resource.find(1)
-  const s = await (await Server.find(2)).resources().fetch()
-
   // await s.resources().attach([u.id])
 
   return response.send({ s: await Server.all() })
@@ -51,7 +45,9 @@ Route.group(() => {
 }).namespace('Servers').middleware(['auth']).prefix('api')
 
 Route.resource('api/servers', 'ServerController').middleware(['auth'])
-Route.resource('api/:server/sites', 'SiteController').middleware(['auth'])
+Route.resource('api/servers/:server/sites', 'SiteController').middleware(['auth'])
+
+Route.post('api/servers/:server/sites/:site/repos', 'SiteController.addRepo').middleware(['auth'])
 
 Route.resource('api/resources', 'ResourceController').middleware(['auth'])
 

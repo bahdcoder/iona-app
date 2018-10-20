@@ -6,11 +6,13 @@ import ServerPage from '@/pages/Server/Index.vue'
 import ProfilePage from '@/pages/Profile/Index.vue'
 import LoginPage from '@/pages/Auth/Login/Index.vue'
 import SignupPage from '@/pages/Auth/Signup/Index.vue'
+import AppPage from '@/pages/Sites/Site/App/Index.vue'
 import DashboardPage from '@/pages/Dashboard/Index.vue'
+import SingleSitePage from '@/pages/Sites/Site/Index.vue'
 import SourceControl from '@/pages/Profile/SourceControl/Index.vue'
+import EnvironmentPage from '@/pages/Sites/Site/Environment/Index.vue'
 import ServerProviders from '@/pages/Profile/ServerProviders/Index.vue'
 import SocialAuthCallback from '@/pages/Auth/SocialAuthCallback/Index.vue'
-
 
 const router = new Router({
   mode: 'history',
@@ -19,22 +21,22 @@ const router = new Router({
     name: 'login',
     component: LoginPage,
     meta: {
-      noAuth: true,
-    },
+      noAuth: true
+    }
   }, {
     path: '/auth/signup',
     name: 'signup',
     component: SignupPage,
     meta: {
-      noAuth: true,
-    },
+      noAuth: true
+    }
   }, {
     path: '',
     name: 'home',
     component: HomePage,
     meta: {
       noAuth: true
-    },
+    }
   }, {
     path: '/dashboard',
     name: 'dashboard',
@@ -46,29 +48,38 @@ const router = new Router({
       path: '',
       component: SitesPage
     }, {
-      name: 'sites',
       path: 'sites',
       component: SitesPage
+    }]
+  }, {
+    path: '/servers/:id/sites/:site',
+    component: SingleSitePage,
+    children: [{
+      path: '',
+      component: AppPage
+    }, {
+      path: 'environment',
+      component: EnvironmentPage
     }]
   }, {
     path: '/user/profile',
     component: ProfilePage,
     children: [{
       path: '',
-      component: ServerProviders,
+      component: ServerProviders
     }, {
       path: 'server-providers',
       name: 'server-providers',
-      component: ServerProviders,
+      component: ServerProviders
     }, {
       path: 'source-control',
       name: 'source-control',
-      component: SourceControl,
+      component: SourceControl
     }]
   }, {
     path: '/auth/:provider/callback',
     name: 'provider-callback',
-    component: SocialAuthCallback,
+    component: SocialAuthCallback
   }]
 })
 

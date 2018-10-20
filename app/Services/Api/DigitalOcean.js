@@ -81,10 +81,6 @@ class DigitalOcean {
   async createServer({ name, region, size }, resources = []) {
     const { userData, resourceSettings } = await this.generateUserData(resources)
 
-    // console.log(userData)
-
-    // return {}
-
     const { data } = await this.http.post('/droplets', {
       name, region, size,
       image: 'ubuntu-18-04-x64',

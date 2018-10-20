@@ -1,23 +1,63 @@
-import { CREATE_SITE, CREATE_SITE_LOADING } from './constants'
+import { GET_SITE, CREATE_SITE, GET_SITES, GET_SITES_LOADING, CREATE_SITE_LOADING, CREATE_SITE_REPO, CREATE_SITE_REPO_LOADING, GET_SITE_LOADING } from './constants'
 
 export default {
-  async [CREATE_SITE]({ commit }, data){
+  async [CREATE_SITE] ({ commit, dispatch }, { data, id }) {
     try {
       commit(CREATE_SITE_LOADING)
-      console.log('------->>>', data)
-      const { data: response } = await axios.post('/api/sites', data)
-      console.log(response)
+      const { data: response } = await axios.post(`/api/servers/${id}/sites`, data)
 
       commit(CREATE_SITE_LOADING)
-      return Promise.resolve()
+      dispatch(GET_SITES, { server: id })
+      return Promise.resolve(response)
+    } catch (errors) {
+      commit(CREATE_SITE_LOADING)
+      return Promise.reject(errors)
     }
+  },
 
+  async [CREATE_SITE_REPO] ({ commit }, { data, server, site }) {
+    try {
+      commit(CREATE_SITE_REPO_LOADING)
 
-    catch (errors)
+      const { data: response } = await axios.post(`/api/servers/${server}/sites/${site}/repos`, data)
 
-    {
-      commit(CREATE_SITE_LOADING)
-      return Promise.reject()
+      commit(CREATE_SITE_REPO_LOADING)
+      commit(CREATE_SITE_REPO, response)
+
+      return Promise.resolve(response)
+    } catch (errors) {
+      return Promise.reject(errors.response)
+    }
+  },
+
+  async [GET_SITES] ({ commit }, { server }) {
+    try {
+      commit(GET_SITES_LOADING)
+
+      const { data } = await axios.get(`/api/servers/${server}/sites`)
+
+      commit(GET_SITES_LOADING)
+      commit(GET_SITES, data)
+
+      return Promise.resolve(data)
+    } catch (errors) {
+      commit(GET_SITES_LOADING)
+      return Promise.reject(errors)
+    }
+  },
+
+  async [GET_SITE] ({ commit }, { id, server }) {
+    try {
+      commit(GET_SITE_LOADING)
+
+      const { data } = await axios.get(`/api/servers/${server}/sites/${id}`)
+
+      commit(GET_SITE, data)
+
+      commit(GET_SITE_LOADING)
+      return Promise.resolve(data)
+    } catch (errors) {
+      return Promise.reject(errors)
     }
   }
 }

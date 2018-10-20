@@ -1,6 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono');
-
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,500,600,700');
 // Variables
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
@@ -128,4 +127,21 @@ body {
 }
 .pointer {
   cursor: pointer;
+}
+
+.col-form-label {
+  line-height: 3rem !important;
+}
+
+.table-link {
+  text-decoration: none;
+  color: $gray-700;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.iona-table {
+  background-color: #eceeef;
 }

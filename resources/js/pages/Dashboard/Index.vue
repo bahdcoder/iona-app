@@ -2,11 +2,8 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-9">
-        <div class="card iona-card">
-          <div class="card-header">
-            Create Server
-          </div>
-          <div class="card-body">
+        <panel header="Create Server">
+          <template slot="body">
             <div class="row">
               <div class="col-md-2">
                 <div
@@ -25,8 +22,24 @@
             <div v-if="panelOpen">
               <DigitalOcean @close="panelOpen = !panelOpen" v-if="currentPanel === 'digital-ocean'" />
             </div>
-          </div>
-        </div>
+          </template>
+        </panel>
+
+        <panel class="mt-5" header="Servers">
+          <template slot="body">
+            <app-table :loading="getServersLoading" :headers="serversTableHeaders">
+              <template slot="body">
+                <tr v-for="server in servers" :key="server.id">
+                  <td>
+                    <router-link class="table-link" :to="`/servers/${server.id}`">
+                      {{ server.name }}
+                    </router-link>
+                  </td>
+                <tr/>
+              </template>
+            </app-table>
+          </template>
+        </panel>
       </div>
     </div>
   </div>
@@ -35,7 +48,7 @@
 <script>
 import { mapState } from 'vuex'
 import DigitalOcean from '@/components/Servers/DigitalOcean.vue'
-import { GET_REGIONS_AND_SIZES } from 'store-modules/servers/constants'
+import { GET_REGIONS_AND_SIZES, GET_SERVERS } from 'store-modules/servers/constants'
 
 export default {
   components: {
@@ -45,11 +58,28 @@ export default {
     ...mapState({
       digitalocean: state => state.auth.user.config.digitalocean
     }),
+    ...mapState('servers', ['servers', 'getServersLoading'])
+  },
+  mounted() {
+    this.getServers()
   },
   data: () => ({
     panels: ['digital-ocean'],
     panelOpen: false,
     currentPanel: 'digital-ocean',
+    serversTableHeaders: [{
+      key: 'name',
+      name: 'Name'
+    }, {
+      key: 'version',
+      name: 'Node version'
+    }, {
+      key: 'ip',
+      name: 'Ip Address'
+    }, {
+      key: 'status',
+      name: 'Status'
+    }]
   }),
   methods: {
     openPanel(service) {
@@ -59,6 +89,9 @@ export default {
       this.panelOpen = true
       this.currentPanel = service
     },
+    getServers() {
+      this.$store.dispatch(`servers/${GET_SERVERS}`)
+    }
   }
 }
 </script>

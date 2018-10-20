@@ -5,6 +5,7 @@ import router from './router'
 import Router from 'vue-router'
 import Main from './pages/Main.vue'
 import Panel from './components/Panel.vue'
+import Table from './components/Table.vue'
 import Loader from './components/Loader.vue'
 import DynamicNav from './components/DynamicNav.vue'
 import PageLoader from './components/PageLoader.vue'
@@ -19,14 +20,15 @@ Vue.use(Router)
 
 Vue.component('panel', Panel)
 Vue.component('loader', Loader)
+Vue.component('app-table', Table)
 Vue.component('dynamic-nav', DynamicNav)
 Vue.component('page-loader', PageLoader)
 
-new Vue({
+window.vueApp = new Vue({
   el: '#app',
   router,
   store,
   components: {
-    'main-app': Main,
+    'main-app': Main
   }
 })

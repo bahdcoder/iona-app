@@ -29,6 +29,7 @@
 
 <script>
   import { mapState, mapGetters } from 'vuex'
+  import { GET_SITES } from 'store-modules/sites/constants'
   import { GET_SERVER } from 'store-modules/servers/constants'
   
   export default {
@@ -74,7 +75,12 @@
               this.$router.push('/four-oh-four')
               clear()
             })
-            .then(clear)
+            .then(() => {
+              this.$store.dispatch(`sites/${GET_SITES}`, {
+                server: this.$route.params.id
+              })
+              clear()
+            })
         }
 
         dispatchToServer()

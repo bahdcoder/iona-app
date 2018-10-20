@@ -5,10 +5,15 @@ import mutations from './mutations'
 export default {
   namespaced: true,
   state: {
-    createSiteLoading: false,
     site: {},
+    sites: [],
+    singleSite: {},
+    getSitesLoading: false,
+    singleSiteLoading: false,
+    createSiteLoading: false,
+    createSiteRepoLoading: false
   },
   actions,
   getters,
-  mutations,
+  mutations
 }

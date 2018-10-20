@@ -25,7 +25,7 @@ class User extends Model {
    * Get the user config settings.
    * @param {Object} user.settings
    */
-  getConfig({ settings }) {
+  getConfig ({ settings }) {
     if (!settings) {
       settings = {}
     }
@@ -33,7 +33,7 @@ class User extends Model {
 
     return {
       digitalocean: (digitalocean && digitalocean.access_token) ? true : false,
-      github: (github && github.access_token) ? true : false,
+      github: (github && github.access_token) ? true : false
     }
   }
 
@@ -79,8 +79,19 @@ class User extends Model {
   /**
    * A user has one ssh key
    */
-  sshkey() {
+  sshkey () {
     return this.hasOne('App/Models/Sshkey')
+  }
+
+  /**
+   * A user has many servers
+   *
+   * @method servers
+   *
+   * @return {Object}
+   */
+  servers () {
+    return this.hasMany('App/Models/Server')
   }
 }
 

@@ -1,7 +1,8 @@
 <template>
   <div class="card iona-card">
     <div class="card-header">
-      {{ header }}
+      <span v-if="header">{{ header }}</span>
+      <slot name="header" v-else></slot>
     </div>
     <div class="card-body">
       <div class="row">

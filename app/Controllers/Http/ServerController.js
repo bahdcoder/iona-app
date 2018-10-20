@@ -5,9 +5,22 @@ const DigitalOcean = use('App/Services/Api/DigitalOcean')
 
 class ServerController {
   /**
+   * Get all servers for the current user.
+   *
+   * @param {object} context.auth
+   * @param {object} context.params
+   * @param {object} context.response
+   */
+  async index ({ auth, params, response }) {
+    const user = await auth.getUser()
+    const servers = await user.servers().fetch()
+
+    return servers
+  }
+  /**
    * Get a single server.
    */
-  async show({ auth, params, response }) {
+  async show ({ auth, params, response }) {
     const user = await auth.getUser()
 
     const digitalocean = new DigitalOcean(user)
@@ -17,7 +30,7 @@ class ServerController {
     if (!server) {
       return response.status(404).json({ message: 'Not found.' })
     }
-    
+
     const { id, status } = JSON.parse(server.stats)
 
     if (status === 'new') {

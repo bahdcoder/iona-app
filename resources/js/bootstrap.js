@@ -13,7 +13,7 @@
 window.axios = require('axios')
 
 export const setAxios = () => {
-  let auth = localStorage.getItem('auth')
+  let auth = window.localStorage.getItem('auth')
 
   if (auth) {
     window.axios.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(auth).token.token}`

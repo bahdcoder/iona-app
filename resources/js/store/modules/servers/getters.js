@@ -1,5 +1,5 @@
 export default {
-  server(state) {
+  server (state) {
     if (state.singleServer.stats) {
       return {
         ...state.singleServer,

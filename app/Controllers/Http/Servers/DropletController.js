@@ -8,10 +8,10 @@ const DigitalOcean = use('App/Services/Api/DigitalOcean')
 class DropletController {
   /**
    * Get sizes and regions
-   * 
+   *
    * @return {Object} response with json sizes and regions
    */
-  async getSizesAndRegions({ auth }) {
+  async getSizesAndRegions ({ auth }) {
     const user = await auth.getUser()
 
     const digitalocean = new DigitalOcean(user)
@@ -23,11 +23,10 @@ class DropletController {
 
   async store ({ request, response, auth }) {
     const data = request.all()
-    console.log(data)
     const rules = {
       name: 'required',
       size: 'required',
-      region: 'required',
+      region: 'required'
     }
     const validation = await validateAll(data, rules)
 
