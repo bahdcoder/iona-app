@@ -48,6 +48,7 @@ Route.resource('api/servers', 'ServerController').middleware(['auth'])
 Route.resource('api/servers/:server/sites', 'SiteController').middleware(['auth'])
 
 Route.post('api/servers/:server/sites/:site/repos', 'SiteController.addRepo').middleware(['auth'])
+Route.resource('api/servers/:server/sites/:site/deployments', 'DeploymentController').middleware(['auth'])
 
 Route.resource('api/resources', 'ResourceController').middleware(['auth'])
 

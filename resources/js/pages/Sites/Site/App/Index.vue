@@ -4,7 +4,12 @@
       <panel>
         <template slot="header">
           Deployment
-          <button class="btn btn-info float-right">Deploy Now</button>
+          <iona-button
+            name="Deploy Now"
+            @click="createDeployment"
+            class="btn-info float-right"
+            :loading="createDeploymentLoading"
+          />
         </template>
         <template slot="body">
           <div class="alert alert-warning">
@@ -63,6 +68,7 @@
                 
                 {{ createSiteRepoLoading ? 'Adding repository ..' : 'Add repository' }}
               </button>
+              
             </div>
           </div>
         </form>
@@ -74,9 +80,12 @@
 <script>
   import { mapState } from 'vuex'
   import { CREATE_SITE_REPO } from 'store-modules/sites/constants'
+  import { CREATE_DEPLOYMENT } from 'store-modules/deployments/constants'
+
   export default {
     computed: {
-      ...mapState('sites', ['singleSite', 'createSiteRepoLoading'])
+      ...mapState('sites', ['singleSite', 'createSiteRepoLoading']),
+      ...mapState('deployments', ['createDeploymentLoading'])
     },
     data: () => ({
       repo: '',
@@ -93,12 +102,13 @@
           server: this.$route.params.id,
           site: this.$route.params.site,
         })
+      },
+      createDeployment () {
+        this.$store.dispatch(`deployments/${CREATE_DEPLOYMENT}`, {
+          server: this.$route.params.id,
+          site: this.$route.params.site
+        })
       }
     },
-    watch: {
-      singleSite() {
-        console.log('-----><<<<----')
-      }
-    }
   }
 </script>

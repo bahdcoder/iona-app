@@ -2,6 +2,7 @@
     "extends": "standard",
     "globals": {
       "use": true,
-      "axios": true
+      "axios": true,
+      "localStorage": true
     }
 }
