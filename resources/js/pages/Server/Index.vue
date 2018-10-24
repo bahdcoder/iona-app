@@ -85,7 +85,7 @@
 
         dispatchToServer()
 
-        const interval = setInterval(dispatchToServer, 3000)
+        const interval = setInterval(dispatchToServer, 20000)
 
         const clear = () => {
           if (this.deployed) {

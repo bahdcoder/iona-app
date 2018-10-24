@@ -1450,21 +1450,25 @@ var AUTH_TOGGLE_LOADING = 'AUTH_TOGGLE_LOADING';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return GET_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return GET_SITES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return GET_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return GET_SITES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CREATE_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return GET_SITE_LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CREATE_SITE_REPO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return GET_SITES_LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CREATE_SITE_LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CREATE_SITE_REPO_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CREATE_SITE_ENV; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return GET_SITE_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CREATE_SITE_REPO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GET_SITES_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CREATE_SITE_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CREATE_SITE_ENV_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CREATE_SITE_REPO_LOADING; });
 var GET_SITE = 'GET_SITE';
 var GET_SITES = 'GET_SITES';
 var CREATE_SITE = 'CREATE_SITE';
+var CREATE_SITE_ENV = 'CREATE_SITE_ENV';
 var GET_SITE_LOADING = 'GET_SITE_LOADING';
 var CREATE_SITE_REPO = 'CREATE_SITE_REPO';
 var GET_SITES_LOADING = 'GET_SITES_LOADING';
 var CREATE_SITE_LOADING = 'CREATE_SITE_LOADING';
+var CREATE_SITE_ENV_LOADING = 'CREATE_SITE_ENV_LOADING';
 var CREATE_SITE_REPO_LOADING = 'CREATE_SITE_REPO_LOADING';
 
 /***/ }),
@@ -18119,7 +18123,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getSitesLoading: false,
     singleSiteLoading: false,
     createSiteLoading: false,
-    createSiteRepoLoading: false
+    createSiteRepoLoading: false,
+    createSiteEnvLoading: false
   },
   actions: __WEBPACK_IMPORTED_MODULE_1__actions__["a" /* default */],
   getters: __WEBPACK_IMPORTED_MODULE_0__getters__["a" /* default */],
@@ -18131,7 +18136,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({});
+/* harmony default export */ __webpack_exports__["a"] = ({
+  environment: function environment(state) {
+    return state.singleSite.settings && state.singleSite.settings.environment;
+  }
+});
 
 /***/ }),
 /* 52 */
@@ -18166,7 +18175,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_LOADING */]);
             _context.next = 4;
             return axios.post('/api/servers/' + id + '/sites', data);
 
@@ -18175,15 +18184,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             response = _ref4.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_LOADING */]);
-            dispatch(__WEBPACK_IMPORTED_MODULE_1__constants__["f" /* GET_SITES */], { server: id });
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_LOADING */]);
+            dispatch(__WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITES */], { server: id });
             return _context.abrupt('return', Promise.resolve(response));
 
           case 11:
             _context.prev = 11;
             _context.t0 = _context['catch'](0);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_LOADING */]);
             return _context.abrupt('return', Promise.reject(_context.t0));
 
           case 15:
@@ -18197,7 +18206,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x, _x2) {
     return _ref3.apply(this, arguments);
   };
-}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_REPO */], function () {
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_REPO */], function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(_ref5, _ref6) {
     var commit = _ref5.commit;
     var data = _ref6.data,
@@ -18212,7 +18221,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context2.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_REPO_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["f" /* CREATE_SITE_REPO_LOADING */]);
 
             _context2.next = 4;
             return axios.post('/api/servers/' + server + '/sites/' + site + '/repos', data);
@@ -18222,8 +18231,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             response = _ref8.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_REPO_LOADING */]);
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_REPO */], response);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["f" /* CREATE_SITE_REPO_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_REPO */], response);
 
             return _context2.abrupt('return', Promise.resolve(response));
 
@@ -18243,7 +18252,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x3, _x4) {
     return _ref7.apply(this, arguments);
   };
-}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["f" /* GET_SITES */], function () {
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITES */], function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(_ref9, _ref10) {
     var commit = _ref9.commit;
     var server = _ref10.server;
@@ -18256,7 +18265,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context3.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITES_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* GET_SITES_LOADING */]);
 
             _context3.next = 4;
             return axios.get('/api/servers/' + server + '/sites');
@@ -18266,8 +18275,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             data = _ref12.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITES_LOADING */]);
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["f" /* GET_SITES */], data);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* GET_SITES_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITES */], data);
 
             return _context3.abrupt('return', Promise.resolve(data));
 
@@ -18275,7 +18284,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             _context3.prev = 11;
             _context3.t0 = _context3['catch'](0);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITES_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* GET_SITES_LOADING */]);
             return _context3.abrupt('return', Promise.reject(_context3.t0));
 
           case 15:
@@ -18289,7 +18298,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x5, _x6) {
     return _ref11.apply(this, arguments);
   };
-}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["e" /* GET_SITE */], function () {
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITE */], function () {
   var _ref15 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(_ref13, _ref14) {
     var commit = _ref13.commit;
     var id = _ref14.id,
@@ -18303,7 +18312,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context4.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE_LOADING */]);
 
             _context4.next = 4;
             return axios.get('/api/servers/' + server + '/sites/' + id);
@@ -18313,9 +18322,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             data = _ref16.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* GET_SITE */], data);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITE */], data);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE_LOADING */]);
             return _context4.abrupt('return', Promise.resolve(data));
 
           case 11:
@@ -18334,6 +18343,55 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x7, _x8) {
     return _ref15.apply(this, arguments);
   };
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_ENV */], function () {
+  var _ref19 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5(_ref17, _ref18) {
+    var commit = _ref17.commit;
+    var key = _ref18.key,
+        value = _ref18.value,
+        server = _ref18.server,
+        site = _ref18.site;
+
+    var _ref20, data;
+
+    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_ENV_LOADING */]);
+            _context5.next = 4;
+            return axios.post('/api/servers/' + server + '/sites/' + site + '/environment', {
+              key: key, value: value
+            });
+
+          case 4:
+            _ref20 = _context5.sent;
+            data = _ref20.data;
+
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITE */], data);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_ENV_LOADING */]);
+            return _context5.abrupt('return', Promise.resolve(data));
+
+          case 11:
+            _context5.prev = 11;
+            _context5.t0 = _context5['catch'](0);
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_ENV_LOADING */]);
+            return _context5.abrupt('return', Promise.reject(_context5.t0));
+
+          case 15:
+          case 'end':
+            return _context5.stop();
+        }
+      }
+    }, _callee5, this, [[0, 11]]);
+  }));
+
+  return function (_x9, _x10) {
+    return _ref19.apply(this, arguments);
+  };
 }()), _CREATE_SITE$CREATE_S);
 
 /***/ }),
@@ -18348,22 +18406,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE_LOADING$ = {}, _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["b" /* CREATE_SITE_LOADING */], function (state) {
+/* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE_LOADING$ = {}, _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["d" /* CREATE_SITE_LOADING */], function (state) {
   state.createSiteLoading = !state.createSiteLoading;
 }), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* CREATE_SITE */], function (state, data) {
   state.site = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* GET_SITE */], function (state, data) {
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["g" /* GET_SITE */], function (state, data) {
   state.singleSite = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["c" /* CREATE_SITE_REPO */], function (state, data) {
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* CREATE_SITE_REPO */], function (state, data) {
   state.singleSite = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["h" /* GET_SITE_LOADING */], function (state) {
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["j" /* GET_SITE_LOADING */], function (state) {
   state.singleSiteLoading = !state.singleSiteLoading;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["d" /* CREATE_SITE_REPO_LOADING */], function (state) {
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* CREATE_SITE_REPO_LOADING */], function (state) {
   state.createSiteRepoLoading = !state.createSiteRepoLoading;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* GET_SITES */], function (state, data) {
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["h" /* GET_SITES */], function (state, data) {
   state.sites = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["g" /* GET_SITES_LOADING */], function (state) {
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["i" /* GET_SITES_LOADING */], function (state) {
   state.getSitesLoading = !state.getSitesLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["c" /* CREATE_SITE_ENV_LOADING */], function (state) {
+  state.createSiteEnvLoading = !state.createSiteEnvLoading;
 }), _CREATE_SITE_LOADING$);
 
 /***/ }),
@@ -19563,7 +19623,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           _this2.$router.push('/four-oh-four');
           clear();
         }).then(function () {
-          _this2.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["f" /* GET_SITES */], {
+          _this2.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["h" /* GET_SITES */], {
             server: _this2.$route.params.id
           });
           clear();
@@ -19572,7 +19632,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
       dispatchToServer();
 
-      var interval = setInterval(dispatchToServer, 3000);
+      var interval = setInterval(dispatchToServer, 20000);
 
       var clear = function clear() {
         if (_this2.deployed) {
@@ -20779,7 +20839,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   methods: {
     createSiteRepo: function createSiteRepo() {
-      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["c" /* CREATE_SITE_REPO */], {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["e" /* CREATE_SITE_REPO */], {
         data: {
           repo: this.repo,
           provider: this.provider
@@ -42073,7 +42133,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     getSite: function getSite() {
       var _this = this;
 
-      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["e" /* GET_SITE */], {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["g" /* GET_SITE */], {
         id: this.$route.params.site,
         server: this.$route.params.id
       }).catch(function (error) {
@@ -42382,6 +42442,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -42407,72 +42485,109 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _c(
-        "panel",
-        {
-          staticClass: "mb-3",
-          attrs: { header: _vm.resource.name + " default settings" }
-        },
+    _vm._l(_vm.resource.settings.instances, function(instance) {
+      return _c(
+        "div",
+        { key: instance.slug },
         [
-          _c("template", { slot: "body" }, [
-            _c(
-              "code",
-              _vm._l(
-                _vm.resource.pivot.settings["" + _vm.resource.slug],
-                function(setting, key) {
-                  return _c("p", { key: key, staticClass: "text-center" }, [
-                    _vm._v(_vm._s(key) + " : " + _vm._s(setting))
+          _c(
+            "panel",
+            { staticClass: "mb-3", attrs: { header: instance.name } },
+            [
+              _c(
+                "template",
+                { slot: "body" },
+                [
+                  _vm._l(instance.fields, function(value, field) {
+                    return _c("field", { key: field, attrs: { name: field } })
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "offset-md-4 col-md-6" },
+                      [
+                        _c("iona-button", {
+                          attrs: {
+                            icon: "fa-plus-circle mr-1",
+                            name: instance.name
+                          }
+                        })
+                      ],
+                      1
+                    )
                   ])
-                }
+                ],
+                2
               )
-            )
-          ])
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.resource.settings.instances, function(instance) {
-        return _c(
-          "panel",
-          {
-            key: instance.slug,
-            staticClass: "mb-3",
-            attrs: { header: instance.name }
-          },
-          [
-            _c(
-              "template",
-              { slot: "body" },
-              [
-                _vm._l(instance.fields, function(value, field) {
-                  return _c("field", { key: field, attrs: { name: field } })
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.resource.pivot.settings[_vm.resource.slug][instance.slug] &&
+          _vm.resource.pivot.settings[_vm.resource.slug][instance.slug].length >
+            0
+            ? _c(
+                "panel",
+                { staticClass: "mb-3", attrs: { header: instance.slug } },
+                [
                   _c(
-                    "div",
-                    { staticClass: "offset-md-4 col-md-6" },
+                    "template",
+                    { slot: "body" },
                     [
-                      _c("iona-button", {
-                        attrs: {
-                          icon: "fa-plus-circle mr-1",
-                          name: instance.name
-                        }
-                      })
+                      _c(
+                        "app-table",
+                        {
+                          attrs: {
+                            headers: Object.keys(instance.fields).map(function(
+                              item
+                            ) {
+                              return { key: item, name: item }
+                            })
+                          }
+                        },
+                        [
+                          _c(
+                            "template",
+                            { slot: "body" },
+                            _vm._l(
+                              _vm.resource.pivot.settings[_vm.resource.slug][
+                                instance.slug
+                              ],
+                              function(r, index) {
+                                return _c(
+                                  "tr",
+                                  { key: index },
+                                  _vm._l(Object.keys(instance.fields), function(
+                                    field,
+                                    i
+                                  ) {
+                                    return _c("td", { key: i }, [
+                                      _vm._v(
+                                        "\n                " +
+                                          _vm._s(r[field]) +
+                                          "\n              "
+                                      )
+                                    ])
+                                  })
+                                )
+                              }
+                            )
+                          )
+                        ],
+                        2
+                      )
                     ],
                     1
                   )
-                ])
-              ],
-              2
-            )
-          ],
-          2
-        )
-      })
-    ],
-    2
+                ],
+                2
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    })
   )
 }
 var staticRenderFns = []
@@ -42624,7 +42739,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(153)
 /* template */
 var __vue_template__ = __webpack_require__(119)
 /* template functional */
@@ -42672,9 +42787,93 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._v("\n  THE ENVIRONMENT PAGE\n")
-  ])
+  return _c(
+    "div",
+    [
+      _c(
+        "panel",
+        { staticClass: "mb-3", attrs: { header: "Environment Variables" } },
+        [
+          _c("template", { slot: "body" }, [
+            _c("div", { staticClass: "alert alert-info f-14" }, [
+              _vm._v(
+                "\n        Here you may set environment variables for your site. These variables are automatically set on the server before starting the application.\n      "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row justify-content-center" }, [
+              _c(
+                "div",
+                { staticClass: "col-md-12" },
+                [
+                  _c("EnvSet", { attrs: { environment: _vm.environment } }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-inline" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.key,
+                          expression: "key"
+                        }
+                      ],
+                      staticClass: "form-control-env form-control mb-2 mr-sm-2",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.key },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.key = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.value,
+                          expression: "value"
+                        }
+                      ],
+                      staticClass: "form-control-env form-control mb-2 mr-sm-2",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.value = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn form-control-env-action btn-sm btn-success",
+                        on: { click: _vm.addEnvVariable }
+                      },
+                      [_vm._v("Add")]
+                    )
+                  ])
+                ],
+                1
+              )
+            ])
+          ])
+        ],
+        2
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43979,6 +44178,197 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_EnvSet_vue__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_EnvSet_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_EnvSet_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__ = __webpack_require__(4);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    EnvSet: __WEBPACK_IMPORTED_MODULE_1__components_EnvSet_vue___default.a
+  },
+  data: function data() {
+    return {
+      key: '',
+      value: ''
+    };
+  },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])({}), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('sites', ['environment'])),
+  methods: {
+    addEnvVariable: function addEnvVariable() {
+      var _this = this;
+
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["b" /* CREATE_SITE_ENV */], {
+        key: this.key,
+        value: this.value,
+        server: this.$route.params.id,
+        site: this.$route.params.site
+      }).then(function () {
+        _this.key = '';
+        _this.value = '';
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 154 */,
+/* 155 */,
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(158)
+/* template */
+var __vue_template__ = __webpack_require__(157)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/EnvSet.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4c3503e0", Component.options)
+  } else {
+    hotAPI.reload("data-v-4c3503e0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.environment, function(env) {
+      return _c("div", { key: env.key, staticClass: "form-inline" }, [
+        _c("input", {
+          staticClass: "form-control-env form-control mb-2 mr-sm-2",
+          attrs: { readonly: "", type: "text" },
+          domProps: { value: env.key }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control-env form-control mb-2 mr-sm-2",
+          attrs: { readonly: "", type: "text" },
+          domProps: { value: env.value }
+        }),
+        _vm._v(" "),
+        _c("i", {
+          staticClass: "fa form-control-env-action mx-2 fa-pencil-alt"
+        }),
+        _vm._v(" "),
+        _c("i", {
+          staticClass: "fa form-control-env-action mx-2 fa-times-circle"
+        })
+      ])
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4c3503e0", module.exports)
+  }
+}
+
+/***/ }),
+/* 158 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['environment']
+});
 
 /***/ })
 /******/ ]);

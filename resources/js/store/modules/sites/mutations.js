@@ -1,4 +1,4 @@
-import { CREATE_SITE, GET_SITE, CREATE_SITE_LOADING, CREATE_SITE_REPO_LOADING, GET_SITE_LOADING, CREATE_SITE_REPO, GET_SITES_LOADING, GET_SITES } from './constants'
+import { CREATE_SITE, GET_SITE, CREATE_SITE_LOADING, CREATE_SITE_REPO_LOADING, GET_SITE_LOADING, CREATE_SITE_REPO, GET_SITES_LOADING, GET_SITES, CREATE_SITE_ENV_LOADING } from './constants'
 
 export default {
   [CREATE_SITE_LOADING] (state) {
@@ -24,5 +24,8 @@ export default {
   },
   [GET_SITES_LOADING] (state) {
     state.getSitesLoading = !state.getSitesLoading
+  },
+  [CREATE_SITE_ENV_LOADING] (state) {
+    state.createSiteEnvLoading = !state.createSiteEnvLoading
   }
 }

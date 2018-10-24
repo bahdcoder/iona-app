@@ -32,14 +32,19 @@ class SiteController {
     }
 
     // get server
-    const server = await Server.findOrFail(params.server)
+    const server = await Server.query().where({
+      id: params.server
+    }).with('resources').firstOrFail()
 
     // create a new site
     const site = await Site.create({
       name: body.name,
       type: body.type,
       server_id: server.id,
-      provider: body.provider || 'github'
+      provider: body.provider || 'github',
+      settings: ss({
+        environment: []
+      })
     })
 
     // command to check if a PORT is free: lsof -i :{PORT}
@@ -89,6 +94,52 @@ class SiteController {
     })
 
     site.repository = body.repo
+
+    await site.save()
+
+    return site
+  }
+
+  /**
+   * Add environment variable
+   *
+   * @param {Object} request the request
+   */
+  async addEnvVariable ({ request, response, auth, params }) {
+    const body = request.all()
+
+    const validator = await validateAll(body, {
+      key: 'required|string',
+      value: 'required|string'
+    })
+
+    if (validator.fails()) {
+      return response.status(422).json({
+        errors: validator.messages()
+      })
+    }
+
+    const site = await Site.findOrFail(params.site)
+
+    const environment = [
+      ...pp(site.settings).environment
+    ]
+
+    if (environment.find(env => env.key === body.key)) {
+      return response.status(422).json({
+        message: 'Environment variable already exists.'
+      })
+    }
+
+    environment.push({
+      key: body.key,
+      value: body.value
+    })
+
+    site.settings = ss({
+      ...pp(site.settings),
+      environment
+    })
 
     await site.save()
 

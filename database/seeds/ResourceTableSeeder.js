@@ -29,23 +29,12 @@ class ResourceTableSeeder {
           validations: {
             name: 'required|string'
           }
-        }, {
-          slug: 'user',
-          name: 'Add database user',
-          fields: {
-            name: 'text',
-            password: 'text'
-          },
-          validations: {
-            name: 'required|string',
-            password: 'required|string'
-          }
         }],
         install: {
           type: 'database',
-          username: 'text',
-          password: 'text',
-          database: 'text'
+          name: 'text',
+          user: 'text',
+          password: 'text'
         }
       }),
       icon: 'fas fa-database'
@@ -66,23 +55,12 @@ class ResourceTableSeeder {
           validations: {
             name: 'required|string'
           }
-        }, {
-          name: 'Add database user',
-          slug: 'user',
-          fields: {
-            name: 'text',
-            password: 'text'
-          },
-          validations: {
-            name: 'required|string',
-            password: 'required|string'
-          }
         }],
         install: {
           type: 'database',
-          username: 'text',
-          password: 'text',
-          database: 'text'
+          name: 'text',
+          user: 'text',
+          password: 'text'
         }
       }),
       icon: 'fas fa-database'
@@ -103,23 +81,12 @@ class ResourceTableSeeder {
           validations: {
             name: 'required|string'
           }
-        }, {
-          name: 'Add database user',
-          slug: 'user',
-          fields: {
-            name: 'text',
-            password: 'text'
-          },
-          validations: {
-            name: 'required|required',
-            password: 'required|string'
-          }
         }],
         install: {
           type: 'database',
-          username: 'text',
-          password: 'text',
-          database: 'text'
+          name: 'text',
+          user: 'text',
+          password: 'text'
         }
       }),
       icon: 'fas fa-database'

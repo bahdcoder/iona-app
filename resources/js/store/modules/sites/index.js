@@ -11,7 +11,8 @@ export default {
     getSitesLoading: false,
     singleSiteLoading: false,
     createSiteLoading: false,
-    createSiteRepoLoading: false
+    createSiteRepoLoading: false,
+    createSiteEnvLoading: false
   },
   actions,
   getters,

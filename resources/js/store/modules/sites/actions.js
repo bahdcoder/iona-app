@@ -1,4 +1,4 @@
-import { GET_SITE, CREATE_SITE, GET_SITES, GET_SITES_LOADING, CREATE_SITE_LOADING, CREATE_SITE_REPO, CREATE_SITE_REPO_LOADING, GET_SITE_LOADING } from './constants'
+import { GET_SITE, CREATE_SITE, GET_SITES, GET_SITES_LOADING, CREATE_SITE_LOADING, CREATE_SITE_REPO, CREATE_SITE_REPO_LOADING, GET_SITE_LOADING, CREATE_SITE_ENV, CREATE_SITE_ENV_LOADING } from './constants'
 
 export default {
   async [CREATE_SITE] ({ commit, dispatch }, { data, id }) {
@@ -58,6 +58,22 @@ export default {
       return Promise.resolve(data)
     } catch (errors) {
       return Promise.reject(errors)
+    }
+  },
+
+  async [CREATE_SITE_ENV] ({ commit }, { key, value, server, site }) {
+    try {
+      commit(CREATE_SITE_ENV_LOADING)
+      const { data } = await axios.post(`/api/servers/${server}/sites/${site}/environment`, {
+        key, value
+      })
+
+      commit(GET_SITE, data)
+      commit(CREATE_SITE_ENV_LOADING)
+      return Promise.resolve(data)
+    } catch (error) {
+      commit(CREATE_SITE_ENV_LOADING)
+      return Promise.reject(error)
     }
   }
 }
