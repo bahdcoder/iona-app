@@ -10,7 +10,6 @@
 |
 */
 
-const Factory = use('Factory')
 const Resource = use('App/Models/Resource')
 
 class ResourceTableSeeder {
@@ -19,32 +18,34 @@ class ResourceTableSeeder {
       name: 'mysql',
       slug: 'mysql',
       settings: JSON.stringify({
-        database: {
+        instances: [{
           name: 'Add Database',
+          slug: 'database',
           fields: {
             name: 'text',
             user: 'text',
-            password: 'text',
+            password: 'text'
           },
           validations: {
             name: 'required|string'
           }
-        },
-        user: {
+        }, {
+          slug: 'user',
           name: 'Add database user',
           fields: {
             name: 'text',
-            password: 'text',
+            password: 'text'
           },
           validations: {
-            name: 'required|required',
+            name: 'required|string',
             password: 'required|string'
           }
-        },
-        new: {
-          username: 'string',
-          password: 'string',
-          database: 'string',
+        }],
+        install: {
+          type: 'database',
+          username: 'text',
+          password: 'text',
+          database: 'text'
         }
       }),
       icon: 'fas fa-database'
@@ -54,32 +55,34 @@ class ResourceTableSeeder {
       name: 'postgresql',
       slug: 'postgresql',
       settings: JSON.stringify({
-        database: {
+        instances: [{
           name: 'Add Database',
+          slug: 'database',
           fields: {
             name: 'text',
             user: 'text',
-            password: 'text',
+            password: 'text'
           },
           validations: {
             name: 'required|string'
           }
-        },
-        user: {
+        }, {
           name: 'Add database user',
+          slug: 'user',
           fields: {
             name: 'text',
-            password: 'text',
+            password: 'text'
           },
           validations: {
-            name: 'required|required',
+            name: 'required|string',
             password: 'required|string'
           }
-        },
-        new: {
-          username: 'string',
-          password: 'string',
-          database: 'string',
+        }],
+        install: {
+          type: 'database',
+          username: 'text',
+          password: 'text',
+          database: 'text'
         }
       }),
       icon: 'fas fa-database'
@@ -89,32 +92,34 @@ class ResourceTableSeeder {
       name: 'mongodb',
       slug: 'mongodb',
       settings: JSON.stringify({
-        database: {
+        instances: [{
           name: 'Add Database',
+          slug: 'database',
           fields: {
             name: 'text',
             user: 'text',
-            password: 'text',
+            password: 'text'
           },
           validations: {
             name: 'required|string'
           }
-        },
-        user: {
+        }, {
           name: 'Add database user',
+          slug: 'user',
           fields: {
             name: 'text',
-            password: 'text',
+            password: 'text'
           },
           validations: {
             name: 'required|required',
             password: 'required|string'
           }
-        },
-        new: {
-          username: 'string',
-          password: 'string',
-          database: 'string',
+        }],
+        install: {
+          type: 'database',
+          username: 'text',
+          password: 'text',
+          database: 'text'
         }
       }),
       icon: 'fas fa-database'

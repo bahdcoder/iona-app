@@ -21,7 +21,7 @@ class Github {
     /**
      * Set the user settings.
      */
-    this.settings = JSON.parse(this.user.settings)
+    this.settings = pp(this.user.settings)
 
     /**
      * The axios instance.

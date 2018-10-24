@@ -1,6 +1,6 @@
 <template>
   <div class="card iona-card">
-    <div class="card-header">
+    <div class="card-header text-capitalize">
       <span v-if="header">{{ header }}</span>
       <slot name="header" v-else></slot>
     </div>
@@ -15,8 +15,8 @@
 </template>
 
 <script>
-export default {
-  props: ['header']
-}
+  export default {
+    props: ['header']
+  }
 </script>
 

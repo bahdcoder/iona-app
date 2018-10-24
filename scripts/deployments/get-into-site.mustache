@@ -1,0 +1,9 @@
+if [ ! -d '{{ site }}' ]; then
+  cd ~
+  cd /etc/nginx/sites-available
+  touch {{ site }}
+
+  echo "{{ config }}" >> {{ site }}
+  ln -s /etc/nginx/sites-available/{{ site }} /etc/nginx/sites-enabled/
+  systemctl restart nginx
+fi

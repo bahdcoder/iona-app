@@ -1,25 +1,22 @@
 'use strict'
 
-const Axios = use('axios')
-const Github = use('App/Services/Api/Github')
 const DigitalOcean = use('App/Services/Api/DigitalOcean')
 
 const SocialConnected = exports = module.exports = {}
 
 SocialConnected.digitalocean = async user => {
-
   const digitalocean = new DigitalOcean(user)
 
   const sshkey = await user.sshkey().fetch()
 
-  const digitalocean_key = await digitalocean.createSshkey()
+  const digitaloceanKey = await digitalocean.createSshkey()
 
   sshkey.settings = JSON.stringify({
-    ...JSON.parse(sshkey.settings),
+    ...pp(sshkey.settings),
     digitalocean: {
-      id: digitalocean_key.id,
-      fingerprint: digitalocean_key.fingerprint,
-    },
+      id: digitaloceanKey.id,
+      fingerprint: digitaloceanKey.fingerprint
+    }
   })
 
   await sshkey.save()

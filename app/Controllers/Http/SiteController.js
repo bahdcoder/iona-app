@@ -82,8 +82,8 @@ class SiteController {
 
     const repo = await (new Github(user)).getRepo(body.repo)
 
-    site.settings = JSON.stringify({
-      ...JSON.parse(site.settings),
+    site.settings = ss({
+      ...pp(site.settings),
       repo,
       deployBranch: 'master'
     })

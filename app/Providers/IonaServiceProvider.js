@@ -1,4 +1,5 @@
 const fs = require('fs')
+const Mustache = require('mustache')
 const { ServiceProvider } = require('@adonisjs/fold')
 
 class IonaServiceProvider extends ServiceProvider {
@@ -20,6 +21,14 @@ class IonaServiceProvider extends ServiceProvider {
      * @param {string} script
      */
     Helpers.getScript = script => fs.readFileSync(`${Helpers.scriptsPath()}/${script}.mustache`).toString()
+
+    global.sh = (scriptName, data = {}) => Mustache
+      .render(Helpers.getScript(scriptName), data)
+      .replace(/&#x2F;/g, '/')
+      .replace(/&#39;/g, "'")
+
+    global.pp = JSON.parse
+    global.ss = JSON.stringify
   }
 }
 

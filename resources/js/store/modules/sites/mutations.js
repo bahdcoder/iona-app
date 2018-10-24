@@ -8,10 +8,7 @@ export default {
     state.site = data
   },
   [GET_SITE] (state, data) {
-    state.singleSite = {
-      ...data,
-      settings: JSON.parse(data.settings)
-    }
+    state.singleSite = data
   },
   [CREATE_SITE_REPO] (state, data) {
     state.singleSite = data

@@ -40,19 +40,19 @@ class DropletController {
 
     const digitalocean = new DigitalOcean(user)
 
-    const { droplet, resourceSettings } = await digitalocean.createServer(data, resources)
+    const { droplet, resourceInstanceSettings } = await digitalocean.createServer(data, resources)
 
     // return 'done'
 
     const server = await Server.create({
       user_id: user.id,
       name: droplet.name,
-      stats: JSON.stringify(droplet)
+      stats: ss(droplet)
     })
 
     for (const resource of resources) {
       await server.resources().attach(resource.id, raw => {
-        raw.settings = JSON.stringify(resourceSettings)
+        raw.settings = ss(resourceInstanceSettings)
       })
     }
 

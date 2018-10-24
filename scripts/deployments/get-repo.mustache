@@ -1,0 +1,13 @@
+cd ~
+
+cd /home
+
+cd iona
+
+if [ -d '{{ site }}' ]; then
+  git pull origin {{ branch }}
+else
+  git clone {{{  url  }}} {{ site }}
+fi
+
+cd {{ site }}

@@ -36,7 +36,7 @@
         this.$store.dispatch(`sites/${GET_SITE}`, {
           id: this.$route.params.site,
           server: this.$route.params.id,
-        }).catch(() => this.$router.push('/four-oh-four'))
+        }).catch((error) => this.$router.push('/four-oh-four'))
       }
     }
   }

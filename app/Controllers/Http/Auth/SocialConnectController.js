@@ -8,38 +8,38 @@ const { parse } = use('query-string')
 class SocialConnectController {
   /**
    * Connect to digital ocean.
-   * 
+   *
    * @param {Object} context.request
    */
-  async digitalocean({ response }) {
+  async digitalocean ({ response }) {
     return response.redirect(Config.get('services.digitalocean.url'))
   }
 
-  async github({ response }) {
+  async github ({ response }) {
     return response.redirect(Config.get('services.github.url'))
   }
 
   /**
    * Handle the callback from digital ocean.
-   * 
-   * @param {Object} context.request 
+   *
+   * @param {Object} context.request
    */
-  async digitaloceanCallback({ request, auth }) {
+  async digitaloceanCallback ({ request, auth }) {
     const { code } = request.all()
     const {
       apiUrl,
       clientId,
       redirectUri,
-      clientSecret,
+      clientSecret
     } = Config.get('services.digitalocean')
 
     const { data } = await axios.post(`${apiUrl}?client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}`)
-    
+
     const user = await auth.getUser()
 
-    user.settings = JSON.stringify({
-      ...JSON.parse(user.settings),
-      digitalocean: data,
+    user.settings = ss({
+      ...pp(user.settings),
+      digitalocean: data
     })
     await user.save()
 
@@ -51,19 +51,19 @@ class SocialConnectController {
     }
   }
 
-  async githubCallback({ request, auth }) {
+  async githubCallback ({ request, auth }) {
     const { code } = request.all()
     const {
-      apiUrl,
+      apiUrl
     } = Config.get('services.github')
 
     const { data } = await axios.post(`${apiUrl}&code=${code}`)
 
     const user = await auth.getUser()
 
-    user.settings = JSON.stringify({
-      ...JSON.parse(user.settings),
-      github: parse(data),
+    user.settings = ss({
+      ...pp(user.settings),
+      github: parse(data)
     })
     await user.save()
 

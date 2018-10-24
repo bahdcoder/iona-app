@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div v-if="singleSite.repository">
       <panel>
         <template slot="header">

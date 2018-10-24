@@ -9,6 +9,8 @@ import SignupPage from '@/pages/Auth/Signup/Index.vue'
 import AppPage from '@/pages/Sites/Site/App/Index.vue'
 import DashboardPage from '@/pages/Dashboard/Index.vue'
 import SingleSitePage from '@/pages/Sites/Site/Index.vue'
+import ResourcesPage from '@/pages/Server/Resources/Index.vue'
+import SingleResourcePage from '@/pages/Server/Resource/Index.vue'
 import SourceControl from '@/pages/Profile/SourceControl/Index.vue'
 import EnvironmentPage from '@/pages/Sites/Site/Environment/Index.vue'
 import ServerProviders from '@/pages/Profile/ServerProviders/Index.vue'
@@ -50,6 +52,12 @@ const router = new Router({
     }, {
       path: 'sites',
       component: SitesPage
+    }, {
+      path: 'resources',
+      component: ResourcesPage
+    }, {
+      path: 'resources/:resource',
+      component: SingleResourcePage
     }]
   }, {
     path: '/servers/:id/sites/:site',

@@ -1,6 +1,9 @@
 {
     "extends": "standard",
     "globals": {
+      "ss": true,
+      "pp": true,
+      "sh": true,
       "use": true,
       "axios": true,
       "localStorage": true

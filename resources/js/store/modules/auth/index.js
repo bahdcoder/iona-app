@@ -18,9 +18,9 @@ export default {
     loading: false,
     errors: [],
     authenticated,
-    ...auth,
+    ...auth
   },
   actions,
   getters,
-  mutations,
+  mutations
 }

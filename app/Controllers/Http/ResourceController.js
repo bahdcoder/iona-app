@@ -8,12 +8,12 @@ class ResourceController {
     let resources = await Redis.get('resources')
 
     if (resources) {
-      return JSON.parse(resources)
+      return pp(resources)
     }
 
     resources = await Resource.all()
 
-    await Redis.set('resources', JSON.stringify(resources))
+    await Redis.set('resources', ss(resources))
 
     return response.send(resources)
   }

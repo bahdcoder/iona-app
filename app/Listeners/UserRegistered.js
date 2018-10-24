@@ -19,7 +19,7 @@ UserRegistered.generateSshKey = async (user) => {
       await Sshkey.create({
         name: keyname,
         user_id: user.id,
-        public_key: buffer.toString(),
+        public_key: buffer.toString()
       })
     })
   })

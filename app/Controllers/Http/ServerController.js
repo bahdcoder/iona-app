@@ -31,7 +31,7 @@ class ServerController {
       return response.status(404).json({ message: 'Not found.' })
     }
 
-    const { id, status } = JSON.parse(server.stats)
+    const { id, status } = pp(server.stats)
 
     if (status === 'new') {
       const doServer = await digitalocean.getDroplet(id)

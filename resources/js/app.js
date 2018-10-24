@@ -1,10 +1,11 @@
-require('./bootstrap')
+import './bootstrap'
 import Vue from 'vue'
 import store from './store'
 import router from './router'
 import Router from 'vue-router'
 import Main from './pages/Main.vue'
 import Panel from './components/Panel.vue'
+import Field from './components/Field.vue'
 import Table from './components/Table.vue'
 import Loader from './components/Loader.vue'
 import IonaButton from './components/Button.vue'
@@ -19,6 +20,7 @@ import PageLoader from './components/PageLoader.vue'
 
 Vue.use(Router)
 
+Vue.component('field', Field)
 Vue.component('panel', Panel)
 Vue.component('loader', Loader)
 Vue.component('app-table', Table)
