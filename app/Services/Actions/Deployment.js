@@ -14,7 +14,7 @@ class Deployment {
     this.site = site.toJSON()
     this.user = user.toJSON()
     this.server = server.toJSON()
-    this.port = randomNumber(49153, 65534)
+    this.port = this.site.settings.port || randomNumber(49153, 65534)[0]
   }
 
   /**
@@ -56,7 +56,19 @@ class Deployment {
     })
     // install project dependencies
     userData += sh('deployments/nodejs/install-dependencies')
+
     // setup environment variables
+    this.site.settings.environment.forEach(env => {
+      userData += sh('deployments/nodejs/setup-env', env)
+    })
+
+    // setup port environment variable
+    userData += sh('deployments/nodejs/setup-env', {
+      key: 'PORT',
+      value: this.port
+    })
+
+    console.log(this.port)
 
     // start application with pm2
     userData += sh('deployments/nodejs/start', {
@@ -72,9 +84,12 @@ class Deployment {
    * Deploy an application.
    */
   deploy () {
-    return exec(
-      this.getDeploymentScript()
-    )
+    return {
+      deploymentProcess: exec(
+        this.getDeploymentScript()
+      ),
+      port: this.port
+    }
   }
 }
 

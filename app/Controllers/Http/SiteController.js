@@ -43,7 +43,10 @@ class SiteController {
       server_id: server.id,
       provider: body.provider || 'github',
       settings: ss({
-        environment: []
+        environment: [{
+          key: 'NODE_ENV',
+          value: 'production'
+        }]
       })
     })
 

@@ -42,10 +42,16 @@ class DropletController {
 
     const { droplet, resourceInstanceSettings } = await digitalocean.createServer(data, resources)
 
+    // TODO: generate the default environment variables to be set on all new sites on this server.
+    let defaultEnvs = []
+
     const server = await Server.create({
       user_id: user.id,
       name: droplet.name,
-      stats: ss(droplet)
+      stats: ss(droplet),
+      settings: ss({
+        defaultEnvs
+      })
     })
 
     for (const resource of resources) {

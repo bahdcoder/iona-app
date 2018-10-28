@@ -20,11 +20,21 @@ class DeploymentController {
     // create new deployment into database
     // return deployment status
     const service = (new DeploymentService(user, site, server))
-    const deploymentProcess = service.deploy()
+    const { deploymentProcess, port } = service.deploy()
     let log = ''
+
+    if (!pp(site.settings).port) {
+      site.settings = ss({
+        ...pp(site.settings),
+        port
+      })
+
+      await site.save()
+    }
 
     deploymentProcess.stdout.on('data', buffer => {
       log += buffer.toString()
+      console.log('==================>', buffer.toString())
     })
 
     deploymentProcess.on('error', error => {
