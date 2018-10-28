@@ -68,7 +68,12 @@ class Deployment {
       value: this.port
     })
 
-    console.log(this.port)
+    // run pre-start scripts. get scripts from env variables
+    const preStartScript = this.site.settings.environment.find(env => env.key === 'IONA_PRE_START')
+
+    if (preStartScript) {
+      userData += preStartScript.value + '\n'
+    }
 
     // start application with pm2
     userData += sh('deployments/nodejs/start', {
@@ -76,6 +81,8 @@ class Deployment {
     })
     // last, close ssh connection.
     userData += sh('build/close-ssh')
+
+    console.log(userData)
 
     return userData
   }
