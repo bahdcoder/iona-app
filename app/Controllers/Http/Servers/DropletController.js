@@ -26,7 +26,8 @@ class DropletController {
     const rules = {
       name: 'required',
       size: 'required',
-      region: 'required'
+      region: 'required',
+      database: 'required|in:postgresql,mysql,none'
     }
     const validation = await validateAll(data, rules)
 
@@ -34,16 +35,29 @@ class DropletController {
       return response.status(422).json(validation.messages())
     }
 
-    const resources = (await Resource.query().whereIn('id', data.resources).fetch()).toJSON()
-
     const user = await auth.getUser()
 
     const digitalocean = new DigitalOcean(user)
 
-    const { droplet, resourceInstanceSettings } = await digitalocean.createServer(data, resources)
+    const { droplet, databaseSettings } = await digitalocean.createServer(data)
 
     // TODO: generate the default environment variables to be set on all new sites on this server.
     let defaultEnvs = []
+
+    if (data.database !== 'none') {
+      defaultEnvs = [{
+        key: 'DB_DATABASE',
+        value: databaseSettings.database
+      }, {
+        key: 'DB_USER',
+        value: databaseSettings.username
+      }, {
+        key: 'DB_PASSWORD',
+        value: databaseSettings.password
+      }]
+    }
+
+    console.log('------>', defaultEnvs, databaseSettings)
 
     const server = await Server.create({
       user_id: user.id,
@@ -53,14 +67,6 @@ class DropletController {
         defaultEnvs
       })
     })
-
-    for (const resource of resources) {
-      await server.resources().attach(resource.id, raw => {
-        raw.settings = ss({
-          [resource.slug]: resourceInstanceSettings[resource.slug]
-        })
-      })
-    }
 
     return server
   }

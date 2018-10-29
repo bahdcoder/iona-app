@@ -12,11 +12,12 @@
 <script>
   import { mapState } from 'vuex'
   import Page from '@/components/Page'
-  import { GET_SITE } from 'store-modules/sites/constants'
+  import { GET_SITE, CREATE_DEPLOYMENT_LOG } from 'store-modules/sites/constants'
 
   export default {
     mounted() {
       this.getSite()
+      this.subscribeToSocketChannels()
     },
     components: {
       Page,
@@ -41,6 +42,16 @@
           id: this.$route.params.site,
           server: this.$route.params.id,
         }).catch((error) => this.$router.push('/four-oh-four'))
+      },
+      subscribeToSocketChannels() {
+        let siteConnection = this.$root.ws.getSubscription(`sites:${this.$route.params.id}`)
+
+        if (!siteConnection) {
+          siteConnection = this.$root.ws.subscribe(`sites:${this.$route.params.id}`)
+        }
+
+        siteConnection.on('deployment', log => this.$store.dispatch(`sites/${CREATE_DEPLOYMENT_LOG}`, log))
+        siteConnection.on('deployment', console.log)
       }
     }
   }

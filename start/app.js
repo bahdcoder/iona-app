@@ -23,7 +23,8 @@ const providers = [
   '@adonisjs/auth/providers/AuthProvider',
   '@adonisjs/redis/providers/RedisProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
-  path.resolve(__dirname, '../app', 'Providers', 'IonaServiceProvider'),
+  '@adonisjs/websocket/providers/WsProvider',
+  path.resolve(__dirname, '../app', 'Providers', 'IonaServiceProvider')
 ]
 
 /*

@@ -73,8 +73,8 @@ class DigitalOcean {
   /**
  * Create a server
  */
-  async createServer ({ name, region, size }, resources = []) {
-    const { userData, resourceSettings, resourceInstanceSettings } = await this.generateUserData(resources)
+  async createServer ({ name, region, size, database }) {
+    const { userData, databaseSettings } = await this.generateUserData(database)
 
     const { data } = await this.http.post('/droplets', {
       name,
@@ -85,7 +85,7 @@ class DigitalOcean {
       user_data: userData
     })
 
-    return { droplet: data.droplet, resourceSettings, resourceInstanceSettings }
+    return { droplet: data.droplet, databaseSettings }
   }
 
   /**
@@ -127,10 +127,9 @@ class DigitalOcean {
   /**
    * Generate the user data to be sent to digital ocean server.
    */
-  async generateUserData (resources) {
+  async generateUserData (database) {
     let userData = '#!/bin/sh'
-    let resourceSettings = {}
-    let resourceInstanceSettings = {}
+    let databaseSettings = {}
 
     // install nginx
     userData += sh('server/nginx')
@@ -141,32 +140,37 @@ class DigitalOcean {
     // install git
     userData += sh('server/git')
 
-    resources.forEach(resource => {
-      resourceSettings[resource.slug] = {}
-      resourceInstanceSettings[resource.slug] = {}
-      let resourceNewSettings = {}
-      if (resource.settings) {
-        const settings = resource.settings
+    // create swap file
+    userData += sh('server/swap-file')
 
-        if (settings.install) {
-          resourceInstanceSettings[resource.slug][settings.install.type] = []
-          for (const setting in settings.install) {
-            if (settings.install.hasOwnProperty(setting)) {
-              if (setting !== 'type') {
-                resourceNewSettings[setting] = generate({ length: 16 })
-              }
-            }
+    // install database
+    // if a database was selected, then load the install script for this database.
+    if (database) {
+      switch (database) {
+        case 'mysql':
+          databaseSettings = {
+            username: 'iona',
+            database: generate({ length: 32 }),
+            password: generate({ length: 32 })
           }
-          resourceInstanceSettings[resource.slug][settings.install.type].push(resourceNewSettings)
-        }
+          userData += sh(`resources/${database}/install`, databaseSettings)
+          break
+        case 'postgresql':
+          databaseSettings = {
+            username: 'iona',
+            database: generate({ length: 32 }),
+            password: generate({ length: 32 })
+          }
+          userData += sh(`resources/${database}/install`, databaseSettings)
+          break
+        default:
+          break
       }
+    }
 
-      resourceSettings[resource.slug] = resourceNewSettings
+    console.log('------========================>', userData)
 
-      userData += sh(`resources/${resource.slug}/install`, resourceNewSettings)
-    })
-
-    return { userData, resourceSettings, resourceInstanceSettings }
+    return { userData, databaseSettings }
   }
 }
 

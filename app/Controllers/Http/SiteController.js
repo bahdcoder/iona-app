@@ -37,10 +37,13 @@ class SiteController {
       id: params.server
     }).with('resources').firstOrFail()
 
-    const environment = [{
-      key: 'NODE_ENV',
-      value: 'production'
-    }]
+    const { defaultEnvs } = pp(server.settings)
+
+    const environment = [
+      ...defaultEnvs, {
+        key: 'NODE_ENV',
+        value: 'production'
+      }]
 
     switch (body.type) {
       case 'adonisjs':
@@ -75,18 +78,6 @@ class SiteController {
         environment.push({
           key: 'DB_PORT',
           value: 3306
-        })
-        environment.push({
-          key: 'DB_USER',
-          value: ''
-        })
-        environment.push({
-          key: 'DB_DATABASE',
-          value: ''
-        })
-        environment.push({
-          key: 'DB_PASSWORD',
-          value: ''
         })
         environment.push({
           key: 'IONA_PRE_START',
@@ -209,6 +200,40 @@ class SiteController {
       key: body.key,
       value: body.value
     })
+
+    site.settings = ss({
+      ...pp(site.settings),
+      environment
+    })
+
+    await site.save()
+
+    return site
+  }
+
+  /**
+   * Delete environment variable
+   *
+   * @param {Object} request the request
+   */
+  async deleteEnvVariable ({ request, response, params }) {
+    const validator = await validateAll(params, {
+      key: 'required|string'
+    })
+
+    if (validator.fails()) {
+      return response.status(422).json({
+        errors: validator.messages()
+      })
+    }
+
+    const site = await Site.query().where({
+      id: params.site
+    }).with('server').firstOrFail()
+
+    const environment = [
+      ...pp(site.settings).environment
+    ].filter(variable => variable.key !== params.key)
 
     site.settings = ss({
       ...pp(site.settings),

@@ -1,11 +1,12 @@
 {
-    "extends": "standard",
-    "globals": {
-      "ss": true,
-      "pp": true,
-      "sh": true,
-      "use": true,
-      "axios": true,
-      "localStorage": true
-    }
+	"extends": "standard",
+	"globals": {
+		"ss": true,
+		"pp": true,
+		"sh": true,
+		"use": true,
+		"axios": true,
+		"adonis": true,
+		"localStorage": true
+	}
 }

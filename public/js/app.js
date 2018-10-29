@@ -1432,24 +1432,30 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return GET_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return GET_SITES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CREATE_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CREATE_SITE_ENV; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return GET_SITE_LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CREATE_SITE_REPO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GET_SITES_LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CREATE_SITE_LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CREATE_SITE_ENV_LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CREATE_SITE_REPO_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return GET_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return GET_SITES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CREATE_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CREATE_SITE_ENV; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return DELETE_SITE_ENV; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return GET_SITE_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CREATE_SITE_REPO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return GET_SITES_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return CREATE_SITE_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CREATE_DEPLOYMENT_LOG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return DELETE_SITE_ENV_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CREATE_SITE_ENV_LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return CREATE_SITE_REPO_LOADING; });
 var GET_SITE = 'GET_SITE';
 var GET_SITES = 'GET_SITES';
 var CREATE_SITE = 'CREATE_SITE';
 var CREATE_SITE_ENV = 'CREATE_SITE_ENV';
+var DELETE_SITE_ENV = 'DELETE_SITE_ENV';
 var GET_SITE_LOADING = 'GET_SITE_LOADING';
 var CREATE_SITE_REPO = 'CREATE_SITE_REPO';
 var GET_SITES_LOADING = 'GET_SITES_LOADING';
 var CREATE_SITE_LOADING = 'CREATE_SITE_LOADING';
+var CREATE_DEPLOYMENT_LOG = 'CREATE_DEPLOYMENT_LOG';
+var DELETE_SITE_ENV_LOADING = 'DELETE_SITE_ENV_LOADING';
 var CREATE_SITE_ENV_LOADING = 'CREATE_SITE_ENV_LOADING';
 var CREATE_SITE_REPO_LOADING = 'CREATE_SITE_REPO_LOADING';
 
@@ -15870,6 +15876,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -15890,6 +15897,9 @@ window.vueApp = new __WEBPACK_IMPORTED_MODULE_1_vue___default.a({
   el: '#app',
   router: __WEBPACK_IMPORTED_MODULE_3__router__["a" /* default */],
   store: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */],
+  data: {
+    ws: window.adonis.Ws().connect()
+  },
   components: {
     'main-app': __WEBPACK_IMPORTED_MODULE_5__pages_Main_vue___default.a
   }
@@ -18124,7 +18134,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     singleSiteLoading: false,
     createSiteLoading: false,
     createSiteRepoLoading: false,
-    createSiteEnvLoading: false
+    createSiteEnvLoading: false,
+    deleteSiteEnvLoading: false,
+    deploymentLog: ''
   },
   actions: __WEBPACK_IMPORTED_MODULE_1__actions__["a" /* default */],
   getters: __WEBPACK_IMPORTED_MODULE_0__getters__["a" /* default */],
@@ -18160,7 +18172,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE$CREATE_S = {}, _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* CREATE_SITE */], function () {
+/* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE$CREATE_S = {}, _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE */], function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref, _ref2) {
     var commit = _ref.commit,
         dispatch = _ref.dispatch;
@@ -18175,7 +18187,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_LOADING */]);
             _context.next = 4;
             return axios.post('/api/servers/' + id + '/sites', data);
 
@@ -18184,15 +18196,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             response = _ref4.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_LOADING */]);
-            dispatch(__WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITES */], { server: id });
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_LOADING */]);
+            dispatch(__WEBPACK_IMPORTED_MODULE_1__constants__["k" /* GET_SITES */], { server: id });
             return _context.abrupt('return', Promise.resolve(response));
 
           case 11:
             _context.prev = 11;
             _context.t0 = _context['catch'](0);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_LOADING */]);
             return _context.abrupt('return', Promise.reject(_context.t0));
 
           case 15:
@@ -18206,7 +18218,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x, _x2) {
     return _ref3.apply(this, arguments);
   };
-}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_REPO */], function () {
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["f" /* CREATE_SITE_REPO */], function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(_ref5, _ref6) {
     var commit = _ref5.commit;
     var data = _ref6.data,
@@ -18221,7 +18233,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context2.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["f" /* CREATE_SITE_REPO_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* CREATE_SITE_REPO_LOADING */]);
 
             _context2.next = 4;
             return axios.post('/api/servers/' + server + '/sites/' + site + '/repos', data);
@@ -18231,8 +18243,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             response = _ref8.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["f" /* CREATE_SITE_REPO_LOADING */]);
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_REPO */], response);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* CREATE_SITE_REPO_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["f" /* CREATE_SITE_REPO */], response);
 
             return _context2.abrupt('return', Promise.resolve(response));
 
@@ -18252,7 +18264,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x3, _x4) {
     return _ref7.apply(this, arguments);
   };
-}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITES */], function () {
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["k" /* GET_SITES */], function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(_ref9, _ref10) {
     var commit = _ref9.commit;
     var server = _ref10.server;
@@ -18265,7 +18277,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context3.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* GET_SITES_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["l" /* GET_SITES_LOADING */]);
 
             _context3.next = 4;
             return axios.get('/api/servers/' + server + '/sites');
@@ -18275,8 +18287,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             data = _ref12.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* GET_SITES_LOADING */]);
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["h" /* GET_SITES */], data);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["l" /* GET_SITES_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["k" /* GET_SITES */], data);
 
             return _context3.abrupt('return', Promise.resolve(data));
 
@@ -18284,7 +18296,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             _context3.prev = 11;
             _context3.t0 = _context3['catch'](0);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* GET_SITES_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["l" /* GET_SITES_LOADING */]);
             return _context3.abrupt('return', Promise.reject(_context3.t0));
 
           case 15:
@@ -18298,7 +18310,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x5, _x6) {
     return _ref11.apply(this, arguments);
   };
-}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITE */], function () {
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE */], function () {
   var _ref15 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(_ref13, _ref14) {
     var commit = _ref13.commit;
     var id = _ref14.id,
@@ -18312,7 +18324,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context4.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["m" /* GET_SITE_LOADING */]);
 
             _context4.next = 4;
             return axios.get('/api/servers/' + server + '/sites/' + id);
@@ -18322,9 +18334,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             data = _ref16.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITE */], data);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE */], data);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["m" /* GET_SITE_LOADING */]);
             return _context4.abrupt('return', Promise.resolve(data));
 
           case 11:
@@ -18343,7 +18355,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   return function (_x7, _x8) {
     return _ref15.apply(this, arguments);
   };
-}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE_ENV */], function () {
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_ENV */], function () {
   var _ref19 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5(_ref17, _ref18) {
     var commit = _ref17.commit;
     var key = _ref18.key,
@@ -18359,7 +18371,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           case 0:
             _context5.prev = 0;
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_ENV_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_ENV_LOADING */]);
             _context5.next = 4;
             return axios.post('/api/servers/' + server + '/sites/' + site + '/environment', {
               key: key, value: value
@@ -18370,15 +18382,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             data = _ref20.data;
 
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["g" /* GET_SITE */], data);
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_ENV_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE */], data);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_ENV_LOADING */]);
             return _context5.abrupt('return', Promise.resolve(data));
 
           case 11:
             _context5.prev = 11;
             _context5.t0 = _context5['catch'](0);
 
-            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* CREATE_SITE_ENV_LOADING */]);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["d" /* CREATE_SITE_ENV_LOADING */]);
             return _context5.abrupt('return', Promise.reject(_context5.t0));
 
           case 15:
@@ -18391,6 +18403,72 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
   return function (_x9, _x10) {
     return _ref19.apply(this, arguments);
+  };
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["h" /* DELETE_SITE_ENV */], function () {
+  var _ref23 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee6(_ref21, _ref22) {
+    var commit = _ref21.commit;
+    var key = _ref22.key,
+        server = _ref22.server,
+        site = _ref22.site;
+
+    var _ref24, data;
+
+    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.prev = 0;
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* DELETE_SITE_ENV_LOADING */]);
+
+            _context6.next = 4;
+            return axios.delete('/api/servers/' + server + '/sites/' + site + '/environment/' + key);
+
+          case 4:
+            _ref24 = _context6.sent;
+            data = _ref24.data;
+
+
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["j" /* GET_SITE */], data);
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["i" /* DELETE_SITE_ENV_LOADING */]);
+
+            return _context6.abrupt('return', Promise.resolve(data));
+
+          case 11:
+            _context6.prev = 11;
+            _context6.t0 = _context6['catch'](0);
+            return _context6.abrupt('return', Promise.reject(_context6.t0));
+
+          case 14:
+          case 'end':
+            return _context6.stop();
+        }
+      }
+    }, _callee6, this, [[0, 11]]);
+  }));
+
+  return function (_x11, _x12) {
+    return _ref23.apply(this, arguments);
+  };
+}()), _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* CREATE_DEPLOYMENT_LOG */], function () {
+  var _ref26 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee7(_ref25, log) {
+    var commit = _ref25.commit;
+    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            commit(__WEBPACK_IMPORTED_MODULE_1__constants__["a" /* CREATE_DEPLOYMENT_LOG */], log);
+
+          case 1:
+          case 'end':
+            return _context7.stop();
+        }
+      }
+    }, _callee7, this);
+  }));
+
+  return function (_x13, _x14) {
+    return _ref26.apply(this, arguments);
   };
 }()), _CREATE_SITE$CREATE_S);
 
@@ -18406,24 +18484,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE_LOADING$ = {}, _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["d" /* CREATE_SITE_LOADING */], function (state) {
-  state.createSiteLoading = !state.createSiteLoading;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* CREATE_SITE */], function (state, data) {
-  state.site = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["g" /* GET_SITE */], function (state, data) {
-  state.singleSite = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* CREATE_SITE_REPO */], function (state, data) {
-  state.singleSite = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["j" /* GET_SITE_LOADING */], function (state) {
-  state.singleSiteLoading = !state.singleSiteLoading;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* CREATE_SITE_REPO_LOADING */], function (state) {
-  state.createSiteRepoLoading = !state.createSiteRepoLoading;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["h" /* GET_SITES */], function (state, data) {
-  state.sites = data;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["i" /* GET_SITES_LOADING */], function (state) {
-  state.getSitesLoading = !state.getSitesLoading;
-}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["c" /* CREATE_SITE_ENV_LOADING */], function (state) {
-  state.createSiteEnvLoading = !state.createSiteEnvLoading;
+/* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE_LOADING$ = {}, _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* CREATE_SITE_LOADING */], function (state) {
+	state.createSiteLoading = !state.createSiteLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["b" /* CREATE_SITE */], function (state, data) {
+	state.site = data;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["j" /* GET_SITE */], function (state, data) {
+	state.singleSite = data;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* CREATE_SITE_REPO */], function (state, data) {
+	state.singleSite = data;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["m" /* GET_SITE_LOADING */], function (state) {
+	state.singleSiteLoading = !state.singleSiteLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["g" /* CREATE_SITE_REPO_LOADING */], function (state) {
+	state.createSiteRepoLoading = !state.createSiteRepoLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["k" /* GET_SITES */], function (state, data) {
+	state.sites = data;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["l" /* GET_SITES_LOADING */], function (state) {
+	state.getSitesLoading = !state.getSitesLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["d" /* CREATE_SITE_ENV_LOADING */], function (state) {
+	state.createSiteEnvLoading = !state.createSiteEnvLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["i" /* DELETE_SITE_ENV_LOADING */], function (state) {
+	state.deleteSiteEnvLoading = !state.deleteSiteEnvLoading;
+}), _defineProperty(_CREATE_SITE_LOADING$, __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* CREATE_DEPLOYMENT_LOG */], function (state, logs) {
+	state.deploymentLog += logs;
 }), _CREATE_SITE_LOADING$);
 
 /***/ }),
@@ -19221,7 +19303,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   }),
   methods: {
     createSite: function createSite() {
-      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["a" /* CREATE_SITE */], {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["b" /* CREATE_SITE */], {
         data: {
           repo: this.repo,
           name: this.name,
@@ -19628,7 +19710,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           _this2.$router.push('/four-oh-four');
           clear();
         }).then(function () {
-          _this2.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["h" /* GET_SITES */], {
+          _this2.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["k" /* GET_SITES */], {
             server: _this2.$route.params.id
           });
           clear();
@@ -20828,13 +20910,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('sites', ['singleSite', 'createSiteRepoLoading']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('deployments', ['createDeploymentLoading'])),
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('deployments', ['createDeploymentLoading']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('sites', ['singleSite', 'createSiteRepoLoading', 'deploymentLog'])),
   data: function data() {
     return {
       repo: '',
@@ -20844,7 +20933,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   methods: {
     createSiteRepo: function createSiteRepo() {
-      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["e" /* CREATE_SITE_REPO */], {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_1_store_modules_sites_constants__["f" /* CREATE_SITE_REPO */], {
         data: {
           repo: this.repo,
           provider: this.provider
@@ -20902,7 +20991,23 @@ var render = function() {
                       _vm._v(
                         "\n          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid commodi illum minima laboriosam.\n        "
                       )
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.deploymentLog
+                      ? _c("div", { staticClass: "log-container" }, [
+                          _c("pre", [
+                            _vm._v("            "),
+                            _c("code", [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(_vm.deploymentLog) +
+                                  "\n            "
+                              )
+                            ]),
+                            _vm._v("\n          ")
+                          ])
+                        ])
+                      : _vm._e()
                   ])
                 ],
                 2
@@ -21868,6 +21973,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -21889,6 +22004,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       name: __WEBPACK_IMPORTED_MODULE_2_project_name_generator___default()({ number: true }).dashed,
       region: 'nyc1',
       size: '512mb',
+      database: 'none',
       selectedResources: []
     };
   },
@@ -21901,6 +22017,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         name: this.name,
         region: this.region,
         size: this.size,
+        database: this.database,
         resources: this.selectedResources.map(function (resource) {
           return resource.value;
         })
@@ -41622,33 +41739,55 @@ var render = function() {
                     "label",
                     {
                       staticClass: "col-md-4 col-form-label text-md-right",
-                      attrs: { for: "size" }
+                      attrs: { for: "" }
                     },
-                    [_vm._v("Add resources")]
+                    [_vm._v("Select Database")]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6" },
-                    [
-                      _c("Multiselect", {
-                        attrs: {
-                          options: _vm.resources.map(function(resource) {
-                            return { name: resource.name, value: resource.id }
-                          })
-                        },
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.database,
+                            expression: "database "
+                          }
+                        ],
+                        staticClass: "form-control iona-select",
                         on: {
-                          selected: function($event) {
-                            _vm.selectedResources = $event
-                          },
-                          removed: function($event) {
-                            _vm.selectedResources = $event
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.database = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
                           }
                         }
-                      })
-                    ],
-                    1
-                  )
+                      },
+                      [
+                        _c("option", { attrs: { value: "none" } }, [
+                          _vm._v("None")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "mysql" } }, [
+                          _vm._v("Mysql 5.7")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "postgresql" } }, [
+                          _vm._v("Postgres 10.7")
+                        ])
+                      ]
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
@@ -42120,6 +42259,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getSite();
+    this.subscribeToSocketChannels();
   },
 
   components: {
@@ -42142,12 +42282,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     getSite: function getSite() {
       var _this = this;
 
-      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["g" /* GET_SITE */], {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["j" /* GET_SITE */], {
         id: this.$route.params.site,
         server: this.$route.params.id
       }).catch(function (error) {
         return _this.$router.push('/four-oh-four');
       });
+    },
+    subscribeToSocketChannels: function subscribeToSocketChannels() {
+      var _this2 = this;
+
+      var siteConnection = this.$root.ws.getSubscription('sites:' + this.$route.params.id);
+
+      if (!siteConnection) {
+        siteConnection = this.$root.ws.subscribe('sites:' + this.$route.params.id);
+      }
+
+      siteConnection.on('deployment', function (log) {
+        return _this2.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["a" /* CREATE_DEPLOYMENT_LOG */], log);
+      });
+      siteConnection.on('deployment', console.log);
     }
   }
 });
@@ -42869,6 +43023,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -42889,7 +43044,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     addEnvVariable: function addEnvVariable() {
       var _this = this;
 
-      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["b" /* CREATE_SITE_ENV */], {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["c" /* CREATE_SITE_ENV */], {
         key: this.key,
         value: this.value,
         server: this.$route.params.id,
@@ -42897,6 +43052,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }).then(function () {
         _this.key = '';
         _this.value = '';
+      });
+    },
+    deleteEnvVariable: function deleteEnvVariable(key) {
+      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["h" /* DELETE_SITE_ENV */], {
+        key: key,
+        server: this.$route.params.id,
+        site: this.$route.params.site
       });
     }
   }
@@ -42996,11 +43158,18 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("i", {
-          staticClass: "fa form-control-env-action mx-2 fa-pencil-alt"
+          staticClass:
+            "fa text-success form-control-env-action mx-2 fa-pencil-alt"
         }),
         _vm._v(" "),
         _c("i", {
-          staticClass: "fa form-control-env-action mx-2 fa-times-circle"
+          staticClass:
+            "fa pointer text-danger form-control-env-action mx-2 fa-times-circle",
+          on: {
+            click: function($event) {
+              _vm.$emit("delete-env-variable", env.key)
+            }
+          }
         })
       ])
     })
@@ -43043,7 +43212,14 @@ var render = function() {
                 "div",
                 { staticClass: "col-md-12" },
                 [
-                  _c("EnvSet", { attrs: { environment: _vm.environment } }),
+                  _c("EnvSet", {
+                    attrs: { environment: _vm.environment },
+                    on: {
+                      "delete-env-variable": function($event) {
+                        _vm.deleteEnvVariable($event)
+                      }
+                    }
+                  }),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-inline" }, [
                     _c("input", {

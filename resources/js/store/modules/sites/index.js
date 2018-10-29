@@ -12,7 +12,9 @@ export default {
     singleSiteLoading: false,
     createSiteLoading: false,
     createSiteRepoLoading: false,
-    createSiteEnvLoading: false
+    createSiteEnvLoading: false,
+    deleteSiteEnvLoading: false,
+    deploymentLog: ''
   },
   actions,
   getters,

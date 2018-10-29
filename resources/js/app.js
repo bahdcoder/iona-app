@@ -1,5 +1,6 @@
 import './bootstrap'
 import Vue from 'vue'
+
 import store from './store'
 import router from './router'
 import Router from 'vue-router'
@@ -32,6 +33,9 @@ window.vueApp = new Vue({
   el: '#app',
   router,
   store,
+  data: {
+    ws: window.adonis.Ws().connect()
+  },
   components: {
     'main-app': Main
   }

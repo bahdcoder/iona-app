@@ -10647,7 +10647,7 @@ body {
 }
 
 .server-box.server-box-selected {
-  border: 2px solid #4BBF73;
+  border: 2px solid #4bbf73;
 }
 
 .iona-card .card-header {
@@ -10780,5 +10780,10 @@ body {
 
 .form-control-env-action {
   margin-bottom: 8px;
+}
+
+.log-container {
+  max-height: 400px;
+  overflow-y: scroll;
 }
 

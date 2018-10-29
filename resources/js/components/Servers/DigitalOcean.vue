@@ -95,10 +95,20 @@
                   </select>
                </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="size" class="col-md-4 col-form-label text-md-right">Add resources</label>
               <div class="col-md-6">
                 <Multiselect @selected="selectedResources = $event" @removed="selectedResources = $event" :options="resources.map(resource => ({ name: resource.name, value: resource.id }))" />
+              </div>
+            </div> -->
+            <div class="form-group row">
+              <label for="" class="col-md-4 col-form-label text-md-right">Select Database</label>
+              <div class="col-md-6">
+                <select v-model="database " class="form-control iona-select">
+                  <option value="none">None</option>
+                  <option value="mysql">Mysql 5.7</option>
+                  <option value="postgresql">Postgres 10.7</option>
+                </select>
               </div>
             </div>
             <div class="form-group row">
@@ -137,6 +147,7 @@ export default {
     name: generate({ number: true }).dashed,
     region: 'nyc1',
     size: '512mb',
+    database: 'none',
     selectedResources: []
   }),
   computed: {
@@ -148,6 +159,7 @@ export default {
         name: this.name,
         region: this.region,
         size: this.size,
+        database: this.database,
         resources: this.selectedResources.map(resource => resource.value)
       }).then(server => this.$router.push(`/servers/${server.id}`))
     },

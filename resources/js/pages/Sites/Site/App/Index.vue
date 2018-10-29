@@ -15,6 +15,13 @@
           <div class="alert alert-warning">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid commodi illum minima laboriosam.
           </div>
+          <div class="log-container" v-if="deploymentLog">
+            <pre>
+              <code>
+                {{ deploymentLog }}
+              </code>
+            </pre>
+          </div>
         </template>
       </panel>
       <panel class="mt-4" header="Deployment branch">
@@ -84,8 +91,8 @@
 
   export default {
     computed: {
-      ...mapState('sites', ['singleSite', 'createSiteRepoLoading']),
-      ...mapState('deployments', ['createDeploymentLoading'])
+      ...mapState('deployments', ['createDeploymentLoading']),
+      ...mapState('sites', ['singleSite', 'createSiteRepoLoading', 'deploymentLog'])
     },
     data: () => ({
       repo: '',

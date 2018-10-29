@@ -1,4 +1,4 @@
-import { GET_SITE, CREATE_SITE, GET_SITES, GET_SITES_LOADING, CREATE_SITE_LOADING, CREATE_SITE_REPO, CREATE_SITE_REPO_LOADING, GET_SITE_LOADING, CREATE_SITE_ENV, CREATE_SITE_ENV_LOADING } from './constants'
+import { GET_SITE, CREATE_SITE, GET_SITES, GET_SITES_LOADING, CREATE_SITE_LOADING, CREATE_SITE_REPO, CREATE_SITE_REPO_LOADING, GET_SITE_LOADING, CREATE_SITE_ENV, CREATE_SITE_ENV_LOADING, DELETE_SITE_ENV, DELETE_SITE_ENV_LOADING, CREATE_DEPLOYMENT_LOG } from './constants'
 
 export default {
   async [CREATE_SITE] ({ commit, dispatch }, { data, id }) {
@@ -75,5 +75,24 @@ export default {
       commit(CREATE_SITE_ENV_LOADING)
       return Promise.reject(error)
     }
+  },
+
+  async [DELETE_SITE_ENV] ({ commit }, { key, server, site }) {
+    try {
+      commit(DELETE_SITE_ENV_LOADING)
+
+      const { data } = await axios.delete(`/api/servers/${server}/sites/${site}/environment/${key}`)
+
+      commit(GET_SITE, data)
+      commit(DELETE_SITE_ENV_LOADING)
+
+      return Promise.resolve(data)
+    } catch (errors) {
+      return Promise.reject(errors)
+    }
+  },
+
+  async [CREATE_DEPLOYMENT_LOG] ({ commit }, log) {
+    commit(CREATE_DEPLOYMENT_LOG, log)
   }
 }
