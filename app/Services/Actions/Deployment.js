@@ -48,7 +48,7 @@ class Deployment {
     // git pull
     userData += sh('deployments/get-repo', {
       site: this.site.name,
-      branch: 'master', // TODO: GET BRANCH FROM SITE CONFIGURATION
+      branch: this.site.settings.branch || 'master', // TODO: GET BRANCH FROM SITE CONFIGURATION
       url: this.site.settings.repo.clone_url
       // TODO: USE SSH HERE, because of private repositories.
       // so if the repo is private, when creating repo, we will have to create ssh key on server,

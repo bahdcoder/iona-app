@@ -153,7 +153,7 @@ class DigitalOcean {
           for (const setting in settings.install) {
             if (settings.install.hasOwnProperty(setting)) {
               if (setting !== 'type') {
-                resourceNewSettings[setting] = generate({ length: 8 })
+                resourceNewSettings[setting] = generate({ length: 16 })
               }
             }
           }

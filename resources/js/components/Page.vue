@@ -2,7 +2,12 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-9">
-        <h5 class="my-4">{{ heading }}</h5>
+        <h5 class="my-4 py-5 d-inline">
+          {{ heading }}
+          <span class="float-right text-muted">
+            <slot name="header-right"></slot>
+          </span>
+        </h5>
         <div class="row my-3">
           <div class="col-md-3">
             <dynamic-nav :routes="routes" />

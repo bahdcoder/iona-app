@@ -3,6 +3,7 @@
 const Site = use('App/Models/Site')
 const Server = use('App/Models/Server')
 const { validateAll } = use('Validator')
+const { generate } = use('generate-password')
 const Github = use('App/Services/Api/Github')
 
 class SiteController {
@@ -24,7 +25,7 @@ class SiteController {
     const body = request.all()
     const validator = await validateAll(body, {
       name: 'required|unique:sites',
-      type: 'required|in:nodejs,laravel,static'
+      type: 'required|in:nodejs,laravel,static,adonisjs'
     })
 
     if (validator.fails()) {
@@ -36,6 +37,76 @@ class SiteController {
       id: params.server
     }).with('resources').firstOrFail()
 
+    const environment = [{
+      key: 'NODE_ENV',
+      value: 'production'
+    }]
+
+    switch (body.type) {
+      case 'adonisjs':
+        environment.push({
+          key: 'APP_KEY',
+          value: generate({ length: 32 })
+        })
+        environment.push({
+          key: 'APP_URL',
+          value: `http://${body.name}`
+        })
+        environment.push({
+          key: 'SESSION_DRIVER',
+          value: 'cookie'
+        })
+        environment.push({
+          key: 'HASH_DRIVER',
+          value: 'bcrypt'
+        })
+        environment.push({
+          key: 'CACHE_VIEWS',
+          value: true
+        })
+        environment.push({
+          key: 'DB_CONNECTION',
+          value: 'mysql'
+        })
+        environment.push({
+          key: 'DB_HOST',
+          value: '127.0.0.1'
+        })
+        environment.push({
+          key: 'DB_PORT',
+          value: 3306
+        })
+        environment.push({
+          key: 'DB_USER',
+          value: ''
+        })
+        environment.push({
+          key: 'DB_DATABASE',
+          value: ''
+        })
+        environment.push({
+          key: 'DB_PASSWORD',
+          value: ''
+        })
+        environment.push({
+          key: 'IONA_PRE_START',
+          value: 'node ace migration:run --force'
+        })
+        environment.push({
+          key: 'ENV_SILENT',
+          value: true
+        })
+        break
+      case 'nodejs':
+        // environment.push({
+        //   key: '',
+        //   value: ''
+        // })
+        break
+      default:
+        break
+    }
+
     // create a new site
     const site = await Site.create({
       name: body.name,
@@ -43,10 +114,8 @@ class SiteController {
       server_id: server.id,
       provider: body.provider || 'github',
       settings: ss({
-        environment: [{
-          key: 'NODE_ENV',
-          value: 'production'
-        }]
+        environment,
+        type: body.type
       })
     })
 
@@ -62,7 +131,9 @@ class SiteController {
    * @param {Object} context.params
    */
   async show ({ params }) {
-    const site = await Site.findOrFail(params.id)
+    const site = await Site.query().where({
+      id: params.id
+    }).with('server').firstOrFail()
 
     return site
   }

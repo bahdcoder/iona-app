@@ -19201,6 +19201,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -19345,6 +19346,10 @@ var render = function() {
                             _vm._v(" "),
                             _c("option", { attrs: { value: "nodejs" } }, [
                               _vm._v("Node js")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "adonisjs" } }, [
+                              _vm._v("Adonis js")
                             ])
                           ]
                         )
@@ -42103,6 +42108,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -42116,7 +42125,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     Page: __WEBPACK_IMPORTED_MODULE_1__components_Page___default.a
   },
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('sites', ['singleSiteLoading']), {
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('sites', ['singleSiteLoading', 'singleSite']), {
     routes: function routes() {
       return [{
         name: 'App',
@@ -42214,6 +42223,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['routes', 'heading']
@@ -42230,7 +42244,15 @@ var render = function() {
   return _c("div", { staticClass: "container-fluid" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-9" }, [
-        _c("h5", { staticClass: "my-4" }, [_vm._v(_vm._s(_vm.heading))]),
+        _c("h5", { staticClass: "my-4 py-5 d-inline" }, [
+          _vm._v("\n        " + _vm._s(_vm.heading) + "\n        "),
+          _c(
+            "span",
+            { staticClass: "float-right text-muted" },
+            [_vm._t("header-right")],
+            2
+          )
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "row my-3" }, [
           _c(
@@ -42269,7 +42291,36 @@ var render = function() {
     [
       _vm.singleSiteLoading
         ? _c("page-loader")
-        : _c("page", { attrs: { heading: "Site details", routes: _vm.routes } })
+        : _c(
+            "page",
+            { attrs: { heading: "Site details", routes: _vm.routes } },
+            [
+              _vm.singleSite.settings
+                ? _c(
+                    "template",
+                    { staticClass: "float-right", slot: "header-right" },
+                    [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href:
+                              "http://" +
+                              _vm.singleSite.server.stats.networks.v4[0]
+                                .ip_address +
+                              ":" +
+                              _vm.singleSite.settings.port,
+                            target: "_blank"
+                          }
+                        },
+                        [_vm._v("View Site")]
+                      )
+                    ]
+                  )
+                : _vm._e()
+            ],
+            2
+          )
     ],
     1
   )

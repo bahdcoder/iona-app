@@ -15,6 +15,7 @@
               <select class="form-control iona-select" v-model="type">
                 <option disabled selected value="">Select project type</option>
                 <option value="nodejs">Node js</option>
+                <option value="adonisjs">Adonis js</option>
               </select>
             </div>
           </div>

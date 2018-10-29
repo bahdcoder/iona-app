@@ -34,7 +34,7 @@ class DeploymentController {
 
     deploymentProcess.stdout.on('data', buffer => {
       log += buffer.toString()
-      console.log('==================>', buffer.toString())
+      console.log(buffer.toString())
     })
 
     deploymentProcess.on('error', error => {

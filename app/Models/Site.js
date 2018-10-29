@@ -19,6 +19,15 @@ class Site extends Model {
   getSettings (settings) {
     return pp(settings)
   }
+
+  /**
+   * A site belongs to server.
+   *
+   * @return {Object}
+   */
+  server () {
+    return this.belongsTo('App/Models/Server')
+  }
 }
 
 module.exports = Site

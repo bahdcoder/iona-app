@@ -1,7 +1,11 @@
 <template>
   <div>
     <page-loader v-if="singleSiteLoading" />
-    <page heading="Site details" :routes="routes" v-else />
+    <page heading="Site details" :routes="routes" v-else>
+      <template class="float-right" v-if="singleSite.settings" slot="header-right">
+        <a :href="`http://${singleSite.server.stats.networks.v4[0].ip_address}:${singleSite.settings.port}`" target="_blank">View Site</a>
+      </template>
+    </page>
   </div>
 </template>
 
@@ -18,7 +22,7 @@
       Page,
     },
     computed: {
-      ...mapState('sites', ['singleSiteLoading']),
+      ...mapState('sites', ['singleSiteLoading', 'singleSite']),
       routes() {
         return [{
           name: 'App',
