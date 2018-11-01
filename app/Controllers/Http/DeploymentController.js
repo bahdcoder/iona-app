@@ -36,9 +36,12 @@ class DeploymentController {
     deploymentProcess.stdout.on('data', buffer => {
       log += buffer.toString()
 
-      Ws.getChannel('sites:*')
+      const topic = Ws.getChannel('sites:*')
         .topic(`sites:${site.id}`)
-        .broadcast('deployment', buffer.toString())
+
+      if (topic) {
+        topic.broadcast('deployment', buffer.toString())
+      }
 
       console.log(buffer.toString())
     })

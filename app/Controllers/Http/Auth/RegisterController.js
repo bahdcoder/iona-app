@@ -7,11 +7,11 @@ const { validateAll } = use('Validator')
 class RegisterController {
   /**
    * Store a new user.
-   * 
-   * 
+   *
+   *
    * @param context.request request
    */
-  async store({ auth, request, response }) {
+  async store ({ auth, request, response }) {
     const rules = {
       name: 'required',
       email: 'required|email|unique:users,email',
@@ -29,9 +29,9 @@ class RegisterController {
     )
 
     const token = await auth.generate(user)
-    
+
     Event.fire('registered::user', user)
-    
+
     response.send({ user, token })
   }
 }

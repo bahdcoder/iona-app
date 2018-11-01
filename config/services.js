@@ -13,16 +13,18 @@ module.exports = {
   */
   digitalocean: {
     url: Env.get('DO_OAUTH2_URL'),
-    clientId: Env.get('DO_IONA_CLIENT_ID'),
-    clientSecret: Env.get('DO_IONA_CLIENT_SECRET'),
     apiUrl: Env.get('DO_API_URL'),
-    redirectUri: Env.get('DO_IONA_REDIRECT_URI')
+    appDomain: Env.get('DO_APP_DOMAIN'),
+    clientId: Env.get('DO_IONA_CLIENT_ID'),
+    redirectUri: Env.get('DO_IONA_REDIRECT_URI'),
+    clientSecret: Env.get('DO_IONA_CLIENT_SECRET'),
+    personalAccessToken: Env.get('DO_PERSONAL_ACCESS_TOKEN')
   },
   github: {
+    apiUrl: Env.get('GITHUB_API_URL'),
     url: Env.get('GITHUB_OAUTH2_URL'),
     clientId: Env.get('GITHUB_CLIENT_ID'),
     redirectUrl: Env.get('GITHUB_REDIRECT_URI'),
-    clientSecret: Env.get('GITHUB_CLIENT_SECRET'),
-    apiUrl: Env.get('GITHUB_API_URL')
+    clientSecret: Env.get('GITHUB_CLIENT_SECRET')
   }
 }

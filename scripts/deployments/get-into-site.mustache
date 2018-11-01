@@ -1,9 +1,16 @@
 if [ ! -d '{{ site }}' ]; then
   cd ~
   cd /etc/nginx/sites-available
-  touch {{ site }}
 
+  touch {{ site }}
   echo "{{ config }}" >> {{ site }}
   ln -s /etc/nginx/sites-available/{{ site }} /etc/nginx/sites-enabled/
+
+  touch {{ ionaSite }}
+  echo "{{ ionaSubdomainConfig }}" >> {{ ionaSite }}
+  ln -s /etc/nginx/sites-available/{{ ionaSite }} /etc/nginx/sites-enabled/
+
+  echo "2" |  certbot --nginx -d {{ ionaSite }}
+
   systemctl restart nginx
 fi

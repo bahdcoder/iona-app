@@ -1,5 +1,5 @@
 const Event = use('Event')
 
-Event.once('registered::user', 'UserRegistered.generateSshKey')
-Event.once('connected::digitalocean', 'SocialConnected.digitalocean')
-Event.once('site::created', 'Sites.created')
+Event.on('site::created', 'Sites.created')
+Event.on('registered::user', 'UserRegistered.generateSshKey')
+Event.on('connected::digitalocean', 'SocialConnected.digitalocean')

@@ -2,31 +2,49 @@
 
 const Axios = use('axios')
 const Redis = use('Redis')
+const Config = use('Config')
 const { generate } = use('generate-password')
 
 /**
  * The connector for digital ocean.
  */
 class DigitalOcean {
-  constructor (user) {
+  constructor (user, personalAccessToken) {
     /**
      * Set the url connection.
      */
     this.url = 'https://api.digitalocean.com/v2'
 
     /**
+     * Set the url personal access token.
+     */
+    this.personalAccessToken = personalAccessToken
+
+    /**
      * The authenticated user.
      */
     this.user = user
 
-    this.settings = pp(this.user.settings)
+    /**
+     * Set settings if personal access token was not provided
+     */
+    if (!this.personalAccessToken && this.user) {
+      this.settings = pp(this.user.settings)
+    }
+
+    /**
+     * Set the application domain.
+     * This will be used to automatically configure subdomains for routes.
+     */
+    this.appDomain = Config.get('services.digitalocean.appDomain')
+
     /**
      * The axios instance.
      */
     this.http = Axios.create({
       baseURL: this.url,
       headers: {
-        Authorization: `Bearer ${this.settings.digitalocean.access_token}`,
+        Authorization: `Bearer ${this.personalAccessToken ? this.personalAccessToken : this.settings.digitalocean.access_token}`,
         'Content-Type': 'application/json'
       }
     })
@@ -140,6 +158,9 @@ class DigitalOcean {
     // install git
     userData += sh('server/git')
 
+    // install certbot
+    userData += sh('server/certbot')
+
     // create swap file
     userData += sh('server/swap-file')
 
@@ -168,9 +189,22 @@ class DigitalOcean {
       }
     }
 
-    console.log('------========================>', userData)
-
     return { userData, databaseSettings }
+  }
+
+  /**
+   * Add a subdomain record for a newly created site
+   * @param {string} name
+   */
+  async addSubdomainRecord ({ name, ip }) {
+    const { data } = await this.http.post(`/domains/${this.appDomain}/records`, {
+      name,
+      type: 'A',
+      data: ip,
+      ttl: 1
+    })
+
+    return data
   }
 }
 

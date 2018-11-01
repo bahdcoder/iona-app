@@ -42454,21 +42454,20 @@ var render = function() {
                     "template",
                     { staticClass: "float-right", slot: "header-right" },
                     [
-                      _c(
-                        "a",
-                        {
-                          attrs: {
-                            href:
-                              "http://" +
-                              _vm.singleSite.server.stats.networks.v4[0]
-                                .ip_address +
-                              ":" +
-                              _vm.singleSite.settings.port,
-                            target: "_blank"
-                          }
-                        },
-                        [_vm._v("View Site")]
-                      )
+                      _vm.singleSite.settings.ionaSubdomainName
+                        ? _c(
+                            "a",
+                            {
+                              attrs: {
+                                href:
+                                  "https://" +
+                                  _vm.singleSite.settings.ionaSubdomainName,
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("View Site")]
+                          )
+                        : _vm._e()
                     ]
                   )
                 : _vm._e()

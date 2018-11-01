@@ -1,5 +1,6 @@
 'use strict'
 
+const Event = use('Event')
 const Site = use('App/Models/Site')
 const Server = use('App/Models/Server')
 const { validateAll } = use('Validator')
@@ -110,6 +111,8 @@ class SiteController {
       })
     })
 
+    Event.fire('site::created', { site, server })
+
     // command to check if a PORT is free: lsof -i :{PORT}
     // if there is output, then that port is occupied.
 
@@ -144,7 +147,9 @@ class SiteController {
       repo: 'required|string'
     })
 
-    const site = await Site.findOrFail(params.site)
+    const site = await Site.query().where({
+      id: params.site
+    }).with('server').firstOrFail()
 
     if (validator.fails()) {
       return response.status(422).json({ errors: validator.messages() })
@@ -184,7 +189,9 @@ class SiteController {
       })
     }
 
-    const site = await Site.findOrFail(params.site)
+    const site = await Site.query().where({
+      id: params.site
+    }).with('server').firstOrFail()
 
     const environment = [
       ...pp(site.settings).environment
