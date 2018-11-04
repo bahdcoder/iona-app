@@ -91,6 +91,7 @@ class Deployment {
     userData += sh('build/close-ssh')
 
     userData += sh('build/end-bash')
+    console.log(userData)
 
     return userData
   }

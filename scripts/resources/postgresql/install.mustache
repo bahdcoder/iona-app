@@ -5,6 +5,6 @@ sudo -u postgres psql << EOF
 CREATE USER {{ username }} WITH PASSWORD '{{ password }}';
 CREATE DATABASE {{ database }};
 GRANT ALL ON DATABASE "{{ database }}" TO {{ username }};
-
+ALTER DATABASE target_database OWNER TO {{ username }};
 \q
 >> EOF

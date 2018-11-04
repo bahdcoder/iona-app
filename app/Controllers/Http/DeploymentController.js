@@ -15,11 +15,7 @@ class DeploymentController {
     const site = await Site.findOrFail(params.site)
     const server = await Server.findOrFail(params.server)
     const user = await User.query().where({ id: auth.user.id }).with('sshkey').firstOrFail()
-    // ssh into server
-    // run deployment commands
-    // get output
-    // create new deployment into database
-    // return deployment status
+
     const service = (new DeploymentService(user, site, server))
     const { deploymentProcess, port } = service.deploy()
     let log = ''
@@ -64,19 +60,6 @@ class DeploymentController {
     return {
       message: 'ok'
     }
-  }
-
-  handleReceiveDeploymentLog (buffer) {
-    console.log('=======>', buffer.toString())
-    this.deploymentLog += buffer.toString()
-  }
-
-  async handleDeploymentClosed (status, site) {
-    await Deployment.create({
-      site_id: site.id,
-      log: this.deploymentLog,
-      status
-    })
   }
 }
 
