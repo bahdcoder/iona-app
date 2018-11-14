@@ -2,7 +2,6 @@
 
 const Server = use('App/Models/Server')
 const { validateAll } = use('Validator')
-const Resource = use('App/Models/Resource')
 const DigitalOcean = use('App/Services/Api/DigitalOcean')
 
 class DropletController {
@@ -56,8 +55,6 @@ class DropletController {
         value: databaseSettings.password
       }]
     }
-
-    console.log('------>', defaultEnvs, databaseSettings)
 
     const server = await Server.create({
       user_id: user.id,

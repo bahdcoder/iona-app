@@ -1,0 +1,17 @@
+module.exports = {
+  apps : [{
+    name: '{{ site }}',
+    script: 'app.js',
+  }],
+
+  deploy : {
+    production : {
+      user: 'root',
+      host: '{{ server }}',
+      ref: 'origin/{{ branch }}',
+      repo: '{{ repo }}',
+      path: '/home/iona/{{ site }}',
+     'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+    }
+  }
+};

@@ -12,11 +12,11 @@ class SocialConnectController {
    * @param {Object} context.request
    */
   async digitalocean ({ response }) {
-    return response.redirect(Config.get('services.digitalocean.url'))
+    return response.redirect(Config.get('services.digitalocean.authorizeAppUrl'))
   }
 
   async github ({ response }) {
-    return response.redirect(Config.get('services.github.url'))
+    return response.redirect(Config.get('services.github.authorizeAppUrl'))
   }
 
   /**
@@ -27,13 +27,10 @@ class SocialConnectController {
   async digitaloceanCallback ({ request, auth }) {
     const { code } = request.all()
     const {
-      apiUrl,
-      clientId,
-      redirectUri,
-      clientSecret
+      getAccessTokenUrl
     } = Config.get('services.digitalocean')
 
-    const { data } = await axios.post(`${apiUrl}?client_id=${clientId}&client_secret=${clientSecret}&grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}`)
+    const { data } = await axios.post(`${getAccessTokenUrl}&code=${code}`)
 
     const user = await auth.getUser()
 
@@ -54,10 +51,10 @@ class SocialConnectController {
   async githubCallback ({ request, auth }) {
     const { code } = request.all()
     const {
-      apiUrl
+      getAccessTokenUrl
     } = Config.get('services.github')
 
-    const { data } = await axios.post(`${apiUrl}&code=${code}`)
+    const { data } = await axios.post(`${getAccessTokenUrl}&code=${code}`)
 
     const user = await auth.getUser()
 

@@ -21,6 +21,7 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @return {void}
    */
   async handle (error, { request, response }) {
+    console.log(error)
     if (error.response) {
       return response.status(error.response.status).send(error.response.data)
     }

@@ -1,5 +1,6 @@
 'use strict'
 
+const fs = use('fs')
 const { exec } = use('child_process')
 const randomNumber = use('random-number-between')
 
@@ -22,7 +23,7 @@ class Deployment {
    *
    * @return {string}
    */
-  getDeploymentScript () {
+  getDeploymentScriptOld () {
     let userData = sh('build/start-bash')
     // first, ssh into server
     userData += sh('build/open-ssh', {
@@ -92,6 +93,20 @@ class Deployment {
 
     userData += sh('build/end-bash')
     console.log(userData)
+
+    return userData
+  }
+
+  /**
+   * Compile the deployment script for the application
+   *
+   * @return {string}
+   */
+  getDeploymentScript () {
+    const fileContent = 'hello file.'
+    // create an ecosystem file.
+    fs.writeFileSync(`ecosystem.config.js`, fileContent)
+    let userData = 'pm2 --help'
 
     return userData
   }
