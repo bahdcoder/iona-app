@@ -1,2 +1,3 @@
 pm2 delete {{ site }} || true
 pm2 start npm --name '{{ site }}' -- start
+test $? -eq 0 || abort Failed to start application.

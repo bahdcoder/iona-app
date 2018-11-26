@@ -6,8 +6,10 @@ cd iona
 
 if [ -d '{{ site }}' ]; then
   git pull origin {{ branch }}
+  test $? -eq 0 || abort Failed to pull repository.
 else
   git clone {{{  url  }}} {{ site }}
+  test $? -eq 0 || abort Failed to clone repository.
 fi
 
 cd {{ site }}

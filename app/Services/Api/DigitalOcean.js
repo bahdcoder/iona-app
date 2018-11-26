@@ -150,19 +150,7 @@ class DigitalOcean {
     let databaseSettings = {}
 
     // install nginx
-    userData += sh('server/nginx')
-
-    // install node-js stable
-    userData += sh('server/nodejs')
-
-    // install git
-    userData += sh('server/git')
-
-    // install certbot
-    userData += sh('server/certbot')
-
-    // create swap file
-    userData += sh('server/swap-file')
+    userData += sh('server/user-data')
 
     // install database
     // if a database was selected, then load the install script for this database.
@@ -188,6 +176,8 @@ class DigitalOcean {
           break
       }
     }
+
+    console.log(userData)
 
     return { userData, databaseSettings }
   }

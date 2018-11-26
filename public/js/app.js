@@ -18174,8 +18174,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 /* harmony default export */ __webpack_exports__["a"] = (_CREATE_SITE$CREATE_S = {}, _defineProperty(_CREATE_SITE$CREATE_S, __WEBPACK_IMPORTED_MODULE_1__constants__["b" /* CREATE_SITE */], function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref, _ref2) {
-    var commit = _ref.commit,
-        dispatch = _ref.dispatch;
+    var commit = _ref.commit;
     var data = _ref2.data,
         id = _ref2.id;
 
@@ -18197,22 +18196,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
             commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_LOADING */]);
-            dispatch(__WEBPACK_IMPORTED_MODULE_1__constants__["k" /* GET_SITES */], { server: id });
             return _context.abrupt('return', Promise.resolve(response));
 
-          case 11:
-            _context.prev = 11;
+          case 10:
+            _context.prev = 10;
             _context.t0 = _context['catch'](0);
 
             commit(__WEBPACK_IMPORTED_MODULE_1__constants__["e" /* CREATE_SITE_LOADING */]);
             return _context.abrupt('return', Promise.reject(_context.t0));
 
-          case 15:
+          case 14:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, this, [[0, 11]]);
+    }, _callee, this, [[0, 10]]);
   }));
 
   return function (_x, _x2) {
@@ -42251,6 +42249,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -42276,18 +42284,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         icon: 'fas fa-cannabis',
         link: '/servers/' + this.$route.params.id + '/sites/' + this.$route.params.site + '/environment/'
       }];
+    },
+    created: function created() {
+      if (this.singleSite && this.singleSite && this.singleSite.settings && this.singleSite.settings.created) {
+        return true;
+      }
+
+      return false;
     }
   }),
   methods: {
     getSite: function getSite() {
       var _this = this;
 
-      this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["j" /* GET_SITE */], {
-        id: this.$route.params.site,
-        server: this.$route.params.id
-      }).catch(function (error) {
-        return _this.$router.push('/four-oh-four');
-      });
+      var serverCalledTimes = 0;
+      var dispatchGetSite = function dispatchGetSite() {
+        serverCalledTimes++;
+        _this.$store.dispatch('sites/' + __WEBPACK_IMPORTED_MODULE_2_store_modules_sites_constants__["j" /* GET_SITE */], {
+          id: _this.$route.params.site,
+          server: _this.$route.params.id
+        }).then(function () {
+          clear();
+        }).catch(function (error) {
+          _this.$router.push('/four-oh-four');
+        });
+      };
+
+      dispatchGetSite();
+
+      var interval = setInterval(dispatchGetSite, 5000);
+      var clear = function clear() {
+        if (_this.created) {
+          clearInterval(interval);
+        }
+      };
     },
     subscribeToSocketChannels: function subscribeToSocketChannels() {
       var _this2 = this;
@@ -42382,6 +42412,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['routes', 'heading']
@@ -42416,7 +42447,12 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-9" }, [_c("router-view")], 1)
+          _c(
+            "div",
+            { staticClass: "col-md-9" },
+            [_vm._t("content"), _vm._v(" "), _c("router-view")],
+            2
+          )
         ])
       ])
     ])
@@ -42443,9 +42479,10 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.singleSiteLoading
-        ? _c("page-loader")
-        : _c(
+      _vm.singleSiteLoading ? _c("page-loader") : _vm._e(),
+      _vm._v(" "),
+      !_vm.singleSiteLoading && _vm.created
+        ? _c(
             "page",
             { attrs: { heading: "Site details", routes: _vm.routes } },
             [
@@ -42474,6 +42511,40 @@ var render = function() {
             ],
             2
           )
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.created
+        ? _c(
+            "div",
+            { staticClass: "container" },
+            [
+              _c(
+                "panel",
+                { attrs: { header: "Creating site" } },
+                [
+                  _c("template", { slot: "body" }, [
+                    _c("h4", { staticClass: "text-center" }, [
+                      _vm._v("Creating site ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "text-center my-5" },
+                      [
+                        _c("loader", {
+                          attrs: { dark: "true", width: "20", height: "20" }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                2
+              )
+            ],
+            1
+          )
+        : _vm._e()
     ],
     1
   )

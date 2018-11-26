@@ -28,12 +28,15 @@ log() {
   echo "  ○ $@"
 }
 
-# clone the new repository
-cd "/home/iona/$name"
+log Deleting the default iona site
+cd /home/iona
+rm -r $name
 
-log Pulling latest repository changes
-git pull origin master
-test $? -eq 0 || abort Pulling latest repository changes failed
+log Cloning repository
+git clone $repo $name
+test $? -eq 0 || abort Cloning repository failed
+
+cd $name
 
 log Setting environment variables
 for value in $env_variables; do
@@ -54,16 +57,14 @@ fi
 log Execute after starting application
 eval "$post_start"
 
-# Start the application using pm2
-
 log Deleting running application
 pm2 delete "$name" || true
 test $? -eq 0 || abort Failed deleting running application.
 
+# Start the application using pm2
 log Starting application
-pm2 start npm --name "$name" -- start --if-present
+
+pm2 start npm --name "$name" -- start
 test $? -eq 0 || abort Failed to start application
 
 log Application started successfully.
-
-exit

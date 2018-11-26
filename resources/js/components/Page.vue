@@ -13,6 +13,7 @@
             <dynamic-nav :routes="routes" />
           </div>
           <div class="col-md-9">
+            <slot name="content"></slot>
             <router-view></router-view>
           </div>
         </div>

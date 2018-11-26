@@ -1,7 +1,9 @@
 cd ~
 cd /home
+
 if [ ! -d iona ]; then
  mkdir iona
+ test $? -eq 0 || abort Failed creating folder iona.
 fi
 
 cd iona

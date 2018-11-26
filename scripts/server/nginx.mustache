@@ -1,9 +1,0 @@
-
-
-apt update
-apt install nginx -y
-ufw allow 'Nginx HTTP'
-systemctl enable nginx
-systemctl start nginx
-
-echo "<p>BAHDCODER - THIS SITE EXPERIENCED A 500 ERROR. CHECK BACK LATER</p>" | tee -a /usr/share/nginx/html/custom_50x.html

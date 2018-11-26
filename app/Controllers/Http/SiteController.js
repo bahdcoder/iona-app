@@ -1,11 +1,13 @@
 'use strict'
 
 const Event = use('Event')
+const User = use('App/Models/User')
 const Site = use('App/Models/Site')
 const Server = use('App/Models/Server')
 const { validateAll } = use('Validator')
 const { generate } = use('generate-password')
 const Github = use('App/Services/Api/Github')
+// const CreateSiteAction = use('App/Services/Actions/CreateSite')
 
 class SiteController {
   async index ({ params }) {
@@ -32,6 +34,8 @@ class SiteController {
     if (validator.fails()) {
       return response.status(422).send({ errors: validator.messages() })
     }
+
+    const user = await User.query().where({ id: auth.user.id }).with('sshkey').firstOrFail()
 
     // get server
     const server = await Server.query().where({
@@ -111,7 +115,7 @@ class SiteController {
       })
     })
 
-    Event.fire('site::created', { site, server })
+    Event.fire('site::created', { site, server, user })
 
     // command to check if a PORT is free: lsof -i :{PORT}
     // if there is output, then that port is occupied.

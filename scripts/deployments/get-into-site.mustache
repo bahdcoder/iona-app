@@ -10,7 +10,7 @@ if [ ! -d '{{ site }}' ]; then
   echo "{{ ionaSubdomainConfig }}" >> {{ ionaSite }}
   ln -s /etc/nginx/sites-available/{{ ionaSite }} /etc/nginx/sites-enabled/
 
-  echo "2" |  certbot --nginx -d {{ ionaSite }}
+  certbot --nginx -d {{ ionaSite }} -m bahdcoder@gmail.com --agree-tos -n
 
   systemctl restart nginx
 fi

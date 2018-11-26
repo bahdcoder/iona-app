@@ -3,5 +3,11 @@ cd /etc/nginx/sites-available
 touch {{ name }}
 
 echo "{{ config }}" >> {{ name }}
+test $? -eq 0 || abort Creating nginx configuration for "{{ name }}" failed.
+
 ln -s /etc/nginx/sites-available/{{ name }} /etc/nginx/sites-enabled/
+
+test $? -eq 0 || abort Creating nginx sym link failed.
+
 service nginx restart
+test $? -eq 0 || abort Restarting nginx failed.

@@ -10,24 +10,17 @@ const DeploymentService = use('App/Services/Actions/Deployment')
 class DeploymentController {
   /**
    * Create a new site deployment.
+   *
+   * @return {json}
    */
   async store ({ params, auth }) {
-    const site = await Site.findOrFail(params.site)
     const server = await Server.findOrFail(params.server)
     const user = await User.query().where({ id: auth.user.id }).with('sshkey').firstOrFail()
+    const site = await Site.query().where({ id: params.site }).with('deployments').firstOrFail()
 
     const service = (new DeploymentService(user, site, server))
-    const { deploymentProcess, port } = service.deploy()
+    const deploymentProcess = await service.deploy()
     let log = ''
-
-    if (!pp(site.settings).port) {
-      site.settings = ss({
-        ...pp(site.settings),
-        port
-      })
-
-      await site.save()
-    }
 
     deploymentProcess.stdout.on('data', buffer => {
       log += buffer.toString()
@@ -42,10 +35,10 @@ class DeploymentController {
       console.log(buffer.toString())
     })
 
-    deploymentProcess.on('error', error => {
+    deploymentProcess.stderr.on('data', buffer => {
       console.log(
         'NEW ERROR RECEIVED: ==========================>',
-        error
+        buffer.toString()
       )
     })
 
