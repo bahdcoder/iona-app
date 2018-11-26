@@ -1,4 +1,9 @@
-import { LOGIN_USER, AUTH_ERROR, AUTH_TOGGLE_LOADING, LOGOUT_USER } from './constants'
+import {
+  LOGIN_USER,
+  AUTH_ERROR,
+  AUTH_TOGGLE_LOADING,
+  LOGOUT_USER
+} from './constants'
 
 export default {
   [LOGIN_USER](state, { user, token }) {

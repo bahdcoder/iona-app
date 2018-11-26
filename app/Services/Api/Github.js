@@ -7,7 +7,7 @@ class Github {
    * Set the user to be used for authenticated requests.
    * @param {Object} user
    */
-  constructor (user) {
+  constructor(user) {
     /**
      * Set the url connection.
      */
@@ -40,7 +40,7 @@ class Github {
    *
    * @return {string}
    */
-  async getRepo (link) {
+  async getRepo(link) {
     const { data } = await this.http.get(`/repos/${link}`)
 
     return data

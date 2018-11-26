@@ -13,23 +13,25 @@
 const Resource = use('App/Models/Resource')
 
 class ResourceTableSeeder {
-  async run () {
+  async run() {
     await Resource.create({
       name: 'mysql',
       slug: 'mysql',
       settings: JSON.stringify({
-        instances: [{
-          name: 'Add Database',
-          slug: 'database',
-          fields: {
-            name: 'text',
-            user: 'text',
-            password: 'text'
-          },
-          validations: {
-            name: 'required|string'
+        instances: [
+          {
+            name: 'Add Database',
+            slug: 'database',
+            fields: {
+              name: 'text',
+              user: 'text',
+              password: 'text'
+            },
+            validations: {
+              name: 'required|string'
+            }
           }
-        }],
+        ],
         install: {
           type: 'database',
           name: 'text',
@@ -44,18 +46,20 @@ class ResourceTableSeeder {
       name: 'postgresql',
       slug: 'postgresql',
       settings: JSON.stringify({
-        instances: [{
-          name: 'Add Database',
-          slug: 'database',
-          fields: {
-            name: 'text',
-            user: 'text',
-            password: 'text'
-          },
-          validations: {
-            name: 'required|string'
+        instances: [
+          {
+            name: 'Add Database',
+            slug: 'database',
+            fields: {
+              name: 'text',
+              user: 'text',
+              password: 'text'
+            },
+            validations: {
+              name: 'required|string'
+            }
           }
-        }],
+        ],
         install: {
           type: 'database',
           name: 'text',
@@ -70,18 +74,20 @@ class ResourceTableSeeder {
       name: 'mongodb',
       slug: 'mongodb',
       settings: JSON.stringify({
-        instances: [{
-          name: 'Add Database',
-          slug: 'database',
-          fields: {
-            name: 'text',
-            user: 'text',
-            password: 'text'
-          },
-          validations: {
-            name: 'required|string'
+        instances: [
+          {
+            name: 'Add Database',
+            slug: 'database',
+            fields: {
+              name: 'text',
+              user: 'text',
+              password: 'text'
+            },
+            validations: {
+              name: 'required|string'
+            }
           }
-        }],
+        ],
         install: {
           type: 'database',
           name: 'text',

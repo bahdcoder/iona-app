@@ -13,20 +13,25 @@ class DeploymentController {
    *
    * @return {json}
    */
-  async store ({ params, auth }) {
+  async store({ params, auth }) {
     const server = await Server.findOrFail(params.server)
-    const user = await User.query().where({ id: auth.user.id }).with('sshkey').firstOrFail()
-    const site = await Site.query().where({ id: params.site }).with('deployments').firstOrFail()
+    const user = await User.query()
+      .where({ id: auth.user.id })
+      .with('sshkey')
+      .firstOrFail()
+    const site = await Site.query()
+      .where({ id: params.site })
+      .with('deployments')
+      .firstOrFail()
 
-    const service = (new DeploymentService(user, site, server))
+    const service = new DeploymentService(user, site, server)
     const deploymentProcess = await service.deploy()
     let log = ''
 
     deploymentProcess.stdout.on('data', buffer => {
       log += buffer.toString()
 
-      const topic = Ws.getChannel('sites:*')
-        .topic(`sites:${site.id}`)
+      const topic = Ws.getChannel('sites:*').topic(`sites:${site.id}`)
 
       if (topic) {
         topic.broadcast('deployment', buffer.toString())

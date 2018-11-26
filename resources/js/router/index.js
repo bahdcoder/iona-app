@@ -18,77 +18,98 @@ import SocialAuthCallback from '@/pages/Auth/SocialAuthCallback/Index.vue'
 
 const router = new Router({
   mode: 'history',
-  routes: [{
-    path: '/auth/login',
-    name: 'login',
-    component: LoginPage,
-    meta: {
-      noAuth: true
-    }
-  }, {
-    path: '/auth/signup',
-    name: 'signup',
-    component: SignupPage,
-    meta: {
-      noAuth: true
-    }
-  }, {
-    path: '',
-    name: 'home',
-    component: HomePage,
-    meta: {
-      noAuth: true
-    }
-  }, {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: DashboardPage
-  }, {
-    path: '/servers/:id',
-    component: ServerPage,
-    children: [{
+  routes: [
+    {
+      path: '/auth/login',
+      name: 'login',
+      component: LoginPage,
+      meta: {
+        noAuth: true
+      }
+    },
+    {
+      path: '/auth/signup',
+      name: 'signup',
+      component: SignupPage,
+      meta: {
+        noAuth: true
+      }
+    },
+    {
       path: '',
-      component: SitesPage
-    }, {
-      path: 'sites',
-      component: SitesPage
-    }, {
-      path: 'resources',
-      component: ResourcesPage
-    }, {
-      path: 'resources/:resource',
-      component: SingleResourcePage
-    }]
-  }, {
-    path: '/servers/:id/sites/:site',
-    component: SingleSitePage,
-    children: [{
-      path: '',
-      component: AppPage
-    }, {
-      path: 'environment',
-      component: EnvironmentPage
-    }]
-  }, {
-    path: '/user/profile',
-    component: ProfilePage,
-    children: [{
-      path: '',
-      component: ServerProviders
-    }, {
-      path: 'server-providers',
-      name: 'server-providers',
-      component: ServerProviders
-    }, {
-      path: 'source-control',
-      name: 'source-control',
-      component: SourceControl
-    }]
-  }, {
-    path: '/auth/:provider/callback',
-    name: 'provider-callback',
-    component: SocialAuthCallback
-  }]
+      name: 'home',
+      component: HomePage,
+      meta: {
+        noAuth: true
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardPage
+    },
+    {
+      path: '/servers/:id',
+      component: ServerPage,
+      children: [
+        {
+          path: '',
+          component: SitesPage
+        },
+        {
+          path: 'sites',
+          component: SitesPage
+        },
+        {
+          path: 'resources',
+          component: ResourcesPage
+        },
+        {
+          path: 'resources/:resource',
+          component: SingleResourcePage
+        }
+      ]
+    },
+    {
+      path: '/servers/:id/sites/:site',
+      component: SingleSitePage,
+      children: [
+        {
+          path: '',
+          component: AppPage
+        },
+        {
+          path: 'environment',
+          component: EnvironmentPage
+        }
+      ]
+    },
+    {
+      path: '/user/profile',
+      component: ProfilePage,
+      children: [
+        {
+          path: '',
+          component: ServerProviders
+        },
+        {
+          path: 'server-providers',
+          name: 'server-providers',
+          component: ServerProviders
+        },
+        {
+          path: 'source-control',
+          name: 'source-control',
+          component: SourceControl
+        }
+      ]
+    },
+    {
+      path: '/auth/:provider/callback',
+      name: 'provider-callback',
+      component: SocialAuthCallback
+    }
+  ]
 })
 
 const isAuthenticated = () => {
@@ -109,7 +130,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({
-        path: '/auth/login',
+        path: '/auth/login'
       })
     }
   }

@@ -11,11 +11,13 @@ class SocialConnectController {
    *
    * @param {Object} context.request
    */
-  async digitalocean ({ response }) {
-    return response.redirect(Config.get('services.digitalocean.authorizeAppUrl'))
+  async digitalocean({ response }) {
+    return response.redirect(
+      Config.get('services.digitalocean.authorizeAppUrl')
+    )
   }
 
-  async github ({ response }) {
+  async github({ response }) {
     return response.redirect(Config.get('services.github.authorizeAppUrl'))
   }
 
@@ -24,11 +26,9 @@ class SocialConnectController {
    *
    * @param {Object} context.request
    */
-  async digitaloceanCallback ({ request, auth }) {
+  async digitaloceanCallback({ request, auth }) {
     const { code } = request.all()
-    const {
-      getAccessTokenUrl
-    } = Config.get('services.digitalocean')
+    const { getAccessTokenUrl } = Config.get('services.digitalocean')
 
     const { data } = await axios.post(`${getAccessTokenUrl}&code=${code}`)
 
@@ -48,11 +48,9 @@ class SocialConnectController {
     }
   }
 
-  async githubCallback ({ request, auth }) {
+  async githubCallback({ request, auth }) {
     const { code } = request.all()
-    const {
-      getAccessTokenUrl
-    } = Config.get('services.github')
+    const { getAccessTokenUrl } = Config.get('services.github')
 
     const { data } = await axios.post(`${getAccessTokenUrl}&code=${code}`)
 

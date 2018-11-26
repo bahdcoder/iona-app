@@ -1,5 +1,5 @@
 export default {
-  server (state) {
+  server(state) {
     return state.singleServer
   }
 }

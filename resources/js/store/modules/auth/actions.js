@@ -1,8 +1,15 @@
 import { setAxios } from '@/bootstrap'
-import { LOGIN_USER, LOGOUT_USER, AUTH_ERROR, CONNECT_SOCIAL_AUTH, AUTH_TOGGLE_LOADING, REGISTER_USER } from './constants'
+import {
+  LOGIN_USER,
+  LOGOUT_USER,
+  AUTH_ERROR,
+  CONNECT_SOCIAL_AUTH,
+  AUTH_TOGGLE_LOADING,
+  REGISTER_USER
+} from './constants'
 
 export default {
-  async [LOGIN_USER] ({ commit }, data) {
+  async [LOGIN_USER]({ commit }, data) {
     try {
       commit(AUTH_TOGGLE_LOADING)
       commit(AUTH_ERROR, [])
@@ -23,14 +30,14 @@ export default {
       return Promise.reject(error.response)
     }
   },
-  async [LOGOUT_USER] ({ commit }) {
+  async [LOGOUT_USER]({ commit }) {
     commit(LOGOUT_USER)
 
     localStorage.removeItem('auth')
 
     return Promise.resolve()
   },
-  async [CONNECT_SOCIAL_AUTH] ({ commit }, { code, provider }) {
+  async [CONNECT_SOCIAL_AUTH]({ commit }, { code, provider }) {
     try {
       const { data } = await axios.post(`/auth/${provider}/callback`, {
         code
@@ -48,7 +55,7 @@ export default {
       return Promise.reject(error)
     }
   },
-  async [REGISTER_USER] ({ commit }, data) {
+  async [REGISTER_USER]({ commit }, data) {
     try {
       commit(AUTH_TOGGLE_LOADING)
       commit(AUTH_ERROR, [])

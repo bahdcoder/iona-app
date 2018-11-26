@@ -10,7 +10,7 @@ const Github = use('App/Services/Api/Github')
 // const CreateSiteAction = use('App/Services/Actions/CreateSite')
 
 class SiteController {
-  async index ({ params }) {
+  async index({ params }) {
     const server = await Server.findOrFail(params.server)
 
     const sites = await server.sites().fetch()
@@ -23,7 +23,7 @@ class SiteController {
    *
    * @param {Object} context.request
    */
-  async store ({ request, response, auth, params }) {
+  async store({ request, response, auth, params }) {
     // validate the data
     const body = request.all()
     const validator = await validateAll(body, {
@@ -35,20 +35,28 @@ class SiteController {
       return response.status(422).send({ errors: validator.messages() })
     }
 
-    const user = await User.query().where({ id: auth.user.id }).with('sshkey').firstOrFail()
+    const user = await User.query()
+      .where({ id: auth.user.id })
+      .with('sshkey')
+      .firstOrFail()
 
     // get server
-    const server = await Server.query().where({
-      id: params.server
-    }).with('resources').firstOrFail()
+    const server = await Server.query()
+      .where({
+        id: params.server
+      })
+      .with('resources')
+      .firstOrFail()
 
     const { defaultEnvs } = pp(server.settings)
 
     const environment = [
-      ...defaultEnvs, {
+      ...defaultEnvs,
+      {
         key: 'NODE_ENV',
         value: 'production'
-      }]
+      }
+    ]
 
     switch (body.type) {
       case 'adonisjs':
@@ -128,10 +136,13 @@ class SiteController {
    *
    * @param {Object} context.params
    */
-  async show ({ params }) {
-    const site = await Site.query().where({
-      id: params.id
-    }).with('server').firstOrFail()
+  async show({ params }) {
+    const site = await Site.query()
+      .where({
+        id: params.id
+      })
+      .with('server')
+      .firstOrFail()
 
     return site
   }
@@ -141,7 +152,7 @@ class SiteController {
    *
    * @param {Object} context.request
    */
-  async addRepo ({ request, response, auth, params }) {
+  async addRepo({ request, response, auth, params }) {
     const body = request.all()
 
     const user = await auth.getUser()
@@ -151,15 +162,18 @@ class SiteController {
       repo: 'required|string'
     })
 
-    const site = await Site.query().where({
-      id: params.site
-    }).with('server').firstOrFail()
+    const site = await Site.query()
+      .where({
+        id: params.site
+      })
+      .with('server')
+      .firstOrFail()
 
     if (validator.fails()) {
       return response.status(422).json({ errors: validator.messages() })
     }
 
-    const repo = await (new Github(user)).getRepo(body.repo)
+    const repo = await new Github(user).getRepo(body.repo)
 
     site.settings = ss({
       ...pp(site.settings),
@@ -179,7 +193,7 @@ class SiteController {
    *
    * @param {Object} request the request
    */
-  async addEnvVariable ({ request, response, auth, params }) {
+  async addEnvVariable({ request, response, auth, params }) {
     const body = request.all()
 
     const validator = await validateAll(body, {
@@ -193,13 +207,14 @@ class SiteController {
       })
     }
 
-    const site = await Site.query().where({
-      id: params.site
-    }).with('server').firstOrFail()
+    const site = await Site.query()
+      .where({
+        id: params.site
+      })
+      .with('server')
+      .firstOrFail()
 
-    const environment = [
-      ...pp(site.settings).environment
-    ]
+    const environment = [...pp(site.settings).environment]
 
     if (environment.find(env => env.key === body.key)) {
       return response.status(422).json({
@@ -227,7 +242,7 @@ class SiteController {
    *
    * @param {Object} request the request
    */
-  async deleteEnvVariable ({ request, response, params }) {
+  async deleteEnvVariable({ request, response, params }) {
     const validator = await validateAll(params, {
       key: 'required|string'
     })
@@ -238,13 +253,16 @@ class SiteController {
       })
     }
 
-    const site = await Site.query().where({
-      id: params.site
-    }).with('server').firstOrFail()
+    const site = await Site.query()
+      .where({
+        id: params.site
+      })
+      .with('server')
+      .firstOrFail()
 
-    const environment = [
-      ...pp(site.settings).environment
-    ].filter(variable => variable.key !== params.key)
+    const environment = [...pp(site.settings).environment].filter(
+      variable => variable.key !== params.key
+    )
 
     site.settings = ss({
       ...pp(site.settings),

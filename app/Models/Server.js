@@ -3,18 +3,18 @@
 const Model = use('Model')
 
 class Server extends Model {
-  resources () {
+  resources() {
     return this.belongsToMany('App/Models/Resource')
       .withTimestamps()
       .withPivot(['settings'])
       .pivotModel('App/Models/ResourceServer')
   }
 
-  getStats (stats) {
+  getStats(stats) {
     return pp(stats)
   }
 
-  sites () {
+  sites() {
     return this.hasMany('App/Models/Site')
   }
 }

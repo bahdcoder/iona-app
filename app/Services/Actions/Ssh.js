@@ -8,11 +8,7 @@ class Ssh {
    * @param {string} host
    * @param {string} identityKey
    */
-  constructor ({
-    user,
-    host,
-    identityKey
-  }) {
+  constructor({ user, host, identityKey }) {
     this.sshUser = user
     this.host = host
     this.identityKey = identityKey
@@ -23,8 +19,12 @@ class Ssh {
    *
    * @param {string} command commands to run on remote server
    */
-  async run (commands) {
-    return exec(`ssh -o StrictHostKeyChecking=no ${this.sshUser}@${this.host} -i ~/.ssh/${this.identityKey} ${commands}`)
+  async run(commands) {
+    return exec(
+      `ssh -o StrictHostKeyChecking=no ${this.sshUser}@${this.host} -i ~/.ssh/${
+        this.identityKey
+      } ${commands}`
+    )
   }
 
   /**
@@ -32,10 +32,14 @@ class Ssh {
    *
    * @param {string} script a bash script to run on remote server
    */
-  async runScript (script, scriptArguments = '') {
+  async runScript(script, scriptArguments = '') {
     console.log(scriptArguments)
 
-    return exec(`ssh -o StrictHostKeyChecking=no ${this.sshUser}@${this.host} -i ~/.ssh/${this.identityKey} 'bash -s' -- < ./shell-scripts/${script}.sh  ${scriptArguments}`)
+    return exec(
+      `ssh -o StrictHostKeyChecking=no ${this.sshUser}@${this.host} -i ~/.ssh/${
+        this.identityKey
+      } 'bash -s' -- < ./shell-scripts/${script}.sh  ${scriptArguments}`
+    )
   }
 }
 

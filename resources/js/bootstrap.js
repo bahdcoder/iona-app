@@ -16,7 +16,9 @@ export const setAxios = () => {
   let auth = window.localStorage.getItem('auth')
 
   if (auth) {
-    window.axios.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(auth).token.token}`
+    window.axios.defaults.headers.common['Authorization'] = `Bearer ${
+      JSON.parse(auth).token.token
+    }`
   }
 }
 

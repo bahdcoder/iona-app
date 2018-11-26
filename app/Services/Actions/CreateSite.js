@@ -10,7 +10,7 @@ class CreateSite extends Ssh {
    * @param {App/Models/Site} site
    * @param {App/Models/Server} server
    */
-  constructor ({ user, site, server }) {
+  constructor({ user, site, server }) {
     // instantiate the parent ssh class.
     super({
       user: 'root',
@@ -29,8 +29,11 @@ class CreateSite extends Ssh {
    *
    * @return {child_process}
    */
-  async setup () {
-    const sshProcess = await this.runScript('create-site', `${this.site.name} ${this.port} ${this.site.settings.ionaSubdomainName}`)
+  async setup() {
+    const sshProcess = await this.runScript(
+      'create-site',
+      `${this.site.name} ${this.port} ${this.site.settings.ionaSubdomainName}`
+    )
 
     return sshProcess
   }

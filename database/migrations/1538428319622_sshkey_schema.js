@@ -3,10 +3,14 @@
 const Schema = use('Schema')
 
 class SshkeySchema extends Schema {
-  up () {
-    this.create('sshkeys', (table) => {
+  up() {
+    this.create('sshkeys', table => {
       table.increments()
-      table.integer('user_id').unsigned().references('id').inTable('users')
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('id')
+        .inTable('users')
       table.string('name')
       table.text('public_key')
       table.text('settings')
@@ -14,7 +18,7 @@ class SshkeySchema extends Schema {
     })
   }
 
-  down () {
+  down() {
     this.drop('sshkeys')
   }
 }

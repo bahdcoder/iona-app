@@ -3,8 +3,8 @@
 const Schema = use('Schema')
 
 class ResourceSchema extends Schema {
-  up () {
-    this.create('resources', (table) => {
+  up() {
+    this.create('resources', table => {
       table.increments()
       /**
        * this will be the resource config.
@@ -29,7 +29,7 @@ class ResourceSchema extends Schema {
     })
   }
 
-  down () {
+  down() {
     this.drop('resources')
   }
 }

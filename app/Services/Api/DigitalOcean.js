@@ -9,7 +9,7 @@ const { generate } = use('generate-password')
  * The connector for digital ocean.
  */
 class DigitalOcean {
-  constructor (user, personalAccessToken) {
+  constructor(user, personalAccessToken) {
     /**
      * Set the url connection.
      */
@@ -44,7 +44,11 @@ class DigitalOcean {
     this.http = Axios.create({
       baseURL: this.url,
       headers: {
-        Authorization: `Bearer ${this.personalAccessToken ? this.personalAccessToken : this.settings.digitalocean.access_token}`,
+        Authorization: `Bearer ${
+          this.personalAccessToken
+            ? this.personalAccessToken
+            : this.settings.digitalocean.access_token
+        }`,
         'Content-Type': 'application/json'
       }
     })
@@ -53,7 +57,7 @@ class DigitalOcean {
   /**
    * Get the digital ocean regions.
    */
-  async getRegions () {
+  async getRegions() {
     let regions = await Redis.get('digitalocean-regions')
 
     if (regions) {
@@ -72,7 +76,7 @@ class DigitalOcean {
   /**
    * Get the digital ocean sizes.
    */
-  async getSizes () {
+  async getSizes() {
     let sizes = await Redis.get('digitalocean-sizes')
 
     if (sizes) {
@@ -89,9 +93,9 @@ class DigitalOcean {
   }
 
   /**
- * Create a server
- */
-  async createServer ({ name, region, size, database }) {
+   * Create a server
+   */
+  async createServer({ name, region, size, database }) {
     const { userData, databaseSettings } = await this.generateUserData(database)
 
     const { data } = await this.http.post('/droplets', {
@@ -109,7 +113,7 @@ class DigitalOcean {
   /**
    * Get the fingerprint for current user's sshkey
    */
-  async getSshkeyFingerprint () {
+  async getSshkeyFingerprint() {
     const { settings } = await this.user.sshkey().fetch()
 
     return pp(settings).digitalocean.fingerprint
@@ -120,7 +124,7 @@ class DigitalOcean {
    *
    * @return {Object} newly created api key
    */
-  async createSshkey () {
+  async createSshkey() {
     const sshkey = await this.user.sshkey().fetch()
 
     const { data } = await this.http.post('/account/keys', {
@@ -136,7 +140,7 @@ class DigitalOcean {
    *
    * @return {Object} droplet
    */
-  async getDroplet (id) {
+  async getDroplet(id) {
     const { data } = await this.http.get(`/droplets/${id}`)
 
     return data.droplet
@@ -145,7 +149,7 @@ class DigitalOcean {
   /**
    * Generate the user data to be sent to digital ocean server.
    */
-  async generateUserData (database) {
+  async generateUserData(database) {
     let userData = '#!/bin/sh'
     let databaseSettings = {}
 
@@ -186,13 +190,16 @@ class DigitalOcean {
    * Add a subdomain record for a newly created site
    * @param {string} name
    */
-  async addSubdomainRecord ({ name, ip }) {
-    const { data } = await this.http.post(`/domains/${this.appDomain}/records`, {
-      name,
-      type: 'A',
-      data: ip,
-      ttl: 1
-    })
+  async addSubdomainRecord({ name, ip }) {
+    const { data } = await this.http.post(
+      `/domains/${this.appDomain}/records`,
+      {
+        name,
+        type: 'A',
+        data: ip,
+        ttl: 1
+      }
+    )
 
     return data
   }

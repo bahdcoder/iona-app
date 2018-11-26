@@ -5,13 +5,16 @@ const DigitalOcean = use('App/Services/Api/DigitalOcean')
 const siteNameGenerate = require('project-name-generator')
 const CreateSiteAction = use('App/Services/Actions/CreateSite')
 
-const Sites = exports = module.exports = {}
+const Sites = (exports = module.exports = {})
 
 Sites.created = async ({ server, site, user }) => {
   // make an api request to digital ocean
   const appDomain = Config.get('services.digitalocean.appDomain')
 
-  const digitalocean = (new DigitalOcean(null, Config.get('services.digitalocean.personalAccessToken')))
+  const digitalocean = new DigitalOcean(
+    null,
+    Config.get('services.digitalocean.personalAccessToken')
+  )
 
   // generate subdomain name
   const name = siteNameGenerate({ number: true }).dashed
@@ -28,11 +31,11 @@ Sites.created = async ({ server, site, user }) => {
   await site.save()
 
   // this is where we ssh into the server to create the new site
-  const createSiteProcess = await (new CreateSiteAction({
+  const createSiteProcess = await new CreateSiteAction({
     user: user.toJSON(),
     site: site.toJSON(),
     server: server.toJSON()
-  })).setup()
+  }).setup()
 
   createSiteProcess.stderr.on('data', buffer => {
     console.log('ERROR: ---------------->', buffer.toString())

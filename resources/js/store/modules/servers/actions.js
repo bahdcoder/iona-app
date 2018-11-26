@@ -1,7 +1,18 @@
-import { GET_REGIONS_AND_SIZES, GET_SERVERS, GET_SERVERS_LOADING, SIZES_AND_REGIONS_LOADING, CREATE_SERVER_LOADING, CREATE_SERVER, GET_RESOURCES, GET_SERVER_LOADING, GET_SERVER, GET_RESOURCES_LOADING } from './constants'
+import {
+  GET_REGIONS_AND_SIZES,
+  GET_SERVERS,
+  GET_SERVERS_LOADING,
+  SIZES_AND_REGIONS_LOADING,
+  CREATE_SERVER_LOADING,
+  CREATE_SERVER,
+  GET_RESOURCES,
+  GET_SERVER_LOADING,
+  GET_SERVER,
+  GET_RESOURCES_LOADING
+} from './constants'
 
 export default {
-  async [GET_REGIONS_AND_SIZES] ({ commit, state }) {
+  async [GET_REGIONS_AND_SIZES]({ commit, state }) {
     try {
       if (state.regions.length > 0 && state.sizes.length > 0) {
         return
@@ -17,7 +28,7 @@ export default {
       return Promise.reject(error)
     }
   },
-  async [CREATE_SERVER] ({ commit }, data) {
+  async [CREATE_SERVER]({ commit }, data) {
     try {
       commit(CREATE_SERVER_LOADING)
 
@@ -30,7 +41,7 @@ export default {
       return Promise.reject(error)
     }
   },
-  async [GET_RESOURCES] ({ commit }) {
+  async [GET_RESOURCES]({ commit }) {
     commit(GET_RESOURCES_LOADING)
 
     const { data } = await axios.get('/api/resources')
@@ -41,7 +52,7 @@ export default {
 
     return Promise.resolve()
   },
-  async [GET_SERVER] ({ commit, state, getters }, { id, serverCalledTimes }) {
+  async [GET_SERVER]({ commit, state, getters }, { id, serverCalledTimes }) {
     try {
       if (serverCalledTimes === 1) {
         commit(GET_SERVER_LOADING)
@@ -63,7 +74,7 @@ export default {
     }
   },
 
-  async [GET_SERVERS] ({ commit, state, getters }) {
+  async [GET_SERVERS]({ commit, state, getters }) {
     try {
       commit(GET_SERVERS_LOADING)
 

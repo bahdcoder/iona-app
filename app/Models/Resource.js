@@ -8,7 +8,7 @@ class Resource extends Model {
    *
    * @return {Object}
    */
-  servers () {
+  servers() {
     return this.belongsToMany('App/Models/Server')
       .withTimestamps()
       .withPivot(['settings'])
@@ -20,7 +20,7 @@ class Resource extends Model {
    *
    * @param {string} settings
    */
-  getSettings (settings) {
+  getSettings(settings) {
     return pp(settings)
   }
 }

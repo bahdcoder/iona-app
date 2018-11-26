@@ -1,7 +1,7 @@
 'use strict'
 
 class DeploymentController {
-  constructor ({ socket, request }) {
+  constructor({ socket, request }) {
     this.socket = socket
     this.request = request
   }

@@ -6,7 +6,7 @@ class Deployment extends Model {
   /**
    * A deployment belogns to a site
    */
-  site () {
+  site() {
     return this.belongsTo('App/Models/Site')
   }
 }

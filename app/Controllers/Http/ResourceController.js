@@ -4,7 +4,7 @@ const Redis = use('Redis')
 const Resource = use('App/Models/Resource')
 
 class ResourceController {
-  async index ({ response }) {
+  async index({ response }) {
     let resources = await Redis.get('resources')
 
     if (resources) {

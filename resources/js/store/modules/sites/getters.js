@@ -1,5 +1,5 @@
 export default {
-  environment (state) {
+  environment(state) {
     return state.singleSite.settings && state.singleSite.settings.environment
   }
 }

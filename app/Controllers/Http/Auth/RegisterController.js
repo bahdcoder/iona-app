@@ -11,7 +11,7 @@ class RegisterController {
    *
    * @param context.request request
    */
-  async store ({ auth, request, response }) {
+  async store({ auth, request, response }) {
     const rules = {
       name: 'required',
       email: 'required|email|unique:users,email',
@@ -24,9 +24,7 @@ class RegisterController {
       return response.status(422).send(validation.messages())
     }
 
-    const user = await User.create(
-      request.only(['name', 'email', 'password'])
-    )
+    const user = await User.create(request.only(['name', 'email', 'password']))
 
     const token = await auth.generate(user)
 

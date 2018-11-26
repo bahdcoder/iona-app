@@ -10,14 +10,14 @@ class User extends Model {
   /**
    * Set the fields to be excluded from database queries.
    */
-  static get hidden () {
+  static get hidden() {
     return ['password', 'settings']
   }
 
   /**
    * Define all computed properties.
    */
-  static get computed () {
+  static get computed() {
     return ['config']
   }
 
@@ -25,26 +25,26 @@ class User extends Model {
    * Get the user config settings.
    * @param {Object} user.settings
    */
-  getConfig ({ settings }) {
+  getConfig({ settings }) {
     if (!settings) {
       settings = {}
     }
     const { digitalocean, github } = settings
 
     return {
-      digitalocean: (digitalocean && digitalocean.access_token) ? true : false,
-      github: (github && github.access_token) ? true : false
+      digitalocean: digitalocean && digitalocean.access_token ? true : false,
+      github: github && github.access_token ? true : false
     }
   }
 
-  static boot () {
+  static boot() {
     super.boot()
 
     /**
      * A hook to hash the user password before saving
      * it to the database.
      */
-    this.addHook('beforeSave', async (userInstance) => {
+    this.addHook('beforeSave', async userInstance => {
       if (userInstance.dirty.password) {
         userInstance.password = await Hash.make(userInstance.password)
       }
@@ -58,7 +58,7 @@ class User extends Model {
    *
    * @return {Object} the object form of json settings.
    */
-  getSettings (settings) {
+  getSettings(settings) {
     return JSON.parse(settings)
   }
 
@@ -72,14 +72,14 @@ class User extends Model {
    *
    * @return {Object}
    */
-  tokens () {
+  tokens() {
     return this.hasMany('App/Models/Token')
   }
 
   /**
    * A user has one ssh key
    */
-  sshkey () {
+  sshkey() {
     return this.hasOne('App/Models/Sshkey')
   }
 
@@ -90,7 +90,7 @@ class User extends Model {
    *
    * @return {Object}
    */
-  servers () {
+  servers() {
     return this.hasMany('App/Models/Server')
   }
 }

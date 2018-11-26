@@ -3,9 +3,9 @@
 class UserController {
   /**
    * Update user json settings
-   * 
+   *
    * @param {Object} context.request
-   * @param {Object} context.response 
+   * @param {Object} context.response
    */
   async updateSettings({ request, response }) {}
 }

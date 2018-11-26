@@ -10,7 +10,7 @@ class DropletController {
    *
    * @return {Object} response with json sizes and regions
    */
-  async getSizesAndRegions ({ auth }) {
+  async getSizesAndRegions({ auth }) {
     const user = await auth.getUser()
 
     const digitalocean = new DigitalOcean(user)
@@ -20,7 +20,7 @@ class DropletController {
     return { sizes, regions }
   }
 
-  async store ({ request, response, auth }) {
+  async store({ request, response, auth }) {
     const data = request.all()
     const rules = {
       name: 'required',
@@ -44,16 +44,20 @@ class DropletController {
     let defaultEnvs = []
 
     if (data.database !== 'none') {
-      defaultEnvs = [{
-        key: 'DB_DATABASE',
-        value: databaseSettings.database
-      }, {
-        key: 'DB_USER',
-        value: databaseSettings.username
-      }, {
-        key: 'DB_PASSWORD',
-        value: databaseSettings.password
-      }]
+      defaultEnvs = [
+        {
+          key: 'DB_DATABASE',
+          value: databaseSettings.database
+        },
+        {
+          key: 'DB_USER',
+          value: databaseSettings.username
+        },
+        {
+          key: 'DB_PASSWORD',
+          value: databaseSettings.password
+        }
+      ]
     }
 
     const server = await Server.create({

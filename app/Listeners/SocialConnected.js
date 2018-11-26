@@ -2,7 +2,7 @@
 
 const DigitalOcean = use('App/Services/Api/DigitalOcean')
 
-const SocialConnected = exports = module.exports = {}
+const SocialConnected = (exports = module.exports = {})
 
 SocialConnected.digitalocean = async user => {
   const digitalocean = new DigitalOcean(user)

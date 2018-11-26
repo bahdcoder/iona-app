@@ -8,7 +8,7 @@ class Site extends Model {
    *
    * @return {Object}
    */
-  deployments () {
+  deployments() {
     return this.hasMany('App/Models/Deployment')
   }
 
@@ -16,7 +16,7 @@ class Site extends Model {
    * Parse the json string settings to an object
    * @param {JSON} settings site settings
    */
-  getSettings (settings) {
+  getSettings(settings) {
     return pp(settings)
   }
 
@@ -25,7 +25,7 @@ class Site extends Model {
    *
    * @return {Object}
    */
-  server () {
+  server() {
     return this.belongsTo('App/Models/Server')
   }
 }

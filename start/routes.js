@@ -20,16 +20,20 @@ Route.group(() => {
   Route.post('register', 'RegisterController.store')
 
   Route.get('digitalocean', 'SocialConnectController.digitalocean')
-  Route
-    .post('digitalocean/callback', 'SocialConnectController.digitaloceanCallback')
-    .middleware(['auth'])
+  Route.post(
+    'digitalocean/callback',
+    'SocialConnectController.digitaloceanCallback'
+  ).middleware(['auth'])
 
-  Route
-    .post('github/callback', 'SocialConnectController.githubCallback')
-    .middleware(['auth'])
+  Route.post(
+    'github/callback',
+    'SocialConnectController.githubCallback'
+  ).middleware(['auth'])
 
   Route.get('github', 'SocialConnectController.github')
-}).prefix('auth').namespace('Auth')
+})
+  .prefix('auth')
+  .namespace('Auth')
 
 Route.get('/users', async ({ response }) => {
   const Server = use('App/Models/Server')
@@ -42,15 +46,32 @@ Route.group(() => {
   Route.get('/droplets/sizes', 'DropletController.getSizesAndRegions')
 
   Route.resource('droplets', 'DropletController')
-}).namespace('Servers').middleware(['auth']).prefix('api')
+})
+  .namespace('Servers')
+  .middleware(['auth'])
+  .prefix('api')
 
 Route.resource('api/servers', 'ServerController').middleware(['auth'])
-Route.resource('api/servers/:server/sites', 'SiteController').middleware(['auth'])
+Route.resource('api/servers/:server/sites', 'SiteController').middleware([
+  'auth'
+])
 
-Route.post('api/servers/:server/sites/:site/repos', 'SiteController.addRepo').middleware(['auth'])
-Route.resource('api/servers/:server/sites/:site/deployments', 'DeploymentController').middleware(['auth'])
-Route.post('api/servers/:server/sites/:site/environment', 'SiteController.addEnvVariable').middleware(['auth'])
-Route.delete('api/servers/:server/sites/:site/environment/:key', 'SiteController.deleteEnvVariable').middleware(['auth'])
+Route.post(
+  'api/servers/:server/sites/:site/repos',
+  'SiteController.addRepo'
+).middleware(['auth'])
+Route.resource(
+  'api/servers/:server/sites/:site/deployments',
+  'DeploymentController'
+).middleware(['auth'])
+Route.post(
+  'api/servers/:server/sites/:site/environment',
+  'SiteController.addEnvVariable'
+).middleware(['auth'])
+Route.delete(
+  'api/servers/:server/sites/:site/environment/:key',
+  'SiteController.deleteEnvVariable'
+).middleware(['auth'])
 
 Route.resource('api/resources', 'ResourceController').middleware(['auth'])
 

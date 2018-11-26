@@ -1,32 +1,42 @@
-import { GET_REGIONS_AND_SIZES, GET_SERVERS, GET_SERVERS_LOADING, SIZES_AND_REGIONS_LOADING, CREATE_SERVER_LOADING, GET_RESOURCES, GET_SERVER, GET_SERVER_LOADING, GET_RESOURCES_LOADING } from './constants'
+import {
+  GET_REGIONS_AND_SIZES,
+  GET_SERVERS,
+  GET_SERVERS_LOADING,
+  SIZES_AND_REGIONS_LOADING,
+  CREATE_SERVER_LOADING,
+  GET_RESOURCES,
+  GET_SERVER,
+  GET_SERVER_LOADING,
+  GET_RESOURCES_LOADING
+} from './constants'
 
 export default {
-  [SIZES_AND_REGIONS_LOADING] (state) {
+  [SIZES_AND_REGIONS_LOADING](state) {
     state.sizesLoading = !state.sizesLoading
   },
-  [GET_REGIONS_AND_SIZES] (state, { regions, sizes }) {
+  [GET_REGIONS_AND_SIZES](state, { regions, sizes }) {
     state.sizes = sizes
     state.regions = regions
   },
-  [CREATE_SERVER_LOADING] (state) {
+  [CREATE_SERVER_LOADING](state) {
     state.createServerLoading = !state.createServerLoading
   },
-  [GET_RESOURCES] (state, resources) {
+  [GET_RESOURCES](state, resources) {
     state.resources = resources
   },
-  [GET_RESOURCES_LOADING] (state) {
+  [GET_RESOURCES_LOADING](state) {
     state.getResourcesLoading = !state.getResourcesLoading
   },
-  [GET_SERVER] (state, server) {
+  [GET_SERVER](state, server) {
     state.singleServer = server
   },
-  [GET_SERVER_LOADING] (state) {
+  [GET_SERVER_LOADING](state) {
     state.singleServerLoading = !state.singleServerLoading
   },
-  [GET_SERVERS] (state, servers) {
+  [GET_SERVERS](state, servers) {
     state.servers = servers
   },
-  [GET_SERVERS_LOADING] (state) {
+  [GET_SERVERS_LOADING](state) {
     state.getServersLoading = !state.getServersLoading
   }
 }

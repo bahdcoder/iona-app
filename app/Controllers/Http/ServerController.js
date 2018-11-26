@@ -11,7 +11,7 @@ class ServerController {
    * @param {object} context.params
    * @param {object} context.response
    */
-  async index ({ auth, params, response }) {
+  async index({ auth, params, response }) {
     const user = await auth.getUser()
     const servers = await user.servers().fetch()
 
@@ -20,12 +20,15 @@ class ServerController {
   /**
    * Get a single server.
    */
-  async show ({ auth, params, response }) {
+  async show({ auth, params, response }) {
     const user = await auth.getUser()
 
     const digitalocean = new DigitalOcean(user)
 
-    const server = await Server.query().with('resources').where({ id: params.id }).first()
+    const server = await Server.query()
+      .with('resources')
+      .where({ id: params.id })
+      .first()
 
     if (!server) {
       return response.status(404).json({ message: 'Not found.' })

@@ -3,11 +3,11 @@ const Mustache = require('mustache')
 const { ServiceProvider } = require('@adonisjs/fold')
 
 class IonaServiceProvider extends ServiceProvider {
-  register () {
+  register() {
     // register bindings
   }
 
-  boot () {
+  boot() {
     // optionally do some intial setup
     const Helpers = this.app.use('Helpers')
 
@@ -20,12 +20,13 @@ class IonaServiceProvider extends ServiceProvider {
      * A helper to get a script content.
      * @param {string} script
      */
-    Helpers.getScript = script => fs.readFileSync(`${Helpers.scriptsPath()}/${script}.mustache`).toString()
+    Helpers.getScript = script =>
+      fs.readFileSync(`${Helpers.scriptsPath()}/${script}.mustache`).toString()
 
-    global.sh = (scriptName, data = {}) => Mustache
-      .render(Helpers.getScript(scriptName), data)
-      .replace(/&#x2F;/g, '/')
-      .replace(/&#39;/g, "'")
+    global.sh = (scriptName, data = {}) =>
+      Mustache.render(Helpers.getScript(scriptName), data)
+        .replace(/&#x2F;/g, '/')
+        .replace(/&#39;/g, "'")
 
     global.pp = JSON.parse
     global.ss = JSON.stringify

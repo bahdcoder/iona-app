@@ -6,7 +6,7 @@ class ResourceServer extends Model {
   /**
    * Get the table for this pivot.
    */
-  static get table () {
+  static get table() {
     return 'resource_server'
   }
 
@@ -15,7 +15,7 @@ class ResourceServer extends Model {
    *
    * @param {string} settings
    */
-  getSettings (settings) {
+  getSettings(settings) {
     return pp(settings)
   }
 }

@@ -8,7 +8,7 @@ const User = use('App/Models/User')
 class LoginController {
   /**
    * Generate a jwt for a user.
-   * 
+   *
    * @param {Object} context.auth
    * @param {Object} context.request
    */
