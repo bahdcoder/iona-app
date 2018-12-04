@@ -39,6 +39,7 @@ log Setting environment variables
 for value in $env_variables; do
   log "The current environment variable being set is $value"
   export $value
+  test $? -eq 0 || abort Setting environment variable $value failed.
 done
 
 log Execute script before starting application

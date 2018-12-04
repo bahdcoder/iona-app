@@ -1953,7 +1953,8 @@
     /* 9 */
     /***/ function(module, exports, __webpack_require__) {
       'use strict'
-      /* WEBPACK VAR INJECTION */ ;(function(process) {
+      /* WEBPACK VAR INJECTION */
+      ;(function(process) {
         var utils = __webpack_require__(2)
         var normalizeHeaderName = __webpack_require__(27)
 
@@ -2644,7 +2645,8 @@
     /* 18 */
     /***/ function(module, exports, __webpack_require__) {
       'use strict'
-      /* WEBPACK VAR INJECTION */ ;(function(global, setImmediate) {
+      /* WEBPACK VAR INJECTION */
+      ;(function(global, setImmediate) {
         /*!
          * Vue.js v2.5.17
          * (c) 2014-2018 Evan You
@@ -25201,14 +25203,14 @@ type StyleObjectPart = {
     /***/ function(module, exports, __webpack_require__) {
       /* WEBPACK VAR INJECTION */ ;(function(global, module) {
         var __WEBPACK_AMD_DEFINE_RESULT__
-        /**
-         * @license
-         * Lodash <https://lodash.com/>
-         * Copyright JS Foundation and other contributors <https://js.foundation/>
-         * Released under MIT license <https://lodash.com/license>
-         * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-         * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-         */
+          /**
+           * @license
+           * Lodash <https://lodash.com/>
+           * Copyright JS Foundation and other contributors <https://js.foundation/>
+           * Released under MIT license <https://lodash.com/license>
+           * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+           * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+           */
         ;(function() {
           /** Used as a safe reference for `undefined` in pre-ES5 environments. */
           var undefined

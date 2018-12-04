@@ -32,31 +32,43 @@ class Deployment extends Ssh {
   async deploy() {
     const script =
       this.site.deployments.length === 0 ? 'first-site-deploy' : 'deploy'
-    const preStartScript =
-      this.site.settings.environment.find(
-        env => env.key === 'IONA_PRE_START'
-      ) || `"echo 'No prestart script fouund.'"`
-    const postStartScript =
-      this.site.settings.environment.find(
-        env => env.key === 'IONA_POST_START'
-      ) || `"echo 'No poststart script found.'"`
-    let environmentVariables = ''
+    let preStartScript = this.site.settings.environment.find(
+      env => env.key === 'IONA_PRE_START'
+    )
+
+    if (preStartScript) {
+      preStartScript = preStartScript.value
+    } else {
+      preStartScript = `echo 'No prestart script fouund.'`
+    }
+    let postStartScript = this.site.settings.environment.find(
+      env => env.key === 'IONA_POST_START'
+    )
+
+    if (postStartScript) {
+      postStartScript = postStartScript.value
+    } else {
+      postStartScript = `echo 'No poststart script found.'`
+    }
+    let environmentVariables = []
 
     this.site.settings.environment.forEach(envVariable => {
       if (
         envVariable.key !== 'IONA_PRE_START' &&
         envVariable !== 'IONA_POST_START'
       ) {
-        environmentVariables += `"${envVariable.key}='${envVariable.value}'" `
+        environmentVariables.push(`${envVariable.key}='${envVariable.value}'`)
       }
     })
 
-    const deploymentProcess = await this.runScript(
-      script,
-      `${this.site.name} ${this.site.settings.repo.clone_url} ${
-        this.port
-      } ${preStartScript} ${postStartScript} ${environmentVariables}`
-    )
+    const deploymentProcess = await this.runScript(script, [
+      this.site.name,
+      this.site.settings.repo.clone_url,
+      this.port,
+      preStartScript,
+      postStartScript,
+      ...environmentVariables
+    ])
 
     return deploymentProcess
   }

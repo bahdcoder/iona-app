@@ -1,28 +1,20 @@
 
-
-
 apt update
 apt install nginx -y
 ufw allow 'Nginx HTTP'
 systemctl enable nginx
 systemctl start nginx
-
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 apt-get install -y nodejs
 npm i -g yarn
 npm i -g pm2
-
 apt install git
-
 sudo fallocate -l 1G /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-
 add-apt-repository ppa:certbot/certbot -y
 apt-get install python-certbot-nginx -y
-
-
 apt install redis-server -y

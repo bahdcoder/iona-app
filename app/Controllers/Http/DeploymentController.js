@@ -48,7 +48,7 @@ class DeploymentController {
     })
 
     deploymentProcess.stdout.on('close', async status => {
-      console.log('0--------------------------->', 'DEPLOYMENT CLOSED.')
+      console.log('--------------------------->', 'DEPLOYMENT CLOSED.')
       await Deployment.create({
         site_id: site.id,
         log,

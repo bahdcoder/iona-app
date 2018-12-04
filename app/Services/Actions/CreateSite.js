@@ -30,12 +30,13 @@ class CreateSite extends Ssh {
    * @return {child_process}
    */
   async setup() {
-    const sshProcess = await this.runScript(
-      'create-site',
-      `${this.site.name} ${this.port} ${this.site.settings.ionaSubdomainName}`
-    )
+    const sshProcess = await this.runScript('create-site', [
+      this.site.name,
+      this.port,
+      this.site.settings.ionaSubdomainName
+    ])
 
-    return sshProcess
+    return { createSiteProcess: sshProcess, port: this.port }
   }
 }
 

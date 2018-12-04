@@ -31,7 +31,7 @@ Sites.created = async ({ server, site, user }) => {
   await site.save()
 
   // this is where we ssh into the server to create the new site
-  const createSiteProcess = await new CreateSiteAction({
+  const { createSiteProcess, port } = await new CreateSiteAction({
     user: user.toJSON(),
     site: site.toJSON(),
     server: server.toJSON()
@@ -48,6 +48,7 @@ Sites.created = async ({ server, site, user }) => {
   createSiteProcess.stdout.on('close', async () => {
     site.settings = ss({
       ...pp(site.settings),
+      port,
       created: true
     })
 

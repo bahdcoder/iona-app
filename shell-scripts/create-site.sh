@@ -5,6 +5,7 @@ PORT=$2
 IONA_NAME=$3
 
 cd /etc/nginx/sites-available
+test $? -eq 0 || abort Getting into available sites folder failed.
 
 nginx_config() {
   local app_name=$1

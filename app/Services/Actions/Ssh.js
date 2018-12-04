@@ -32,13 +32,23 @@ class Ssh {
    *
    * @param {string} script a bash script to run on remote server
    */
-  async runScript(script, scriptArguments = '') {
-    console.log(scriptArguments)
+  async runScript(script, arrayOfScriptArguments = []) {
+    const scriptArguments = arrayOfScriptArguments.reduce(
+      (accum, a) => `${accum} ${JSON.stringify(a)}`,
+      ''
+    )
+
+    console.log(
+      'scriptArguments ==============>',
+      `ssh -o StrictHostKeyChecking=no ${this.sshUser}@${this.host} -i ~/.ssh/${
+        this.identityKey
+      } 'bash -s' -- < ./shell-scripts/${script}.sh ` + scriptArguments
+    )
 
     return exec(
       `ssh -o StrictHostKeyChecking=no ${this.sshUser}@${this.host} -i ~/.ssh/${
         this.identityKey
-      } 'bash -s' -- < ./shell-scripts/${script}.sh  ${scriptArguments}`
+      } 'bash -s' -- < ./shell-scripts/${script}.sh ` + scriptArguments
     )
   }
 }
